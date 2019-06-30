@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.seigneur.gauvain.wowsplash2"
+        applicationId "com.seigneur.gauvain.wowsplash"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -25,9 +24,80 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.android.tools.build.jetifier:jetifier-core:1.0.0-beta05'
+    /**
+     * Android X & Android Material
+     */
+    implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
     implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation 'com.google.android:flexbox:1.1.0'
+    /**
+     * Android Architecture Components
+     */
+    def archVersion = '2.0.0'
+    implementation "androidx.room:room-runtime:$archVersion"
+    kapt "androidx.room:room-compiler:$archVersion"
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$archVersion"
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$archVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$archVersion"
+    // optional - ReactiveStreams support for LiveData
+    implementation "androidx.lifecycle:lifecycle-reactivestreams:$archVersion"
+    // optional - Test helpers for LiveData
+    testImplementation "androidx.arch.core:core-testing:$archVersion"
+    def paging_version = "2.1.0-rc01"
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    // alternatively - without Android dependencies for testing
+    testImplementation "androidx.paging:paging-common:$paging_version"
+    // optional - RxJava support, currently in release candidate
+    implementation "android.arch.paging:rxjava2:1.0.1"
+    /**
+     * TIMBER
+     */
+    implementation 'com.jakewharton.timber:timber:4.6.1'
+    /**
+     * RXJAVA & RXANDROID
+     */
+    def rxJavaVersion = '2.1.1'
+    def rxAndroidVersion = '2.0.2'
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    /**
+     * GLIDE
+     */
+    def glideVersion = '4.8.0'
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    /**
+     * OKHTTP
+     */
+    def okHttpVersion = '3.10.0'
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    /**
+     * RETROFIT
+     */
+    def retrofitVersion = '2.4.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    // optional - RxJava support for Retrofit
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    /**
+     * CANARY LEAK
+     */
+    def canaryVersion = '1.6.1'
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$canaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$canaryVersion"
+    // Optional, if you use support library fragments:
+    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$canaryVersion"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

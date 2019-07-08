@@ -10,6 +10,7 @@ import timber.log.Timber
 class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewModel() {
 
     private var mListResult = MutableLiveData<ListResult>()
+    var mPhotoResult = MutableLiveData<PhotoResult>()
 
     /**
      * Get photos
@@ -19,11 +20,14 @@ class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewMod
             .subscribeBy(
                 onNext = {
                     Timber.d("onNext $it")
-                    mListResult.value = ListResult(inList = it)
+                    mPhotoResult.value = PhotoResult.PhotoList(it)
+                    //mListResult.value = ListResult(inList = it)
                 },
                 onError = {
                     Timber.d("onError $it")
-                    mListResult.value = ListResult(inError = it) },
+                    mPhotoResult.value = PhotoResult.PhotoError(it)
+                    //mListResult.value = ListResult(inError = it)
+                },
                 onComplete = { Timber.d("onComplete getPhotos()")}
             )
         )
@@ -35,5 +39,10 @@ class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewMod
      * class dedicated to manage UI related data
      */
     data class ListResult(val inList: List<Photo>? = null, val inError: Throwable? = null)
+
+    sealed class PhotoResult {
+        data class PhotoList(val inList: List<Photo>? = null) : PhotoResult()
+        data class PhotoError(val inError: Throwable? = null) : PhotoResult()
+    }
 
 }

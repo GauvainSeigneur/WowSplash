@@ -2,6 +2,7 @@ package com.seigneur.gauvain.wowsplash.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,6 +28,13 @@ class HomeFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //listen LiveData
+        mHomeViewModel.mPhotoResult.observe(this,
+           Observer {
+                when(it) {
+                    is HomeViewModel.PhotoResult.PhotoList -> Timber.d("MY MAN is good $it")
+                    is HomeViewModel.PhotoResult.PhotoError -> Timber.d("SHIIIIIT $it")
+                }
+            })
 
     }
 

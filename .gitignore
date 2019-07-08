@@ -73,3 +73,6 @@ Thumbs.db
 UnsplashSecrets
 UnsplashSecrets.java
 UnsplashSecrets.kt
+
+#Font (we use very expensive fonts...)
+font

@@ -17,8 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".WowSplashApp"
-        android:theme="@style/AppTheme" >
-        <activity android:name="com.seigneur.gauvain.wowsplash.MainActivity" >
+        android:theme="@style/WowTheme" >
+        <activity android:name="com.seigneur.gauvain.wowsplash.ui.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

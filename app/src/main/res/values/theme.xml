@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="WowTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Original AppCompat attributes. -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryVariant</item>
+        <item name="colorAccent">@color/colorSecondary</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="android:colorError" tools:targetApi="26">@color/colorError</item>
+        <!--<item name="android:textColor"></item> -->
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <!-- <item name="android:windowLightStatusBar" tools:targetApi="23">true</item> -->
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+        <item name="android:colorEdgeEffect">@color/colorSecondary</item>
+        <!--<item name="android:fontFamily"></item> -->
+
+        <!-- New MaterialComponents attributes. -->
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="colorOnError">@color/colorOnError</item>
+        <item name="scrimBackground">@color/mtrl_scrim_color</item>-->
+        <!-- Widgets default style -->
+        <!-- <item name="materialButtonStyle"></item>
+         <item name="floatingActionButtonStyle"></item>
+         <item name="materialCardViewStyle"></item>
+         <item name="chipStyle">@style/ChipStyle</item>-->
+        <!-- transition and overlay-->
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="textAppearanceHeadline5">@style/Typography.TextAppearance.Headline5</item>
+
+    </style>
+
+</resources>

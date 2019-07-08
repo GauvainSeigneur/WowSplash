@@ -68,3 +68,8 @@ Thumbs.db
 
 # OSX files
 .DS_Store
+
+# App specific class
+UnsplashSecrets
+UnsplashSecrets.java
+UnsplashSecrets.kt

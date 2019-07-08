@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.repository
+package com.seigneur.gauvain.wowsplash.data.repository
 
 import com.seigneur.gauvain.wowsplash.data.api.UnSplashService
 import com.seigneur.gauvain.wowsplash.data.model.Photo

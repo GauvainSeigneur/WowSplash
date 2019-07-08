@@ -75,9 +75,10 @@ dependencies {
     /**
      * RXJAVA & RXANDROID
      */
-    def rxJavaVersion = '2.1.1'
+    def rxKotlinVersion = '2.3.0'
     def rxAndroidVersion = '2.0.2'
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    //implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     /**
      * GLIDE

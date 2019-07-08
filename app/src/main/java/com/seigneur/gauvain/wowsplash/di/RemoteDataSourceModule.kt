@@ -1,6 +1,7 @@
 package com.seigneur.gauvain.wowsplash.di
 
 import com.seigneur.gauvain.wowsplash.data.api.HeaderInterceptor
+import com.seigneur.gauvain.wowsplash.data.api.ClientIdInterceptor
 import com.seigneur.gauvain.wowsplash.di.DatasourceProperties.SERVER_URL
 import com.seigneur.gauvain.wowsplash.data.api.UnSplashService
 import okhttp3.Interceptor
@@ -26,9 +27,10 @@ val remoteDataSourceModule = module {
     factory {
         OkHttpClient.Builder()
             .addInterceptor(get())
+            .addNetworkInterceptor(ClientIdInterceptor())
             .addNetworkInterceptor(HeaderInterceptor())
-            .connectTimeout(60L, TimeUnit.SECONDS)
-            .readTimeout(60L, TimeUnit.SECONDS)
+            .connectTimeout(30L, TimeUnit.SECONDS)
+            .readTimeout(30L, TimeUnit.SECONDS)
             .build()
     }
 

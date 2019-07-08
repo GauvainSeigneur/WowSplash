@@ -2,14 +2,9 @@ package com.seigneur.gauvain.wowsplash
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.seigneur.gauvain.wowsplash.data.api.UnSplashService
-import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.repository.PhotoRepository
-import io.reactivex.Flowable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxkotlin.subscribeBy
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -23,17 +18,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mCompositeDisposable.add(
-            testPhoto()
-            .subscribe {
-                Timber.d("list $it")
-            }
+            mRepository.getPhotos()
+            .subscribeBy(
+                onNext = { Timber.d("onNext listsize ${it.size} Photos: $it")}, //when all operation finish, notify again to load image
+                onError = {Timber.d("onError $it")},
+                onComplete = {Timber.d("onComplete")}
+            )
         )
-
-
     }
 
-    fun testPhoto(): Flowable<List<Photo>> {
-        Timber.d("getUserFromAPI called")
-        return mRepository.getPhotos()
-    }
 }

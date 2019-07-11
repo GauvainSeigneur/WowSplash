@@ -3,20 +3,16 @@
     <style name="Widget" parent="WowTheme"/>
 
     <style name="Widget.BottomNavigationTheme" parent="Widget.Design.BottomNavigationView">
-        <item name="android:background">@android:color/transparent</item>
         <item name="itemHorizontalTranslationEnabled">false</item>
-        <item name="android:outlineProvider">none</item>
         <!--<item name="itemIconSize">@dimen/bottom_nav_icon_size</item> -->
         <item name="itemIconTint">@drawable/selector_item_menu_bottom_nav</item>
         <item name="itemTextColor">@drawable/selector_item_menu_bottom_nav</item>
         <item name="labelVisibilityMode">selected</item>
     </style>
 
-    <!-- Typography https://material.io/develop/android/theming/typography/ -->
-    <style name="Typography"/>
-    <style name="Typography.TextAppearance.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
+    <style name="Widget.Fab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:outlineAmbientShadowColor" tools:targetApi="28">@color/colorSecondary</item>
+        <item name="android:outlineSpotShadowColor" tools:targetApi="28">@color/colorSecondary</item>
     </style>
 
 </resources>

@@ -11,12 +11,12 @@
         <item name="colorError">@color/colorError</item>
         <item name="android:colorError" tools:targetApi="26">@color/colorError</item>
         <!--<item name="android:textColor"></item> -->
-        <item name="android:statusBarColor">@color/colorPrimary</item>
-        <!-- <item name="android:windowLightStatusBar" tools:targetApi="23">true</item> -->
+        <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:colorEdgeEffect">@color/colorSecondary</item>
-        <!--<item name="android:fontFamily"></item> -->
+        <item name="android:fontFamily">@font/helvetica_now_display_regular</item>
 
         <!-- New MaterialComponents attributes. -->
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
@@ -27,12 +27,14 @@
         <item name="colorOnBackground">@color/colorOnBackground</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorOnError">@color/colorOnError</item>
-        <item name="scrimBackground">@color/mtrl_scrim_color</item>-->
+        <!--<item name="scrimBackground">@color/mtrl_scrim_color</item>-->
+
         <!-- Widgets default style -->
-        <!-- <item name="materialButtonStyle"></item>
-         <item name="floatingActionButtonStyle"></item>
-         <item name="materialCardViewStyle"></item>
+        <!-- <item name="materialButtonStyle"></item>-->
+         <item name="floatingActionButtonStyle">@style/Widget.Fab</item>
+         <!--<item name="materialCardViewStyle"></item>
          <item name="chipStyle">@style/ChipStyle</item>-->
+
         <!-- transition and overlay-->
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>

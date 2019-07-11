@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui
+package com.seigneur.gauvain.wowsplash.ui.home
 
 import androidx.lifecycle.MutableLiveData
 import com.seigneur.gauvain.wowsplash.data.model.Photo

@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui
+package com.seigneur.gauvain.wowsplash.ui.home
 
 import android.os.Bundle
 import android.view.View
@@ -13,7 +13,7 @@ class HomeFragment : BaseFragment() {
     private val mHomeViewModel by viewModel<HomeViewModel>()
 
     override fun onCreateView(inRootView: View, inSavedInstanceState: Bundle?) {
-        mHomeViewModel.getPhotos()
+        //mHomeViewModel.getPhotos()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

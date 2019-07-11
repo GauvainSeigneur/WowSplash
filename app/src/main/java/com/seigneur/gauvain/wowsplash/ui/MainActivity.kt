@@ -7,13 +7,10 @@ import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.seigneur.gauvain.wowsplash.R
-import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
+import com.seigneur.gauvain.wowsplash.ui.home.HomeFragment
+import com.seigneur.gauvain.wowsplash.ui.search.SearchFragment
 import com.seigneur.gauvain.wowsplash.utils.FragmentStateManager
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mBottomAppbar.fabAlignmentMode = BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
         val actionbar: ActionBar? = supportActionBar
         actionbar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -42,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     /**
      * Initialize Fragment manager and default value
      */
@@ -50,9 +47,10 @@ class MainActivity : AppCompatActivity() {
             override fun getItem(position: Int): Fragment {
                 when (position) {
                     0 -> return HomeFragment()
-                    1 -> return HomeFragment()
-                    2 -> return HomeFragment()
-                    3 -> return HomeFragment()
+                    1 -> return SearchFragment()
+                    2 -> return SearchFragment()
+                    3 -> return SearchFragment()
+                    4 -> return SearchFragment()
                 }
                 return HomeFragment()
             }
@@ -68,10 +66,11 @@ class MainActivity : AppCompatActivity() {
     private fun getNavPositionFromMenuItem(menuItem: MenuItem): Int {
         return when (menuItem.itemId) {
             R.id.navigation_home                ->  0
-            R.id.navigation_dashboard           ->  1
-            R.id.navigation_visit               ->  2
-            R.id.navigation_info                ->  3
-            else                                -> -1
+            R.id.navigation_collections         ->  1
+            R.id.navigation_add                 ->  2
+            R.id.navigation_search              ->  3
+            R.id.navigation_info                ->  4
+            else                                ->  0
         }
     }
 

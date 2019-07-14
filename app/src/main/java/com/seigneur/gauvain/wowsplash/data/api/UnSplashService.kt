@@ -15,6 +15,10 @@ interface UnSplashService {
     @GET("photos")
     fun photos(): Flowable<List<Photo>>
 
+    @GET("photos")
+    fun photos( @Query("page") page: Long,
+                @Query("per_page") pagePage: Int): Flowable<List<Photo>>
+
     @GET("photos/curated")
     fun curatedPhotos(): Flowable<List<Photo>>
 

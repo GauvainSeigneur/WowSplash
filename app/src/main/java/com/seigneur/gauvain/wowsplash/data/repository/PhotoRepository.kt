@@ -11,6 +11,13 @@ import io.reactivex.schedulers.Schedulers
 
 class PhotoRepository(private val service: UnSplashService)  {
 
+    //get list of Shot from Dribbble
+    fun getPhotos(page: Long, perPage: Int): Flowable<List<Photo>> {
+        return service.photos(page, perPage)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
     fun getPhotos(): Flowable<List<Photo>> {
         return service.photos()
             .subscribeOn(Schedulers.io())
@@ -22,19 +29,5 @@ class PhotoRepository(private val service: UnSplashService)  {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
-
-    fun getAccessToken(code:String): Single<AccessToken> {
-        return service.getAccessToken(
-            TOKEN_URL_REQUEST,
-            CLIENT_ID_VALUE,
-            CLIENT_SECRET_VALUE,
-            AUTH_REDIRECT_URI,
-            code,
-            GRANT_TYPE_VALUE
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
-
 
 }

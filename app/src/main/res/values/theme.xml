@@ -30,7 +30,7 @@
         <!--<item name="scrimBackground">@color/mtrl_scrim_color</item>-->
 
         <!-- Widgets default style -->
-        <!-- <item name="materialButtonStyle"></item>-->
+        <item name="materialButtonStyle">@style/Widget.Button</item>
          <item name="floatingActionButtonStyle">@style/Widget.Fab</item>
          <!--<item name="materialCardViewStyle"></item>
          <item name="chipStyle">@style/ChipStyle</item>-->

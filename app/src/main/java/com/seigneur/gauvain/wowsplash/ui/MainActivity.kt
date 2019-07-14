@@ -7,7 +7,10 @@ import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.seigneur.gauvain.wowsplash.R
+import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import com.seigneur.gauvain.wowsplash.ui.home.HomeFragment
+import com.seigneur.gauvain.wowsplash.ui.logIn.LogInFragment
+import com.seigneur.gauvain.wowsplash.ui.logIn.LogInViewModel
 import com.seigneur.gauvain.wowsplash.ui.search.SearchFragment
 import com.seigneur.gauvain.wowsplash.utils.FragmentStateManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -79,5 +82,16 @@ class MainActivity : AppCompatActivity() {
      */
     private fun showFragment(pos: Int) {
         mFragmentStateManager?.changeFragment(pos)
+    }
+
+    private fun getPostFragment(): BaseFragment {
+        //TOdo - listen access room livedata to check if access token exists,
+        //if not display logInFragment
+        val accessToken:String?=null //data to be observed
+        accessToken?.let {
+            return SearchFragment()
+        }
+        return LogInFragment()
+
     }
 }

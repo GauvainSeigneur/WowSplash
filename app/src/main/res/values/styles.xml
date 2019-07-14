@@ -15,4 +15,7 @@
         <item name="android:outlineSpotShadowColor" tools:targetApi="28">@color/colorSecondary</item>
     </style>
 
+    <style name="Widget.Button" parent="Widget.MaterialComponents.Button">
+    </style>
+
 </resources>

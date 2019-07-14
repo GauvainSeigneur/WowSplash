@@ -46,6 +46,16 @@ abstract class BaseFragment :Fragment() {
 
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        subscribeToLiveData()
+    }
+
+    /**
+     * To be overriden
+     */
+    open fun subscribeToLiveData(){}
+
     /**
      * method to be overriden.
      * In this method, root view is already inflated and one can use below view getters

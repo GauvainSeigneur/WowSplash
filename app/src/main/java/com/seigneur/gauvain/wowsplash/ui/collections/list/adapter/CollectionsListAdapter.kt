@@ -6,15 +6,13 @@ import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.ui.base.list.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkItemCallback
 
-
-
 class CollectionsListAdapter(private val photoItemCallback: CollectionsItemCallback,
                              networkItemCallback: NetworkItemCallback) :
     BasePagedListAdapter<PhotoCollection, RecyclerView.ViewHolder>(collectionDiffCallback,networkItemCallback) {
 
     override val viewHolder: RecyclerView.ViewHolder
         get() =  CollectionsViewHolder.create(itemParentView, photoItemCallback)
-
+    
     override fun bindItemData(holder: RecyclerView.ViewHolder, position: Int) {
         super.bindItemData(holder, position)
         (holder as CollectionsViewHolder).bindTo(getItem(position)!!)

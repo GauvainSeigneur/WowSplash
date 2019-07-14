@@ -18,11 +18,9 @@ class NetworkState {
 
     companion object {
 
-        var LOADED =
-            NetworkState(Status.SUCCESS)
+        var LOADED = NetworkState(Status.SUCCESS)
 
-        var LOADING =
-            NetworkState(Status.RUNNING)
+        var LOADING = NetworkState(Status.RUNNING)
 
         fun error(message: String?): NetworkState {
             return NetworkState(

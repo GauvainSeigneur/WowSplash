@@ -9,7 +9,7 @@ abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
     diffCallback:DiffUtil.ItemCallback<T>,
     private val networkItemCallback: NetworkItemCallback) : PagedListAdapter<T, VH>(diffCallback) {
 
-    lateinit var itemParent:ViewGroup
+    lateinit var itemParentView:ViewGroup
     internal var networkState: NetworkState? = null
 
     /**
@@ -17,8 +17,12 @@ abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
      */
     abstract val viewHolder:RecyclerView.ViewHolder
 
+    /**
+     * Not to be overridden,
+     * but if you do, make it after call super
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        itemParent = parent
+        itemParentView = parent
         when (viewType) {
             ITEM -> return getItemViewHolder() as VH
             LOADING -> return NetworkStateViewHolder.create(parent, networkItemCallback) as VH
@@ -26,6 +30,10 @@ abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
         }
     }
 
+    /**
+     * Not to be overridden,
+     * but if you do, make it after call super
+     */
     override fun onBindViewHolder(holder: VH, position: Int) {
         when (getItemViewType(position)) {
             ITEM -> bindItemData(holder, position)
@@ -33,6 +41,10 @@ abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
         }
     }
 
+    /**
+     * Not to be overridden,
+     * but if you do, make it after call super
+     */
     override fun getItemViewType(position: Int): Int {
         return if (hasExtraRow() && position == itemCount - 1) {
            LOADING
@@ -41,7 +53,10 @@ abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
         }
     }
 
-
+    /**
+     * Not to be overridden,
+     * but if you do, make it after call super
+     */
     override fun getItemCount(): Int {
         return super.getItemCount() + if (hasExtraRow()) 1 else 0
     }
@@ -50,7 +65,6 @@ abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
      * To be overridden
      */
     open fun bindItemData(holder: RecyclerView.ViewHolder, position: Int){}
-
 
     private fun hasExtraRow(): Boolean {
         return networkState != null && networkState != NetworkState.LOADED

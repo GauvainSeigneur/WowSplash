@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.home.list.adapter
+package com.seigneur.gauvain.wowsplash.ui.base.list
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,13 +8,12 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.seigneur.gauvain.wowsplash.R
-import com.seigneur.gauvain.wowsplash.ui.home.list.data.NetworkState
-import com.seigneur.gauvain.wowsplash.ui.home.list.data.Status
 
 
 class NetworkStateViewHolder(
     itemView: View,
-    photoItemCallback: PhotoItemCallback) : RecyclerView.ViewHolder(itemView) {
+    networkItemCallback: NetworkItemCallback
+) : RecyclerView.ViewHolder(itemView) {
 
     private val errorMessageTextView = itemView.findViewById(R.id.errorMessageTextView) as TextView
     private val retryLoadingButton = itemView.findViewById(R.id.retryLoadingButton) as Button
@@ -22,7 +21,7 @@ class NetworkStateViewHolder(
 
 
     init {
-        retryLoadingButton.setOnClickListener { _ -> photoItemCallback.retry() }
+        retryLoadingButton.setOnClickListener { _ -> networkItemCallback.retry() }
     }
 
     fun bindTo(networkState: NetworkState) {
@@ -41,10 +40,10 @@ class NetworkStateViewHolder(
 
     companion object {
 
-        fun create(parent: ViewGroup, photoItemCallback: PhotoItemCallback): NetworkStateViewHolder {
+        fun create(parent: ViewGroup, networkItemCallback: NetworkItemCallback): NetworkStateViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater.inflate(R.layout.list_item_network_state, parent, false)
-            return NetworkStateViewHolder(view, photoItemCallback)
+            return NetworkStateViewHolder(view, networkItemCallback)
         }
     }
 

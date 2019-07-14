@@ -14,7 +14,7 @@ class WowSplashApp : Application(), KoinComponent {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            Timber.d("start koin lol")
+            Timber.d("start koin BasePagedListAdapter")
             // Android context
             androidContext(this@WowSplashApp)
             // modules

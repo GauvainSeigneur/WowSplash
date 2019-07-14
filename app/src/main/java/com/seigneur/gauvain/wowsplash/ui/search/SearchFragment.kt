@@ -13,7 +13,7 @@ class SearchFragment : BaseFragment() {
     private val mSearchViewModel by viewModel<SearchViewModel>()
 
     override fun onCreateView(inRootView: View, inSavedInstanceState: Bundle?) {
-        //mSearchViewModel.searchPhotos("lol")
+        //mSearchViewModel.searchPhotos("BasePagedListAdapter")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

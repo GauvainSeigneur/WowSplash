@@ -8,19 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-   <!-- <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/mToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    </com.google.android.material.appbar.AppBarLayout> -->
-
     <FrameLayout
         android:id="@+id/mfragmentContainer"
         android:layout_width="match_parent"
@@ -38,14 +25,14 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/mBottomNavigation"
-        app:layout_anchorGravity="top|end"
         android:layout_gravity="top"
         android:outlineAmbientShadowColor="@color/colorSecondary"
         android:outlineSpotShadowColor="@color/colorSecondary"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/ic_filter_list_black_24dp"
         android:tint="#FFFFFF"
         app:fabSize="normal"
+        app:layout_anchor="@id/mBottomNavigation"
+        app:layout_anchorGravity="top|end"
         app:useCompatPadding="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

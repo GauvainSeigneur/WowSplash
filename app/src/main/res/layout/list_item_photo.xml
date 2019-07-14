@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,7 +8,8 @@
     <ImageView
         android:id="@+id/shot_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:adjustViewBounds="true"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/shot_gif_label"
@@ -19,7 +20,7 @@
         android:background="@color/colorPrimary"
         android:text="GIF"/>
 
-</androidx.cardview.widget.CardView>
+</FrameLayout>
 
 
 

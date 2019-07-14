@@ -1,16 +1,15 @@
-package com.seigneur.gauvain.wowsplash.ui.home.list.adapter
+package com.seigneur.gauvain.wowsplash.ui.shots.list.adapter
 
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkItemCallback
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkStateViewHolder
+import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.NetworkStateViewHolder
+import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoItemCallback
+import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoViewHolder
 
-class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback,
-                       private val networkItemCallback: NetworkItemCallback)
+class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback)
     : PagedListAdapter<Photo, RecyclerView.ViewHolder>(UserDiffCallback) {
 
     private var networkState: NetworkState? = null
@@ -20,7 +19,7 @@ class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             ITEM -> return PhotoViewHolder.create(parent, photoItemCallback)
-            LOADING -> return NetworkStateViewHolder.create(parent, networkItemCallback)
+            LOADING -> return NetworkStateViewHolder.create(parent, photoItemCallback)
             else -> throw IllegalArgumentException("unknown view type")
         }
     }

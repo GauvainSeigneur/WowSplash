@@ -8,27 +8,26 @@ import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
-import com.seigneur.gauvain.wowsplash.ui.home.list.data.NetworkState
-import com.seigneur.gauvain.wowsplash.ui.home.list.data.datasource.PhotoDataSourceFactory
+import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
+import com.seigneur.gauvain.wowsplash.ui.home.list.PhotoDataSourceFactory
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
 class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewModel() {
 
-    private var mListResult = MutableLiveData<ListResult>()
     var mPhotoResult = MutableLiveData<PhotoResult>()
 
     var shotList: LiveData<PagedList<Photo>>? = null
     private var config: PagedList.Config? = null
 
     val refreshState: LiveData<NetworkState>
-        get() = Transformations.switchMap(photoDataSourceFactory.usersDataSourceLiveData) {
+        get() = Transformations.switchMap(photoDataSourceFactory.photoLiveData) {
             Timber.d("refresh called ")
             it.initialLoad
         }
 
     val networkState: LiveData<NetworkState>
-        get() =  Transformations.switchMap(photoDataSourceFactory.usersDataSourceLiveData)
+        get() =  Transformations.switchMap(photoDataSourceFactory.photoLiveData)
         { it.networkState }
 
     private val photoDataSourceFactory: PhotoDataSourceFactory by lazy {
@@ -70,18 +69,10 @@ class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewMod
         )
     }
 
-
-    /**
-     * TODO: use sealed class instead
-     * class dedicated to manage UI related data
-     */
-    data class ListResult(val inList: List<Photo>? = null, val inError: Throwable? = null)
-
     sealed class PhotoResult {
         data class PhotoList(val inList: List<Photo>? = null) : PhotoResult()
         data class PhotoError(val inError: Throwable? = null) : PhotoResult()
     }
-
 
     companion object {
         private val pageSize = 15

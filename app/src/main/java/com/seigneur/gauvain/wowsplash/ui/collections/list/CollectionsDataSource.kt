@@ -1,11 +1,10 @@
-package com.seigneur.gauvain.wowsplash.ui.home.list.data.datasource
+package com.seigneur.gauvain.wowsplash.ui.collections.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
-import com.seigneur.gauvain.wowsplash.ui.home.list.data.NetworkState
-
+import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
+import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
 
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,10 +14,9 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 
-class PhotosDataSource
-
+class CollectionsDataSource
     internal constructor(private val compositeDisposable: CompositeDisposable,
-                         private val mPhotoRepository: PhotoRepository) : PageKeyedDataSource<Long, Photo>() {
+                         private val mCollectionsRepository: CollectionsRepository) : PageKeyedDataSource<Long, PhotoCollection>() {
 
 
     /*
@@ -53,7 +51,7 @@ class PhotosDataSource
      * and passing it via the callback method to the UI.
      */
     override fun loadInitial(params: PageKeyedDataSource.LoadInitialParams<Long>,
-                             callback: PageKeyedDataSource.LoadInitialCallback<Long, Photo>) {
+                             callback: PageKeyedDataSource.LoadInitialCallback<Long, PhotoCollection>) {
         Timber.d("loadInitial called")
         // update network states.
         // we also provide an initial load state to the listeners so that the UI can know when the
@@ -62,7 +60,7 @@ class PhotosDataSource
         initialLoad.postValue(NetworkState.LOADING)
         //get the initial shots from the api
         compositeDisposable.add(
-            mPhotoRepository.getPhotos(1, params.requestedLoadSize)
+            mCollectionsRepository.getCollections(1, params.requestedLoadSize)
                         .subscribe(
                                 { shots ->
                                     // clear retry since last request succeeded
@@ -85,7 +83,7 @@ class PhotosDataSource
     }
 
 
-    override fun loadBefore(params: PageKeyedDataSource.LoadParams<Long>, callback: PageKeyedDataSource.LoadCallback<Long, Photo>) {
+    override fun loadBefore(params: PageKeyedDataSource.LoadParams<Long>, callback: PageKeyedDataSource.LoadCallback<Long, PhotoCollection>) {
         // ignored, since we only ever append to our initial load
     }
 
@@ -96,12 +94,12 @@ class PhotosDataSource
      * and passing it via the callback method to the UI.
      * The "params.key" variable will have the updated value.
      */
-    override fun loadAfter(params: PageKeyedDataSource.LoadParams<Long>, callback: PageKeyedDataSource.LoadCallback<Long, Photo>) {
+    override fun loadAfter(params: PageKeyedDataSource.LoadParams<Long>, callback: PageKeyedDataSource.LoadCallback<Long, PhotoCollection>) {
         // set network value to loading.
         Timber.d("loadAfter called")
         networkState.postValue(NetworkState.LOADING)
 
-        compositeDisposable.add(mPhotoRepository.getPhotos( params.key, params.requestedLoadSize)
+        compositeDisposable.add(mCollectionsRepository.getCollections( params.key, params.requestedLoadSize)
                 .subscribe(
                         { shots ->
                             //long nextKey = (params.key == shots.body().getTotalResults()) ? null : params.key+1; //TODO - to reactivate

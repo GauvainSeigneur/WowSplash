@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
+import com.seigneur.gauvain.wowsplash.ui.collections.CollectionsFragment
 import com.seigneur.gauvain.wowsplash.ui.home.HomeFragment
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInFragment
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInViewModel
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             override fun getItem(position: Int): Fragment {
                 when (position) {
                     0 -> return HomeFragment()
-                    1 -> return SearchFragment()
+                    1 -> return CollectionsFragment()
                     2 -> return SearchFragment()
                     3 -> return SearchFragment()
                     4 -> return SearchFragment()

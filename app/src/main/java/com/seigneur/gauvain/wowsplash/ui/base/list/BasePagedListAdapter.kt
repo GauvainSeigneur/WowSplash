@@ -1,55 +1,63 @@
-package com.seigneur.gauvain.wowsplash.ui.home.list.adapter
+package com.seigneur.gauvain.wowsplash.ui.base.list
 
+import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
-import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkItemCallback
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkStateViewHolder
 
-class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback,
-                       private val networkItemCallback: NetworkItemCallback)
-    : PagedListAdapter<Photo, RecyclerView.ViewHolder>(UserDiffCallback) {
+abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
+    diffCallback:DiffUtil.ItemCallback<T>,
+    private val networkItemCallback: NetworkItemCallback) : PagedListAdapter<T, VH>(diffCallback) {
 
-    private var networkState: NetworkState? = null
+    lateinit var itemParent:ViewGroup
+    internal var networkState: NetworkState? = null
 
-    private val pos: Int = 0
+    /**
+     * To be overridden
+     */
+    abstract val viewHolder:RecyclerView.ViewHolder
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+        itemParent = parent
         when (viewType) {
-            ITEM -> return PhotoViewHolder.create(parent, photoItemCallback)
-            LOADING -> return NetworkStateViewHolder.create(parent, networkItemCallback)
+            ITEM -> return getItemViewHolder() as VH
+            LOADING -> return NetworkStateViewHolder.create(parent, networkItemCallback) as VH
             else -> throw IllegalArgumentException("unknown view type")
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: VH, position: Int) {
         when (getItemViewType(position)) {
-            ITEM -> (holder as PhotoViewHolder).bindTo(getItem(position)!!)
+            ITEM -> bindItemData(holder, position)
             LOADING -> (holder as NetworkStateViewHolder).bindTo(networkState!!)
         }
     }
 
-    private fun hasExtraRow(): Boolean {
-        return networkState != null && networkState != NetworkState.LOADED
-    }
-
     override fun getItemViewType(position: Int): Int {
         return if (hasExtraRow() && position == itemCount - 1) {
-            LOADING
+           LOADING
         } else {
             ITEM
         }
     }
 
+
     override fun getItemCount(): Int {
         return super.getItemCount() + if (hasExtraRow()) 1 else 0
     }
 
-    fun getShotClicked(pos: Int): Photo? {
-        return getItem(pos)
+    /**
+     * To be overridden
+     */
+    open fun bindItemData(holder: RecyclerView.ViewHolder, position: Int){}
+
+
+    private fun hasExtraRow(): Boolean {
+        return networkState != null && networkState != NetworkState.LOADED
+    }
+
+    private fun getItemViewHolder():RecyclerView.ViewHolder {
+        return viewHolder
     }
 
     /**
@@ -71,7 +79,7 @@ class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback,
                 val hasExtraRow = hasExtraRow()
                 if (hadExtraRow != hasExtraRow) {
                     if (hadExtraRow) {
-                       notifyItemRemoved(super.getItemCount())
+                        notifyItemRemoved(super.getItemCount())
                     } else {
                         notifyItemInserted(super.getItemCount())
                     }
@@ -83,20 +91,8 @@ class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback,
     }
 
     companion object {
-
         val ITEM = 0
         val LOADING = 1
-
-        private val UserDiffCallback = object : DiffUtil.ItemCallback<Photo>() {
-            override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
-                return oldItem.id === newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
-                return oldItem == newItem
-            }
-        }
     }
-
 
 }

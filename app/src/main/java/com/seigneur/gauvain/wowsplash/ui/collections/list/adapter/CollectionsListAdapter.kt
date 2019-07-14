@@ -12,7 +12,7 @@ class CollectionsListAdapter(private val photoItemCallback: CollectionsItemCallb
 
     override val viewHolder: RecyclerView.ViewHolder
         get() =  CollectionsViewHolder.create(itemParentView, photoItemCallback)
-    
+
     override fun bindItemData(holder: RecyclerView.ViewHolder, position: Int) {
         super.bindItemData(holder, position)
         (holder as CollectionsViewHolder).bindTo(getItem(position)!!)

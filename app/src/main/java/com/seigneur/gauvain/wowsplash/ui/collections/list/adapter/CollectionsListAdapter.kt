@@ -1,16 +1,52 @@
-package com.seigneur.gauvain.wowsplash.ui.shots.list.adapter
+package com.seigneur.gauvain.wowsplash.ui.collections.list.adapter
 
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
-import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.NetworkStateViewHolder
-import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoItemCallback
-import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoViewHolder
+import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.seigneur.gauvain.wowsplash.ui.base.list.BasePagedListAdapter
+import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkItemCallback
 
-class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback)
-    : PagedListAdapter<Photo, RecyclerView.ViewHolder>(UserDiffCallback) {
+
+
+class CollectionsListAdapter(private val photoItemCallback: CollectionsItemCallback,
+                             networkItemCallback: NetworkItemCallback) :
+    BasePagedListAdapter<PhotoCollection, RecyclerView.ViewHolder>(collectionDiffCallback,networkItemCallback) {
+
+    override val viewHolder: RecyclerView.ViewHolder
+        get() =  CollectionsViewHolder.create(itemParent, photoItemCallback)
+
+    override fun bindItemData(holder: RecyclerView.ViewHolder, position: Int) {
+        super.bindItemData(holder, position)
+        (holder as CollectionsViewHolder).bindTo(getItem(position)!!)
+    }
+
+    fun getCollectionClicked(pos: Int): PhotoCollection? {
+        return getItem(pos)
+    }
+
+    companion object {
+
+        private val collectionDiffCallback = object : DiffUtil.ItemCallback<PhotoCollection>() {
+            override fun areItemsTheSame(oldItem: PhotoCollection, newItem: PhotoCollection): Boolean {
+                return oldItem.id === newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: PhotoCollection, newItem: PhotoCollection): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
+
+
+}
+
+
+
+
+/*
+class CollectionsListAdapter(private val photoItemCallback: CollectionsItemCallback,
+                             private val networkItemCallback: NetworkItemCallback) :
+    PagedListAdapter<PhotoCollection, RecyclerView.ViewHolder>(collectionDiffCallback) {
 
     private var networkState: NetworkState? = null
 
@@ -18,15 +54,15 @@ class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
-            ITEM -> return PhotoViewHolder.create(parent, photoItemCallback)
-            LOADING -> return NetworkStateViewHolder.create(parent, photoItemCallback)
+            ITEM -> return CollectionsViewHolder.create(parent, photoItemCallback)
+            LOADING -> return NetworkStateViewHolder.create(parent, networkItemCallback)
             else -> throw IllegalArgumentException("unknown view type")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            ITEM -> (holder as PhotoViewHolder).bindTo(getItem(position)!!)
+            ITEM -> (holder as CollectionsViewHolder).bindTo(getItem(position)!!)
             LOADING -> (holder as NetworkStateViewHolder).bindTo(networkState!!)
         }
     }
@@ -47,9 +83,9 @@ class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback)
         return super.getItemCount() + if (hasExtraRow()) 1 else 0
     }
 
-    fun getShotClicked(pos: Int): Photo? {
+    fun getCollectionClicked(pos: Int): PhotoCollection? {
         return getItem(pos)
-    }
+    }*/
 
     /**
      * Set the current network state to the adapter
@@ -59,7 +95,7 @@ class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback)
      *
      * @param newNetworkState the new network state
      */
-    fun setNetworkState(newNetworkState: NetworkState) {
+ /*   fun setNetworkState(newNetworkState: NetworkState) {
         //todo - issue with refresh action: after rferesh the recyclerview focus at the bottom
         //to fix this : check if tis is initial load or not
         if (currentList != null) {
@@ -70,7 +106,7 @@ class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback)
                 val hasExtraRow = hasExtraRow()
                 if (hadExtraRow != hasExtraRow) {
                     if (hadExtraRow) {
-                       notifyItemRemoved(super.getItemCount())
+                        notifyItemRemoved(super.getItemCount())
                     } else {
                         notifyItemInserted(super.getItemCount())
                     }
@@ -86,16 +122,16 @@ class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback)
         val ITEM = 0
         val LOADING = 1
 
-        private val UserDiffCallback = object : DiffUtil.ItemCallback<Photo>() {
-            override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+        private val collectionDiffCallback = object : DiffUtil.ItemCallback<PhotoCollection>() {
+            override fun areItemsTheSame(oldItem: PhotoCollection, newItem: PhotoCollection): Boolean {
                 return oldItem.id === newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+            override fun areContentsTheSame(oldItem: PhotoCollection, newItem: PhotoCollection): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
 
-}
+}*/

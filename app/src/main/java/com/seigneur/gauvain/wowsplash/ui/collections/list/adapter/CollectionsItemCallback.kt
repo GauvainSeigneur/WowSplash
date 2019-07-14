@@ -1,9 +1,7 @@
-package com.seigneur.gauvain.wowsplash.ui.home.list.adapter
+package com.seigneur.gauvain.wowsplash.ui.collections.list.adapter
 
-interface PhotoItemCallback {
+interface CollectionsItemCallback {
 
-    fun retry()
-
-    fun onShotClicked(position: Int)
+    fun onCollectionClicked(position: Int)
 
 }

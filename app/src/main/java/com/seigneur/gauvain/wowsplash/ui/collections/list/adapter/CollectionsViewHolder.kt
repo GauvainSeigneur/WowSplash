@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.home.list.adapter
+package com.seigneur.gauvain.wowsplash.ui.collections.list.adapter
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,10 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.seigneur.gauvain.wowsplash.R
-import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.bumptech.glide.request.RequestOptions
+import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 
-class PhotoViewHolder private constructor(itemView: View, private val mPhotoItemCallback: PhotoItemCallback) :
+class CollectionsViewHolder
+private constructor(
+    itemView: View,
+    private val collectionItemCallback: CollectionsItemCallback) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
     val shotImage = itemView.findViewById(R.id.shot_image) as ImageView
@@ -22,8 +25,8 @@ class PhotoViewHolder private constructor(itemView: View, private val mPhotoItem
         shotImage.setOnClickListener(this)
     }
 
-    fun bindTo(photo: Photo) {
-        val photoColor = Color.parseColor(photo.color)
+    fun bindTo(collection: PhotoCollection) {
+        val photoColor = Color.parseColor(collection.cover_photo.color)
         val requestOptions = RequestOptions()
         requestOptions.placeholder(ColorDrawable(photoColor))
         requestOptions.error(R.drawable.ic_circle_info_24px)
@@ -31,22 +34,22 @@ class PhotoViewHolder private constructor(itemView: View, private val mPhotoItem
 
         Glide.with(itemView.context)
             .setDefaultRequestOptions(requestOptions)
-            .load(photo.urls.small)
+            .load(collection.cover_photo.urls.small)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(shotImage)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.shot_image -> mPhotoItemCallback.onShotClicked(adapterPosition)
+            R.id.shot_image -> collectionItemCallback.onCollectionClicked(adapterPosition)
         }
     }
 
     companion object {
-        fun create(parent: ViewGroup, photoItemCallback: PhotoItemCallback): PhotoViewHolder {
+        fun create(parent: ViewGroup, photoItemCallback: CollectionsItemCallback): CollectionsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater.inflate(R.layout.list_item_photo, parent, false)
-            return PhotoViewHolder(view, photoItemCallback)
+            return CollectionsViewHolder(view, photoItemCallback)
         }
     }
 

@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 
 abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
     diffCallback:DiffUtil.ItemCallback<T>,

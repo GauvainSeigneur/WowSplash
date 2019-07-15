@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.seigneur.gauvain.wowsplash.R
+import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
+import com.seigneur.gauvain.wowsplash.data.model.network.Status
 
 
 class NetworkStateViewHolder(

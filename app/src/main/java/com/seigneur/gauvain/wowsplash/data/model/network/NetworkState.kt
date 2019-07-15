@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.base.list
+package com.seigneur.gauvain.wowsplash.data.model.network
 
 class NetworkState {
 
@@ -18,9 +18,11 @@ class NetworkState {
 
     companion object {
 
-        var LOADED = NetworkState(Status.SUCCESS)
+        var LOADED =
+            NetworkState(Status.SUCCESS)
 
-        var LOADING = NetworkState(Status.RUNNING)
+        var LOADING =
+            NetworkState(Status.RUNNING)
 
         fun error(message: String?): NetworkState {
             return NetworkState(

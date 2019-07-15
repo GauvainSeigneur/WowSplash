@@ -1,11 +1,11 @@
-package com.seigneur.gauvain.wowsplash.ui.base.list
+package com.seigneur.gauvain.wowsplash.ui.base.pagingList.dataSource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 
 abstract  class BaseListDataSourceFactory<Key, Value> : DataSource.Factory<Key, Value>() {
 
-    abstract fun getDataSource():BaseListDataSource<Key, Value>
+    abstract fun getDataSource(): BaseListDataSource<Key, Value>
 
     abstract fun getPagedListLiveData():MutableLiveData<BaseListDataSource<Key, Value>>
 

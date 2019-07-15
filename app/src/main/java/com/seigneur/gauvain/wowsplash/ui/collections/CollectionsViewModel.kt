@@ -1,14 +1,13 @@
 package com.seigneur.gauvain.wowsplash.ui.collections
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
+import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.ui.collections.list.CollectionsDataSourceFactory
 import timber.log.Timber
 

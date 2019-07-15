@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.base.list
+package com.seigneur.gauvain.wowsplash.data.model.network
 
 enum class Status {
     RUNNING,

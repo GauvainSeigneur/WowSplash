@@ -2,8 +2,8 @@ package com.seigneur.gauvain.wowsplash.ui.collections.list
 
 import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
-import com.seigneur.gauvain.wowsplash.ui.base.list.BaseListDataSource
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
+import com.seigneur.gauvain.wowsplash.ui.base.pagingList.dataSource.BaseListDataSource
+import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 

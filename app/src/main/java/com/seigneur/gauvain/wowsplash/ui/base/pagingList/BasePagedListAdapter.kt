@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.base.list
+package com.seigneur.gauvain.wowsplash.ui.base.pagingList
 
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter

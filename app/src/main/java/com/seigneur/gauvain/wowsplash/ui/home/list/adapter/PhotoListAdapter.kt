@@ -3,8 +3,8 @@ package com.seigneur.gauvain.wowsplash.ui.home.list.adapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.ui.base.list.BasePagedListAdapter
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkItemCallback
+import com.seigneur.gauvain.wowsplash.ui.base.pagingList.BasePagedListAdapter
+import com.seigneur.gauvain.wowsplash.ui.base.pagingList.NetworkItemCallback
 
 class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback,
                        private val networkItemCallback: NetworkItemCallback)

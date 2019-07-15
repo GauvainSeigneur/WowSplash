@@ -3,10 +3,8 @@ package com.seigneur.gauvain.wowsplash.ui.home.list
 import androidx.paging.PageKeyedDataSource
 import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
-import com.seigneur.gauvain.wowsplash.ui.base.list.BaseListDataSource
-import com.seigneur.gauvain.wowsplash.ui.base.list.CallbackWrapper
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
-import io.reactivex.Flowable
+import com.seigneur.gauvain.wowsplash.ui.base.pagingList.dataSource.BaseListDataSource
+import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action

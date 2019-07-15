@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkItemCallback
-import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
-import com.seigneur.gauvain.wowsplash.ui.base.list.Status
+import com.seigneur.gauvain.wowsplash.ui.base.pagingList.NetworkItemCallback
+import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
+import com.seigneur.gauvain.wowsplash.data.model.network.Status
 import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoItemCallback
 import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoListAdapter
 import kotlinx.android.synthetic.main.fragment_home.*

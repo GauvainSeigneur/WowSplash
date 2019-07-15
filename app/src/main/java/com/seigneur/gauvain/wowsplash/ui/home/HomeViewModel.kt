@@ -10,12 +10,9 @@ import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
 import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
 import com.seigneur.gauvain.wowsplash.ui.home.list.PhotoDataSourceFactory
-import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
 class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewModel() {
-
-    var mPhotoResult = MutableLiveData<PhotoResult>()
 
     var shotList: LiveData<PagedList<Photo>>? = null
     private var config: PagedList.Config? = null
@@ -34,7 +31,6 @@ class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewMod
         PhotoDataSourceFactory(mDisposables, mPhotoRepository)
     }
 
-
     fun init() {
         if (config == null && shotList == null) {
             config = PagedList.Config.Builder()
@@ -44,35 +40,17 @@ class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewMod
                 .build()
             shotList = LivePagedListBuilder(photoDataSourceFactory, config!!).build()
         }
+    }
 
+    fun retry() {
+        photoDataSourceFactory.photoLiveData.value?.retry()
     }
 
 
-    /**
-     * Get photos
-     */
-    fun getPhotos() {
-        mDisposables.add(mPhotoRepository.getPhotos()
-            .subscribeBy(
-                onNext = {
-                    Timber.d("onNext $it")
-                    mPhotoResult.value = PhotoResult.PhotoList(it)
-                    //mListResult.value = ListResult(inList = it)
-                },
-                onError = {
-                    Timber.d("onError $it")
-                    mPhotoResult.value = PhotoResult.PhotoError(it)
-                    //mListResult.value = ListResult(inError = it)
-                },
-                onComplete = { Timber.d("onComplete getPhotos()")}
-            )
-        )
+    fun refresh() {
+        photoDataSourceFactory.photoLiveData.value?.invalidate()
     }
 
-    sealed class PhotoResult {
-        data class PhotoList(val inList: List<Photo>? = null) : PhotoResult()
-        data class PhotoError(val inError: Throwable? = null) : PhotoResult()
-    }
 
     companion object {
         private val pageSize = 15

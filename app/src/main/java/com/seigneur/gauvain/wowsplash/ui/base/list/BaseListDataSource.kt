@@ -9,8 +9,10 @@ import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-abstract class BaseListDataSource<Key, Value> (private val compositeDisposable: CompositeDisposable ): PageKeyedDataSource<Key, Value>() {
+abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: CompositeDisposable) :
+    PageKeyedDataSource<Key, Value>() {
 
+    val initialLoad = MutableLiveData<NetworkState>()
 
     /*
     * Step 1: Initialize the restApiFactory.
@@ -26,36 +28,41 @@ abstract class BaseListDataSource<Key, Value> (private val compositeDisposable: 
     private var retryCompletable: Completable? = null
 
 
+    /**
+     * Must call onSuper in child class
+     */
     override fun loadInitial(params: LoadInitialParams<Key>, callback: LoadInitialCallback<Key, Value>) {
         Timber.d("loadInitial called")
         // update network states.
         // we also provide an initial load state to the listeners so that the UI can know when the
         // very first list is loaded.
         networkState.postValue(NetworkState.LOADING)
-
-        //todo - method to call here and be overridden in child
+        initialLoad.postValue(NetworkState.LOADING)
     }
 
+    /**
+     * Must call onSuper in child class
+     */
     override fun loadAfter(params: LoadParams<Key>, callback: LoadCallback<Key, Value>) {
         Timber.d("loadAfter called")
         networkState.postValue(NetworkState.LOADING)
-
-        //todo - method to call here and be overridden in child
     }
 
+
     fun retry() {
-        if (retryCompletable != null) {
+        val vRetryComp = retryCompletable
+        vRetryComp?.let {
             compositeDisposable.add(
-                retryCompletable!!
+                vRetryComp
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ }, { throwable -> Timber.e(throwable.message) })
             )
-
         }
+
     }
 
-    private fun setRetry(action: Action?) {
+    fun setRetry(action: Action?) {
         if (action == null) {
             this.retryCompletable = null
         } else {

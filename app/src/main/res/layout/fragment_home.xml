@@ -25,7 +25,7 @@
         android:layout_height="match_parent">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/usersSwipeRefreshLayout"
+            android:id="@+id/swipeRefreshLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@+id/usersSwipeRefreshLayout" />
+            app:layout_constraintTop_toTopOf="@id/swipeRefreshLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

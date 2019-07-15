@@ -52,7 +52,6 @@ class CollectionsFragment : BaseFragment(), CollectionsItemCallback, NetworkItem
         mCollectionsViewModel.shotList?.observe(
             viewLifecycleOwner, Observer<PagedList<PhotoCollection>> {
                 collectionsListAdapter.submitList(it)
-
             })
 
         mCollectionsViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {

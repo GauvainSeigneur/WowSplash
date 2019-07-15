@@ -9,7 +9,7 @@ import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
 import com.seigneur.gauvain.wowsplash.ui.base.list.NetworkState
-import com.seigneur.gauvain.wowsplash.ui.home.list.data.datasource.CollectionsDataSourceFactory
+import com.seigneur.gauvain.wowsplash.ui.collections.list.CollectionsDataSourceFactory
 import timber.log.Timber
 
 class CollectionsViewModel(private val mCollectionsRepository: CollectionsRepository) : BaseViewModel() {
@@ -24,14 +24,12 @@ class CollectionsViewModel(private val mCollectionsRepository: CollectionsReposi
     val refreshState: LiveData<NetworkState>
         get() = Transformations.switchMap(collectionsDataSourceFactory.collectionLiveData) {
             Timber.d("refresh called ")
-            it.initialLoad
+            it.initialLoad //todo - add in
         }
 
     val networkState: LiveData<NetworkState>
         get() =  Transformations.switchMap(collectionsDataSourceFactory.collectionLiveData)
         { it.networkState }
-
-
 
 
     fun init() {

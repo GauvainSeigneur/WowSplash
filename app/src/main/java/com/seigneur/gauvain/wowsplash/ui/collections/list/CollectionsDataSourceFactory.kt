@@ -1,13 +1,9 @@
-package com.seigneur.gauvain.wowsplash.ui.home.list.data.datasource
+package com.seigneur.gauvain.wowsplash.ui.collections.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
-import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
-import com.seigneur.gauvain.wowsplash.ui.collections.list.CollectionsDataSource
-import com.seigneur.gauvain.wowsplash.ui.home.list.PhotosDataSource
 
 import io.reactivex.disposables.CompositeDisposable
 

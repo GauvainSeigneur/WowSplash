@@ -20,27 +20,8 @@ internal constructor(
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Long, Photo>) {
         super.loadInitial(params, callback)
 
-
-
         compositeDisposable.add(
             mPhotoRepository.getPhotos(1, params.requestedLoadSize)
-                /*.subscribeWith(object : CallbackWrapper<List<Photo>>() {
-                    override fun onSuccess(t: List<Photo>) {
-                    }
-
-                    override fun onNext(t: List<Photo>) {
-                        super.onNext(t)
-                    }
-
-                    override fun onError(e: Throwable) {
-                        super.onError(e)
-                    }
-
-                    override fun onComplete() {
-                        super.onComplete()
-                    }
-                }
-                )*/
                     .subscribe(
                         { photos ->
                             // clear retry since last request succeeded

@@ -17,6 +17,10 @@ class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewMod
     var shotList: LiveData<PagedList<Photo>>? = null
     private var config: PagedList.Config? = null
 
+    private val photoDataSourceFactory: PhotoDataSourceFactory by lazy {
+        PhotoDataSourceFactory(mDisposables, mPhotoRepository)
+    }
+
     val refreshState: LiveData<NetworkState>
         get() = Transformations.switchMap(photoDataSourceFactory.photoLiveData) {
             Timber.d("refresh called ")
@@ -26,10 +30,6 @@ class HomeViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewMod
     val networkState: LiveData<NetworkState>
         get() =  Transformations.switchMap(photoDataSourceFactory.photoLiveData)
         { it.networkState }
-
-    private val photoDataSourceFactory: PhotoDataSourceFactory by lazy {
-        PhotoDataSourceFactory(mDisposables, mPhotoRepository)
-    }
 
     fun init() {
         if (config == null && shotList == null) {

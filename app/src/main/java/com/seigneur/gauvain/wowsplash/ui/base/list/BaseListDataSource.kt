@@ -48,7 +48,9 @@ abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: C
         networkState.postValue(NetworkState.LOADING)
     }
 
-
+    /**
+     * Retry completable
+     */
     fun retry() {
         val vRetryComp = retryCompletable
         vRetryComp?.let {

@@ -13,9 +13,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a094b00b-469c-4ce2-95fb-f39dce0bd484" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/BasePagedListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/BasePagedListViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSourceFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSourceFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/list/PhotoDataSourceFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/list/PhotoDataSourceFactory.kt" afterDir="false" />
     </list>
@@ -40,48 +39,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSource.kt">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/BasePagedListViewModel.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67">
-              <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/CallbackWrapper.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/list/PhotosDataSource.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSourceFactory.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="9" column="48" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/list/PhotoDataSourceFactory.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
+            <state relative-caret-position="89">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
               <folding>
-                <element signature="e#53#306#0" expanded="true" />
+                <element signature="e#59#359#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,8 +53,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModel.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41">
-              <caret line="41" column="50" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
+            <state relative-caret-position="368">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSourceFactory.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="218">
+              <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -101,24 +73,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="92">
               <caret line="53" column="23" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModelTwo.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="56" column="2" selection-start-line="56" selection-start-column="2" selection-end-line="56" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/BasePagedListViewModel.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
             </state>
           </provider>
         </entry>
@@ -188,11 +142,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/network/NetworkState.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/BasePagedListViewModel.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeFragment.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/BasePagedListViewModel.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSourceFactory.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModel.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/list/PhotoDataSourceFactory.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModelTwo.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/list/PhotoDataSourceFactory.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/BasePagedListViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSourceFactory.kt" />
       </list>
     </option>
   </component>
@@ -419,7 +373,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.33441034" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.33441034" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Designer" order="4" />
@@ -437,7 +391,7 @@
       <window_info anchor="bottom" id="Logcat" order="7" weight="0.34858045" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.329653" />
-      <window_info active="true" anchor="bottom" id="Build" order="10" visible="true" weight="0.30441642" />
+      <window_info anchor="bottom" id="Build" order="10" visible="true" weight="0.30441642" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="right" id="Theme Preview" order="1" />
       <window_info anchor="right" id="Flutter Inspector" order="2" />
@@ -700,10 +654,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/list/NetworkItemCallback.kt" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/list/NetworkStateViewHolder.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/CallbackWrapper.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModelTwo.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        <state relative-caret-position="1081">
+          <caret line="56" column="2" selection-start-line="56" selection-start-column="2" selection-end-line="56" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -714,13 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/list/PhotosDataSource.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="92">
@@ -728,41 +675,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/BasePagedListViewModel.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/CallbackWrapper.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="24">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSourceFactory.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSource.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="9" column="48" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModel.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="41" column="50" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
+        <state relative-caret-position="67">
+          <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/list/PhotoDataSourceFactory.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
+        <state relative-caret-position="135">
+          <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
           <folding>
-            <element signature="e#53#306#0" expanded="true" />
+            <element signature="e#53#487#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModelTwo.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/BasePagedListViewModel.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="56" column="2" selection-start-line="56" selection-start-column="2" selection-end-line="56" selection-end-column="2" />
+        <state relative-caret-position="89">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="e#59#359#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/HomeViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/pagingList/dataSource/BaseListDataSourceFactory.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
         </state>
       </provider>
     </entry>

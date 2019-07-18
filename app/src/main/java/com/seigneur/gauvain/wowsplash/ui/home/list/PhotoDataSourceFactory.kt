@@ -17,7 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 class PhotoDataSourceFactory(
     private val compositeDisposable: CompositeDisposable,
     private val mPhotoRepository: PhotoRepository
-) : BaseListDataSourceFactory<PhotoDataSourceFactory, Long, Photo>() {
+) : BaseListDataSourceFactory<Long, Photo>() {
 
     val photoDataSource = PhotosDataSource(
         compositeDisposable,

@@ -51,7 +51,7 @@ class HomeFragment : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
             photoList.adapter = photoListAdapter
         }
 
-        mHomeViewModel.shotList?.observe(
+        mHomeViewModel.list?.observe(
             viewLifecycleOwner, Observer<PagedList<Photo>> {
                 photoListAdapter.submitList(it)
 

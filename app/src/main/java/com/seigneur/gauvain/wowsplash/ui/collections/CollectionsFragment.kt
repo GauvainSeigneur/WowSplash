@@ -49,7 +49,7 @@ class CollectionsFragment : BaseFragment(), CollectionsItemCallback, NetworkItem
             photoList.adapter = collectionsListAdapter
         }
 
-        mCollectionsViewModel.shotList?.observe(
+        mCollectionsViewModel.list?.observe(
             viewLifecycleOwner, Observer<PagedList<PhotoCollection>> {
                 collectionsListAdapter.submitList(it)
             })

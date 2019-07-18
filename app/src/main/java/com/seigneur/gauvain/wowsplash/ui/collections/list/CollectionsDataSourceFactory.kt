@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
+import com.seigneur.gauvain.wowsplash.ui.base.pagingList.dataSource.BaseListDataSource
+import com.seigneur.gauvain.wowsplash.ui.base.pagingList.dataSource.BaseListDataSourceFactory
 
 import io.reactivex.disposables.CompositeDisposable
 
@@ -14,15 +16,13 @@ import io.reactivex.disposables.CompositeDisposable
  */
 class CollectionsDataSourceFactory(
         private val compositeDisposable: CompositeDisposable,
-        private val mCollectionsRepository: CollectionsRepository) : DataSource.Factory<Long, PhotoCollection>() {
+        private val mCollectionsRepository: CollectionsRepository) :
+    BaseListDataSourceFactory<Long, PhotoCollection>() {
 
-    val collectionLiveData = MutableLiveData<CollectionsDataSource>()
+    val collectionDataSource =
+        CollectionsDataSource(compositeDisposable, mCollectionsRepository)
 
-    override fun create(): DataSource<Long, PhotoCollection> {
-        val collectionDataSource =
-            CollectionsDataSource(compositeDisposable, mCollectionsRepository)
-        collectionLiveData.postValue(collectionDataSource)
-        return collectionDataSource
-    }
+    override val dataSource: BaseListDataSource<Long, PhotoCollection>
+        get() = collectionDataSource
 
 }

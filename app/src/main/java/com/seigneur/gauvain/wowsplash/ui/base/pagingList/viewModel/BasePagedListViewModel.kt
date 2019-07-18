@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.base.pagingList
+package com.seigneur.gauvain.wowsplash.ui.base.pagingList.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations

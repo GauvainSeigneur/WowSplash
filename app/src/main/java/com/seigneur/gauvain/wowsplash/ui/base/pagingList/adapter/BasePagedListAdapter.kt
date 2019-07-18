@@ -1,14 +1,17 @@
-package com.seigneur.gauvain.wowsplash.ui.base.pagingList
+package com.seigneur.gauvain.wowsplash.ui.base.pagingList.adapter
 
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
+import com.seigneur.gauvain.wowsplash.ui.base.pagingList.NetworkItemCallback
+import com.seigneur.gauvain.wowsplash.ui.base.pagingList.NetworkStateViewHolder
 
 abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
     diffCallback:DiffUtil.ItemCallback<T>,
-    private val networkItemCallback: NetworkItemCallback) : PagedListAdapter<T, VH>(diffCallback) {
+    private val networkItemCallback: NetworkItemCallback
+) : PagedListAdapter<T, VH>(diffCallback) {
 
     lateinit var itemParentView:ViewGroup
     internal var networkState: NetworkState? = null
@@ -26,7 +29,10 @@ abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
         itemParentView = parent
         when (viewType) {
             ITEM -> return getItemViewHolder() as VH
-            LOADING -> return NetworkStateViewHolder.create(parent, networkItemCallback) as VH
+            LOADING -> return NetworkStateViewHolder.create(
+                parent,
+                networkItemCallback
+            ) as VH
             else -> throw IllegalArgumentException("unknown view type")
         }
     }
@@ -48,7 +54,7 @@ abstract class BasePagedListAdapter<T, VH : RecyclerView.ViewHolder>(
      */
     override fun getItemViewType(position: Int): Int {
         return if (hasExtraRow() && position == itemCount - 1) {
-           LOADING
+            LOADING
         } else {
             ITEM
         }

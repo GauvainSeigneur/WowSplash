@@ -16,26 +16,17 @@ import io.reactivex.disposables.CompositeDisposable
  */
 class PhotoDataSourceFactory(
     private val compositeDisposable: CompositeDisposable,
-    private val mPhotoRepository: PhotoRepository
+    private val mPhotoRepository: PhotoRepository,
+    private val searchType :String?
 ) : BaseListDataSourceFactory<Long, Photo>() {
 
     val photoDataSource = PhotosDataSource(
         compositeDisposable,
-        mPhotoRepository
+        mPhotoRepository,
+        searchType
     )
 
     override val dataSource: BaseListDataSource<Long, Photo>
         get() = photoDataSource
-
-    /*val photoLiveData = MutableLiveData<PhotosDataSource>()
-
-    override fun create(): DataSource<Long, Photo> {
-        val photoDataSource = PhotosDataSource(
-            compositeDisposable,
-            mPhotoRepository
-        )
-        photoLiveData.postValue(photoDataSource)
-        return photoDataSource
-    }*/
 
 }

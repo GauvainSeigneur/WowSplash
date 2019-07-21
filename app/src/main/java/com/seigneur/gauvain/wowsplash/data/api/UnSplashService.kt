@@ -23,6 +23,11 @@ interface UnSplashService {
     fun photos( @Query("page") page: Long,
                 @Query("per_page") pagePage: Int): Flowable<List<Photo>>
 
+    @GET("photos")
+    fun photos( @Query("page") page: Long,
+                @Query("per_page") pagePage: Int,
+                @Query("order_by") value: String?): Flowable<List<Photo>>
+
     /**
      * Collections end point
      */

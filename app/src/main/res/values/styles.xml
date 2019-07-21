@@ -18,4 +18,10 @@
     <style name="Widget.Button" parent="Widget.MaterialComponents.Button">
     </style>
 
+    <style name="Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="titleTextColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Widget.Tabs" parent="Widget.MaterialComponents.TabLayout"/>
+
 </resources>

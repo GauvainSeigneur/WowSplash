@@ -11,7 +11,14 @@ import io.reactivex.schedulers.Schedulers
 
 class PhotoRepository(private val service: UnSplashService)  {
 
-    //get list of Shot from Dribbble
+    //get list of Shot from Unsplash
+    fun getPhotos(page: Long, perPage: Int, order_by:String?): Flowable<List<Photo>> {
+        return service.photos(page, perPage, order_by)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+
     fun getPhotos(page: Long, perPage: Int): Flowable<List<Photo>> {
         return service.photos(page, perPage)
             .subscribeOn(Schedulers.io())

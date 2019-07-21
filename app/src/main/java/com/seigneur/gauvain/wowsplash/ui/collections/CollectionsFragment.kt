@@ -12,8 +12,8 @@ import com.seigneur.gauvain.wowsplash.ui.base.pagingList.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsItemCallback
 import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsListAdapter
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlinx.android.synthetic.main.fragment_photo.*
 
 class CollectionsFragment : BaseFragment(), CollectionsItemCallback, NetworkItemCallback {
 
@@ -25,7 +25,7 @@ class CollectionsFragment : BaseFragment(), CollectionsItemCallback, NetworkItem
     }
 
     override val fragmentLayout: Int
-        get() = R.layout.fragment_home
+        get() = R.layout.fragment_photo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

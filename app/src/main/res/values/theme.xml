@@ -11,7 +11,7 @@
         <item name="colorError">@color/colorError</item>
         <item name="android:colorError" tools:targetApi="26">@color/colorError</item>
         <!--<item name="android:textColor"></item> -->
-        <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/colorWhite</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
@@ -32,6 +32,8 @@
         <!-- Widgets default style -->
         <item name="materialButtonStyle">@style/Widget.Button</item>
          <item name="floatingActionButtonStyle">@style/Widget.Fab</item>
+        <item name="toolbarStyle">@style/Widget.Toolbar</item>
+        <item name="tabStyle">@style/Widget.Tabs</item>
          <!--<item name="materialCardViewStyle"></item>
          <item name="chipStyle">@style/ChipStyle</item>-->
 

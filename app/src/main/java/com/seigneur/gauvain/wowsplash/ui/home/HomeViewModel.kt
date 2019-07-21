@@ -9,11 +9,14 @@ import com.seigneur.gauvain.wowsplash.ui.home.list.PhotoDataSourceFactory
 class HomeViewModel(private val mPhotoRepository: PhotoRepository) :
     BasePagedListViewModel<Long, Photo>(15) {
 
+    var searchType:String?=null
+
     private val photoDataSourceFactory: PhotoDataSourceFactory by lazy {
-        PhotoDataSourceFactory(mDisposables, mPhotoRepository)
+        PhotoDataSourceFactory(mDisposables, mPhotoRepository,  searchType)
     }
 
     override val dataSourceFactory: BaseListDataSourceFactory<Long, Photo>
         get() = photoDataSourceFactory
+
 
 }

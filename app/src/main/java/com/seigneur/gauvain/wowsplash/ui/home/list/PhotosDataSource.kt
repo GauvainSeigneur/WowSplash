@@ -1,6 +1,6 @@
 package com.seigneur.gauvain.wowsplash.ui.home.list
 
-import androidx.paging.PageKeyedDataSource
+
 import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.pagingList.dataSource.BaseListDataSource
@@ -12,14 +12,15 @@ import io.reactivex.functions.Action
 class PhotosDataSource
 internal constructor(
     private val compositeDisposable: CompositeDisposable,
-    private val mPhotoRepository: PhotoRepository
+    private val mPhotoRepository: PhotoRepository,
+    private val searchType :String?
 ) : BaseListDataSource<Long, Photo>(compositeDisposable) {
 
     override fun loadInitial(params: LoadInitialParams<Long>, callback: LoadInitialCallback<Long, Photo>) {
         super.loadInitial(params, callback)
 
         compositeDisposable.add(
-            mPhotoRepository.getPhotos(1, params.requestedLoadSize)
+            mPhotoRepository.getPhotos(1, params.requestedLoadSize, searchType)
                     .subscribe(
                         { photos ->
                             // clear retry since last request succeeded
@@ -41,15 +42,15 @@ internal constructor(
     }
 
     override fun loadBefore(
-        params: PageKeyedDataSource.LoadParams<Long>,
-        callback: PageKeyedDataSource.LoadCallback<Long, Photo>
+        params: LoadParams<Long>,
+        callback: LoadCallback<Long, Photo>
     ) {
         // ignored, since we only ever append to our initial load
     }
 
     override fun loadAfter(params: LoadParams<Long>, callback: LoadCallback<Long, Photo>) {
         super.loadAfter(params, callback)
-        compositeDisposable.add(mPhotoRepository.getPhotos(params.key, params.requestedLoadSize)
+        compositeDisposable.add(mPhotoRepository.getPhotos(params.key, params.requestedLoadSize, searchType)
             .subscribe(
                 { shots ->
                     //long nextKey = (params.key == shots.body().getTotalResults()) ? null : params.key+1; //TODO - to reactivate

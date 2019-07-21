@@ -16,10 +16,11 @@ import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoListAdapter
 import kotlinx.android.synthetic.main.fragment_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
 
-    private val mHomeViewModel by viewModel<HomeViewModel>()
+    private val mHomeViewModel by viewModel<HomeViewModelTwo>()
     private lateinit var mGridLayoutManager:GridLayoutManager
 
     private val photoListAdapter: PhotoListAdapter by lazy {
@@ -31,7 +32,7 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mHomeViewModel.searchType = photoListType
+        //mHomeViewModel.searchType = photoListType
         mHomeViewModel.init()
     }
 
@@ -39,6 +40,9 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         initSwipeToRefresh()
+        retryLoadingButton.setOnClickListener {
+            mHomeViewModel.retry()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -72,29 +76,34 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
      * Init swipe to refresh and enable pull to refresh only when there are items in the adapter
      */
     private fun initSwipeToRefresh() {
-        mHomeViewModel.refreshState.observe(this,
+       mHomeViewModel.refreshState.observe(this,
             Observer<NetworkState> { networkState ->
                 if (networkState != null) {
                     if (photoListAdapter.currentList != null) {
                         if (photoListAdapter.currentList!!.size > 0) {
                             photoSwipeRefreshLayout.isRefreshing = networkState.status == NetworkState.LOADING.status
-
                             setInitialLoadingState(networkState)
+                            Timber.d("networkState A")
                         } else {
+                            Timber.d("networkState B")
                             setInitialLoadingState(networkState)
                             if (photoSwipeRefreshLayout.isRefreshing) {
                                 photoSwipeRefreshLayout.isRefreshing=false
+                                Timber.d("networkState B1")
                             }
                         }
                     } else {
+                        Timber.d("networkState C")
                         setInitialLoadingState(networkState)
                         if (photoSwipeRefreshLayout.isRefreshing) {
                             photoSwipeRefreshLayout.isRefreshing=false
+                            Timber.d("networkState C")
                         }
                     }
                 }
             })
         photoSwipeRefreshLayout.setOnRefreshListener {
+            Timber.d("photoSwipeRefreshLayout called")
             mHomeViewModel.refresh()
         }
     }

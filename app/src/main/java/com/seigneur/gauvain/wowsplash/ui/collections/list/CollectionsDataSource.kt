@@ -53,9 +53,9 @@ class CollectionsDataSource
 
         val obervableCollection: Flowable<List<PhotoCollection>>?
         if (typeOfCollection.equals("featured")) {
-            obervableCollection =  mCollectionsRepository.getFeaturedCollections(1, params.requestedLoadSize)
+            obervableCollection =  mCollectionsRepository.getFeaturedCollections(params.key, params.requestedLoadSize)
         } else {
-            obervableCollection =  mCollectionsRepository.getCollections(1, params.requestedLoadSize)
+            obervableCollection =  mCollectionsRepository.getCollections(params.key, params.requestedLoadSize)
         }
 
         compositeDisposable.add(

@@ -11,7 +11,7 @@ class HomeFragment : BaseFragment() {
 
     override val fragmentLayout: Int
         get() = R.layout.fragment_tab_list
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentAdapter = PhotoPagerAdapter(childFragmentManager)

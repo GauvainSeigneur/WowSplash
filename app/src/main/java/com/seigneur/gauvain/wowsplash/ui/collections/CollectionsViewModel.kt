@@ -10,8 +10,10 @@ import com.seigneur.gauvain.wowsplash.ui.collections.list.CollectionsDataSourceF
 class CollectionsViewModel(private val mCollectionsRepository: CollectionsRepository) :
     BasePagedListViewModel<Long, PhotoCollection>(15) {
 
+    var collectionType:String?=null
+
     private val collectionsDataSourceFactory: CollectionsDataSourceFactory by lazy {
-        CollectionsDataSourceFactory(mDisposables, mCollectionsRepository)
+        CollectionsDataSourceFactory(mDisposables, mCollectionsRepository,collectionType)
     }
 
     override val dataSourceFactory: BaseListDataSourceFactory<Long, PhotoCollection>

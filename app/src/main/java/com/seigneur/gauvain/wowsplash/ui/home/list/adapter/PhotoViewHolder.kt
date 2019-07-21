@@ -16,10 +16,10 @@ import com.bumptech.glide.request.RequestOptions
 class PhotoViewHolder private constructor(itemView: View, private val mPhotoItemCallback: PhotoItemCallback) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-    val shotImage = itemView.findViewById(R.id.shot_image) as ImageView
+    val photoImage = itemView.findViewById(R.id.photoImage) as ImageView
 
     init {
-        shotImage.setOnClickListener(this)
+        photoImage.setOnClickListener(this)
     }
 
     fun bindTo(photo: Photo) {
@@ -33,12 +33,12 @@ class PhotoViewHolder private constructor(itemView: View, private val mPhotoItem
             .setDefaultRequestOptions(requestOptions)
             .load(photo.urls.small)
             .transition(DrawableTransitionOptions.withCrossFade())
-            .into(shotImage)
+            .into(photoImage)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.shot_image -> mPhotoItemCallback.onShotClicked(adapterPosition)
+            R.id.photoImage -> mPhotoItemCallback.onShotClicked(adapterPosition)
         }
     }
 

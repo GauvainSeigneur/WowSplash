@@ -6,19 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/shot_image"
+        android:id="@+id/photoImage"
         android:layout_width="match_parent"
         android:adjustViewBounds="true"
         android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/shot_gif_label"
-        android:visibility="invisible"
-        android:layout_gravity="top|end"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="GIF"/>
 
 </FrameLayout>
 

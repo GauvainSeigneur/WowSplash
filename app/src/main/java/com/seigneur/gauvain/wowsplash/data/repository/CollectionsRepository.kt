@@ -18,4 +18,10 @@ class CollectionsRepository(private val service: UnSplashService)  {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    fun getFeaturedCollections(page: Long, perPage: Int): Flowable<List<PhotoCollection>> {
+        return service.featuredCollections(page, perPage)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
 }

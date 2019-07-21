@@ -16,11 +16,12 @@ import io.reactivex.disposables.CompositeDisposable
  */
 class CollectionsDataSourceFactory(
         private val compositeDisposable: CompositeDisposable,
-        private val mCollectionsRepository: CollectionsRepository) :
+        private val mCollectionsRepository: CollectionsRepository,
+        private val collectionType:String?) :
     BaseListDataSourceFactory<Long, PhotoCollection>() {
 
     val collectionDataSource =
-        CollectionsDataSource(compositeDisposable, mCollectionsRepository)
+        CollectionsDataSource(compositeDisposable, mCollectionsRepository,collectionType)
 
     override val dataSource: BaseListDataSource<Long, PhotoCollection>
         get() = collectionDataSource

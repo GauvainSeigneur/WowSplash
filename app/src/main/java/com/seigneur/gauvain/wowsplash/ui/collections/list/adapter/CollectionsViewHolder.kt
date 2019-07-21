@@ -19,7 +19,7 @@ private constructor(
     private val collectionItemCallback: CollectionsItemCallback) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-    val shotImage = itemView.findViewById(R.id.shot_image) as ImageView
+    val shotImage = itemView.findViewById(R.id.photoImage) as ImageView
 
     init {
         shotImage.setOnClickListener(this)
@@ -41,7 +41,7 @@ private constructor(
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.shot_image -> collectionItemCallback.onCollectionClicked(adapterPosition)
+            R.id.photoImage -> collectionItemCallback.onCollectionClicked(adapterPosition)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.home
+package com.seigneur.gauvain.wowsplash.ui.collections
 
 import android.os.Bundle
 import android.view.View
@@ -6,24 +6,26 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import com.seigneur.gauvain.wowsplash.R
-import com.seigneur.gauvain.wowsplash.data.model.Photo
+import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import com.seigneur.gauvain.wowsplash.ui.base.pagingList.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.data.model.network.Status
-import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoItemCallback
-import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoListAdapter
+import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsItemCallback
+import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsListAdapter
+
 import kotlinx.android.synthetic.main.fragment_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
+class CollectionListFragment(val collectionType:String?) : BaseFragment(), CollectionsItemCallback, NetworkItemCallback {
 
-    private val mHomeViewModel by viewModel<HomeViewModel>()
+    private val mHomeViewModel by viewModel<CollectionsViewModel>()
     private lateinit var mGridLayoutManager:GridLayoutManager
 
-    private val photoListAdapter: PhotoListAdapter by lazy {
-        PhotoListAdapter(this, this)
+
+    private val collectionsListAdapter: CollectionsListAdapter by lazy {
+        CollectionsListAdapter(this, this)
     }
 
     override val fragmentLayout: Int
@@ -31,7 +33,7 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mHomeViewModel.searchType = photoListType
+        mHomeViewModel.collectionType = collectionType
         mHomeViewModel.init()
     }
 
@@ -49,22 +51,21 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
         if (photoList.layoutManager==null && photoList.adapter==null) {
             mGridLayoutManager = GridLayoutManager(context, 1)
             photoList.layoutManager =  GridLayoutManager(context, 1)
-            photoList.adapter = photoListAdapter
+            photoList.adapter = collectionsListAdapter
         }
 
         mHomeViewModel.list?.observe(
-            viewLifecycleOwner, Observer<PagedList<Photo>> {
-                photoListAdapter.submitList(it)
-
+            viewLifecycleOwner, Observer<PagedList<PhotoCollection>> {
+                collectionsListAdapter.submitList(it)
             })
 
         mHomeViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
-            photoListAdapter.setNetworkState(it!!)
+            collectionsListAdapter.setNetworkState(it!!)
         })
 
     }
 
-    override fun onShotClicked(position: Int) {
+    override fun onCollectionClicked(position: Int) {
 
     }
 
@@ -75,8 +76,8 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
         mHomeViewModel.refreshState.observe(this,
             Observer<NetworkState> { networkState ->
                 if (networkState != null) {
-                    if (photoListAdapter.currentList != null) {
-                        if (photoListAdapter.currentList!!.size > 0) {
+                    if (collectionsListAdapter.currentList != null) {
+                        if (collectionsListAdapter.currentList!!.size > 0) {
                             photoSwipeRefreshLayout.isRefreshing = networkState.status == NetworkState.LOADING.status
 
                             setInitialLoadingState(networkState)

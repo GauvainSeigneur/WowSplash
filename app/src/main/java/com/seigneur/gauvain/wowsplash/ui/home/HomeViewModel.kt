@@ -19,18 +19,18 @@ class HomeViewModel(private val mPhotoRepository: PhotoRepository) :
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val shotDataSourceFactory: PhotoDataSourceFactory by lazy {
+    private val photoDatasourceFactory: PhotoDataSourceFactory by lazy {
         PhotoDataSourceFactory(compositeDisposable, mPhotoRepository, null)
     }
 
     private var config: PagedList.Config? = null
 
     val networkState: LiveData<NetworkState>
-        get() =  Transformations.switchMap(shotDataSourceFactory.usersDataSourceLiveData)
+        get() =  Transformations.switchMap(photoDatasourceFactory.photoDataSourceLiveData)
         { it.networkState }
 
     val refreshState: LiveData<NetworkState>
-        get() = Transformations.switchMap(shotDataSourceFactory.usersDataSourceLiveData) {
+        get() = Transformations.switchMap(photoDatasourceFactory.photoDataSourceLiveData) {
             Timber.d("refresh called ")
             it.initialLoad
         }
@@ -43,26 +43,23 @@ class HomeViewModel(private val mPhotoRepository: PhotoRepository) :
                 .setInitialLoadSizeHint(pageSize)
                 .setEnablePlaceholders(false)
                 .build()
-            list = LivePagedListBuilder(shotDataSourceFactory, config!!).build()
+            list = LivePagedListBuilder(photoDatasourceFactory, config!!).build()
         }
 
     }
 
     fun retry() {
-        if (shotDataSourceFactory.usersDataSourceLiveData.value != null)
-            shotDataSourceFactory.usersDataSourceLiveData.value!!.retry()
+        if (photoDatasourceFactory.photoDataSourceLiveData.value != null)
+            photoDatasourceFactory.photoDataSourceLiveData.value!!.retry()
     }
 
     fun refresh() {
-        if (shotDataSourceFactory.usersDataSourceLiveData.value != null)
-            shotDataSourceFactory.usersDataSourceLiveData.value!!.invalidate()
+        if (photoDatasourceFactory.photoDataSourceLiveData.value != null)
+            photoDatasourceFactory.photoDataSourceLiveData.value!!.invalidate()
     }
 
     companion object {
-
         private val pageSize = 15
     }
-
-
 
 }

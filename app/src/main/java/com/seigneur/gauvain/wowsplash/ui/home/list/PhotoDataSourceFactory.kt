@@ -20,11 +20,11 @@ class PhotoDataSourceFactory(
     private val searchType :String?
 ) : DataSource.Factory<Long, Photo>() {
 
-    val usersDataSourceLiveData = MutableLiveData<PhotosDataSource>()
+    val photoDataSourceLiveData = MutableLiveData<PhotosDataSource>()
 
     override fun create(): DataSource<Long, Photo> {
         val shotsDataSource = PhotosDataSource(compositeDisposable, mPhotoRepository, searchType)
-        usersDataSourceLiveData.postValue(shotsDataSource)
+        photoDataSourceLiveData.postValue(shotsDataSource)
         return shotsDataSource
     }
 

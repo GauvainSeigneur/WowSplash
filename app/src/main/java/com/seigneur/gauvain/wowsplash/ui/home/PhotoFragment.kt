@@ -20,7 +20,7 @@ import timber.log.Timber
 
 class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
 
-    private val mHomeViewModel by viewModel<HomeViewModelTwo>()
+    private val mHomeViewModel by viewModel<HomeViewModel>()
     private lateinit var mGridLayoutManager:GridLayoutManager
 
     private val photoListAdapter: PhotoListAdapter by lazy {

@@ -18,15 +18,15 @@ class PhotoDataSourceFactory(
     private val compositeDisposable: CompositeDisposable,
     private val mPhotoRepository: PhotoRepository,
     private val searchType :String?
-) : BaseListDataSourceFactory<Long, Photo>() {
+) : DataSource.Factory<Long, Photo>() {
 
-    val photoDataSource = PhotosDataSource(
-        compositeDisposable,
-        mPhotoRepository,
-        searchType
-    )
+    val usersDataSourceLiveData = MutableLiveData<PhotosDataSource>()
 
-    override val dataSource: BaseListDataSource<Long, Photo>
-        get() = photoDataSource
+    override fun create(): DataSource<Long, Photo> {
+        val shotsDataSource = PhotosDataSource(compositeDisposable, mPhotoRepository, searchType)
+        usersDataSourceLiveData.postValue(shotsDataSource)
+        return shotsDataSource
+    }
 
 }
+

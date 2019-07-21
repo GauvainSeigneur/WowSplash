@@ -12,7 +12,7 @@ import timber.log.Timber
 abstract class BasePagedListViewModel<Key, Value>(val pageSize:Int) : BaseViewModel() {
 
     var list: LiveData<PagedList<Value>>? =null
-    private var config: PagedList.Config? = null
+    var config: PagedList.Config? = null
 
     abstract val dataSourceFactory: BaseListDataSourceFactory<Key, Value>
 
@@ -26,16 +26,7 @@ abstract class BasePagedListViewModel<Key, Value>(val pageSize:Int) : BaseViewMo
             it.initialLoad
         }
 
-    fun init() {
-        if (config == null && list == null) {
-            config = PagedList.Config.Builder()
-                .setPageSize(pageSize)
-                .setInitialLoadSizeHint(pageSize)
-                .setEnablePlaceholders(false)
-                .build()
-            list = LivePagedListBuilder(dataSourceFactory, config!!).build()
-        }
-    }
+    abstract fun init()
 
     fun retry() {
         dataSourceFactory.factoryListLiveData.value?.retry()

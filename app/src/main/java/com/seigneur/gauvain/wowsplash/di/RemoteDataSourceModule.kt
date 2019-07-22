@@ -1,6 +1,5 @@
 package com.seigneur.gauvain.wowsplash.di
 
-import com.seigneur.gauvain.wowsplash.data.api.HeaderApiVersionInterceptor
 import com.seigneur.gauvain.wowsplash.data.api.ClientIdInterceptor
 import com.seigneur.gauvain.wowsplash.data.api.HeaderAccessTokenInterceptor
 import com.seigneur.gauvain.wowsplash.di.DatasourceProperties.SERVER_URL
@@ -29,15 +28,12 @@ val remoteDataSourceModule = module {
         OkHttpClient.Builder()
             .addInterceptor(get())
             .addNetworkInterceptor(ClientIdInterceptor())
-            //.addNetworkInterceptor(HeaderApiVersionInterceptor())
             .addNetworkInterceptor(HeaderAccessTokenInterceptor())
             .connectTimeout(30L, TimeUnit.SECONDS)
             .readTimeout(30L, TimeUnit.SECONDS)
             .build()
     }
 
-    //todo - tests if the header get the right token and use factory instead of single if we need!
-    //todo - its because we manage if we havce a token in HeaderAccessTokenInterceptor, so when we have this, a new instance must be called!
     single {
         Retrofit.Builder()
             .client(get())

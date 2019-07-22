@@ -11,6 +11,7 @@ class HeaderAccessTokenInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val builder = chain.request().newBuilder()
+        builder.addHeader("Accept-Version", "v1")
         val tokenValue = AuthRepository.accessToken
         if (!tokenValue.isNullOrEmpty()) {
             Timber.d("is not empty ${AuthRepository.accessToken}")

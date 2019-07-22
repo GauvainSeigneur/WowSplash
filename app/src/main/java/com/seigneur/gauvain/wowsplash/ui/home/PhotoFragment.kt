@@ -20,7 +20,7 @@ import timber.log.Timber
 
 class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
 
-    private val mHomeViewModel by viewModel<HomeViewModel>()
+    private val mHomeViewModel by viewModel<PhotoViewModel>()
     private lateinit var mGridLayoutManager:GridLayoutManager
 
     private val photoListAdapter: PhotoListAdapter by lazy {
@@ -32,8 +32,7 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //mHomeViewModel.searchType = photoListType
-        mHomeViewModel.init()
+        mHomeViewModel.init(photoListType)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,7 +68,8 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
     }
 
     override fun onShotClicked(position: Int) {
-
+        val photoItem = photoListAdapter.getPhotoFromPos(position)
+        mHomeViewModel.likePhoto(photoItem?.id)
     }
 
     /**

@@ -19,7 +19,7 @@ class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback,
         (holder as PhotoViewHolder).bindTo(getItem(position)!!)
     }
 
-    fun getShotClicked(pos: Int): Photo? {
+    fun getPhotoFromPos(pos: Int): Photo? {
         return getItem(pos)
     }
 

@@ -15,27 +15,35 @@ class LogInViewModel(private val mAuthRepository: AuthRepository) : BaseViewMode
 
     fun checkAuthUrl(url: Uri) {
         if (url.toString().startsWith(AUTH_REDIRECT_URI)) {
-            val keyCode  = url.getQueryParameter("code")
-            mDisposables.add(
-                mAuthRepository.getAccessToken(keyCode)
-                    .subscribeBy(
-                        onSuccess = {
-                            Timber.d("accesstoken rceived $it")
-                            mLoginResult.value = LoginResult.LogInSuccess(it.access_token)
-                            //todo - save in DB !
-                        },
-                        onError = {
-                            Timber.d("onError $it")
-                            mLoginResult.value = LoginResult.LogInError(it)
-                            //mListResult.value = ListResult(inError = it)
+            val keyCode = url.getQueryParameter("code")
+            var accessTokenValue:String?=null
+            mDisposables.add(mAuthRepository.getAccessTokenFromAPi(keyCode)
+                .flatMap {
+                    accessTokenValue = it.access_token
+                    Timber.d("lol it works $accessTokenValue")
+                    return@flatMap mAuthRepository.storeAccessToken(it)
+                }
+                .map {
+                    AuthRepository.accessToken = accessTokenValue
+                }
+                .subscribeBy(
+                    onSuccess = {
+                        accessTokenValue?.let {
+                            mLoginResult.value = LoginResult.LogInSuccess(accessTokenValue)
+                            Timber.d("accesstoken rceived ${it.toString()}")
                         }
-                    )
+                    },
+                    onError = {
+                        Timber.d("onError $it")
+                        mLoginResult.value = LoginResult.LogInError(it)
+                    }
+                )
             )
         }
     }
 
     sealed class LoginResult {
-        data class LogInSuccess(val accessToken: String) : LoginResult()
+        data class LogInSuccess(val accessToken: String?) : LoginResult()
         data class LogInError(val inError: Throwable? = null) : LoginResult()
     }
 

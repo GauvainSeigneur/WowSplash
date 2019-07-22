@@ -1,6 +1,7 @@
 package com.seigneur.gauvain.wowsplash
 
 import android.app.Application
+import com.seigneur.gauvain.wowsplash.di.databaseModule
 import com.seigneur.gauvain.wowsplash.di.remoteDataSourceModule
 import com.seigneur.gauvain.wowsplash.di.repositoryModule
 import com.seigneur.gauvain.wowsplash.di.viewModelModule
@@ -18,7 +19,7 @@ class WowSplashApp : Application(), KoinComponent {
             // Android context
             androidContext(this@WowSplashApp)
             // modules
-            modules(listOf(remoteDataSourceModule, repositoryModule, viewModelModule))
+            modules(listOf(remoteDataSourceModule, repositoryModule, viewModelModule, databaseModule))
         }
         Timber.plant(Timber.DebugTree())
     }

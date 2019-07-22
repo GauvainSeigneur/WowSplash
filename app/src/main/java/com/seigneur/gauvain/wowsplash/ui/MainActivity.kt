@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 when (position) {
                     0 -> return HomeFragment()
                     1 -> return CollectionFragment()
-                    2 -> return SearchFragment()
+                    2 -> return LogInFragment()
                     3 -> return SearchFragment()
                     4 -> return SearchFragment()
                 }

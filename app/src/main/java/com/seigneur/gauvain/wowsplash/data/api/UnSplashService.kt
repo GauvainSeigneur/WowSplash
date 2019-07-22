@@ -6,10 +6,7 @@ import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.model.SearchResult
 import io.reactivex.Flowable
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.Url
+import retrofit2.http.*
 
 interface UnSplashService {
 
@@ -55,4 +52,11 @@ interface UnSplashService {
         @Query("grant_type") grantType: String
     ): Single<AccessToken>
 
+
+    /**
+     * Like a photo
+     */
+    @POST("photos/{id}/like")
+    fun likePhoto(
+        @Path("id") id:String): Single<Photo>
 }

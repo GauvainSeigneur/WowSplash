@@ -1,7 +1,8 @@
 package com.seigneur.gauvain.wowsplash.di
 
-import com.seigneur.gauvain.wowsplash.data.api.HeaderInterceptor
+import com.seigneur.gauvain.wowsplash.data.api.HeaderApiVersionInterceptor
 import com.seigneur.gauvain.wowsplash.data.api.ClientIdInterceptor
+import com.seigneur.gauvain.wowsplash.data.api.HeaderAccessTokenInterceptor
 import com.seigneur.gauvain.wowsplash.di.DatasourceProperties.SERVER_URL
 import com.seigneur.gauvain.wowsplash.data.api.UnSplashService
 import okhttp3.Interceptor
@@ -21,19 +22,22 @@ val remoteDataSourceModule = module {
             Timber.tag("UNSPLASH API").d(it)
         }
         )
-            .setLevel(HttpLoggingInterceptor.Level.BODY)
+            .setLevel(HttpLoggingInterceptor.Level.HEADERS)
     }
 
     factory {
         OkHttpClient.Builder()
             .addInterceptor(get())
             .addNetworkInterceptor(ClientIdInterceptor())
-            .addNetworkInterceptor(HeaderInterceptor())
+            //.addNetworkInterceptor(HeaderApiVersionInterceptor())
+            .addNetworkInterceptor(HeaderAccessTokenInterceptor())
             .connectTimeout(30L, TimeUnit.SECONDS)
             .readTimeout(30L, TimeUnit.SECONDS)
             .build()
     }
 
+    //todo - tests if the header get the right token and use factory instead of single if we need!
+    //todo - its because we manage if we havce a token in HeaderAccessTokenInterceptor, so when we have this, a new instance must be called!
     single {
         Retrofit.Builder()
             .client(get())

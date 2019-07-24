@@ -1,6 +1,9 @@
 package com.seigneur.gauvain.wowsplash.ui.search
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.interactor.SearchInteractor
 import com.seigneur.gauvain.wowsplash.business.result.SearchResult
 import com.seigneur.gauvain.wowsplash.data.model.Photo
@@ -13,6 +16,7 @@ import timber.log.Timber
 
 class SearchViewModel(private val searchRepository: SearchRepository) : BaseViewModel(),
     SearchInteractor.SearchCallback {
+
 
     val searchResult = MutableLiveData<SearchResult>()
 

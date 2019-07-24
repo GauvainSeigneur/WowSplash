@@ -3,7 +3,9 @@ package com.seigneur.gauvain.wowsplash.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.R
+import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,7 +23,7 @@ class SearchFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         //listen LiveData
         yoloButton.setOnClickListener {
-            mSearchViewModel.searchPhoto()
+            //mSearchViewModel.searchPhoto()
         }
     }
 

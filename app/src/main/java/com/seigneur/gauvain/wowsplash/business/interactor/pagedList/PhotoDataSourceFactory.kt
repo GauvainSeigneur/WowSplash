@@ -15,7 +15,9 @@ import io.reactivex.disposables.CompositeDisposable
 class PhotoDataSourceFactory(
     private val compositeDisposable: CompositeDisposable,
     private val mPhotoRepository: PhotoRepository,
-    private val searchType :String?
+    private val listType: Int,
+    private val orderBy: String?,
+    private val query: String?
 ) : DataSource.Factory<Long, Photo>() {
 
     val photoDataSourceLiveData = MutableLiveData<PhotosDataSource>()
@@ -24,7 +26,9 @@ class PhotoDataSourceFactory(
         val shotsDataSource = PhotosDataSource(
             compositeDisposable,
             mPhotoRepository,
-            searchType
+            listType,
+            orderBy,
+            query
         )
         photoDataSourceLiveData.postValue(shotsDataSource)
         return shotsDataSource

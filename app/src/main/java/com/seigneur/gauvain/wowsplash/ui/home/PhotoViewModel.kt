@@ -9,6 +9,7 @@ import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
 import com.seigneur.gauvain.wowsplash.business.interactor.pagedList.PhotoDataSourceFactory
+import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
@@ -16,14 +17,16 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
     BaseViewModel() {
 
     var list: LiveData<PagedList<Photo>>? = null
-    private var photoListType: String? = null
+    private var orderBy: String? = null
 
     private var config: PagedList.Config? = null
     private val photoDataSourceFactory: PhotoDataSourceFactory by lazy {
         PhotoDataSourceFactory(
             mDisposables,
             mPhotoRepository,
-            photoListType
+            PHOTO_LIST_HOME,
+            orderBy,
+            null
         )
     }
 
@@ -37,8 +40,8 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
             it.initialLoad
         }
 
-    fun init(photoType: String?) {
-        photoListType = photoType
+    fun init(inOrderBy: String?) {
+        orderBy = inOrderBy
         config.let {
             config = PagedList.Config.Builder()
                 .setPageSize(pageSize)

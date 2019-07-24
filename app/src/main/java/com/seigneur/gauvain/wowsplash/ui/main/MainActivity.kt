@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         mFragmentStateManager = object : FragmentStateManager(mfragmentContainer, supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 when (position) {
-                    0 -> return SearchFragment()//HomeFragment()
+                    0 -> return HomeFragment()
                     1 -> return SearchFragment()//CollectionFragment()
                     2 -> return PostPhotoFragment()
                     3 -> return SearchFragment()

@@ -36,4 +36,10 @@ class PhotoRepository(private val service: UnSplashService)  {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    /*fun searchPhotos(page: Long, perPage: Int, query:String): Single<Photo> {
+        return service.searchPhoto(query, page, perPage)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }*/
+
 }

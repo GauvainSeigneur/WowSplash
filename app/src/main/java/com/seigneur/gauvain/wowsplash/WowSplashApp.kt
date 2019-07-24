@@ -1,10 +1,7 @@
 package com.seigneur.gauvain.wowsplash
 
 import android.app.Application
-import com.seigneur.gauvain.wowsplash.di.databaseModule
-import com.seigneur.gauvain.wowsplash.di.remoteDataSourceModule
-import com.seigneur.gauvain.wowsplash.di.repositoryModule
-import com.seigneur.gauvain.wowsplash.di.viewModelModule
+import com.seigneur.gauvain.wowsplash.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin

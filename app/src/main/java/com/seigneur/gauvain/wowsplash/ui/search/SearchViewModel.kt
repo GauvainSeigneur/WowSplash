@@ -1,38 +1,44 @@
 package com.seigneur.gauvain.wowsplash.ui.search
 
 import androidx.lifecycle.MutableLiveData
-import com.seigneur.gauvain.wowsplash.data.model.SearchResult
-import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
+import com.seigneur.gauvain.wowsplash.business.interactor.SearchInteractor
+import com.seigneur.gauvain.wowsplash.business.result.SearchResult
+import com.seigneur.gauvain.wowsplash.data.model.Photo
+import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.SearchResponse
+import com.seigneur.gauvain.wowsplash.data.model.user.User
+import com.seigneur.gauvain.wowsplash.data.repository.SearchRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
-import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
-class SearchViewModel(private val mPhotoRepository: PhotoRepository) : BaseViewModel() {
+class SearchViewModel(private val searchRepository: SearchRepository) : BaseViewModel(),
+    SearchInteractor.SearchCallback {
 
-    var mSearchResult = MutableLiveData<PhotoSearchResult>()
-    /**
-     * Get photos
-     */
-    fun searchPhotos(query:String) {
-        mDisposables.add(mPhotoRepository.searchPhotos(query)
-            .subscribeBy(
-                onSuccess = {
-                    Timber.d("search onNext $it")
-                    mSearchResult.value = PhotoSearchResult.SearchSuccess(it)
-                    //mListResult.value = ListResult(inList = it)
-                },
-                onError = {
-                    Timber.d("search onError $it")
-                    mSearchResult.value = PhotoSearchResult.SearchError(it)
-                    //mListResult.value = ListResult(inError = it)
-                }
-            )
-        )
+    val searchResult = MutableLiveData<SearchResult>()
+
+    val searchInteractor by lazy {
+        SearchInteractor(searchRepository, mDisposables, this)
     }
 
-    sealed class PhotoSearchResult {
-        data class SearchSuccess(val result: SearchResult? = null) : PhotoSearchResult()
-        data class SearchError(val inError: Throwable? = null) : PhotoSearchResult()
+    override fun onSearchPhotoSuccess(searchResponse: SearchResponse<Photo>) {
+        searchResult.value = SearchResult.searchPhoto(searchResponse)
+        Timber.d("photos founded $searchResponse")
+    }
+
+    override fun onSearchCollectionSuccess(searchResponse: SearchResponse<PhotoCollection>) {
+
+    }
+
+    override fun onSearchUserSuccess(searchResponse: SearchResponse<User>) {
+
+    }
+
+    override fun onError(throwable: Throwable) {
+
+    }
+
+    fun searchPhoto() {
+        searchInteractor.searchPhotos("yolo")
     }
 
 }

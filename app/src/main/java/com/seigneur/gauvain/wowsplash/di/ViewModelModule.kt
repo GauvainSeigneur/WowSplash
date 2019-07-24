@@ -36,7 +36,7 @@ import org.koin.dsl.module
         }
 
         viewModel {
-            UserViewModel()
+            UserViewModel(get())
         }
 
    }

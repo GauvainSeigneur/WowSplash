@@ -44,17 +44,7 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
-
-    private fun initAdapter() {
-        if (photoList.layoutManager==null && photoList.adapter==null) {
-            mGridLayoutManager = GridLayoutManager(context, 1)
-            photoList.layoutManager =  GridLayoutManager(context, 1)
-            photoList.adapter = photoListAdapter
-        }
-
+    override fun subscribeToLiveData() {
         mHomeViewModel.list?.observe(
             viewLifecycleOwner, Observer<PagedList<Photo>> {
                 photoListAdapter.submitList(it)
@@ -64,6 +54,14 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
         mHomeViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
             photoListAdapter.setNetworkState(it!!)
         })
+    }
+
+    private fun initAdapter() {
+        if (photoList.layoutManager==null && photoList.adapter==null) {
+            mGridLayoutManager = GridLayoutManager(context, 1)
+            photoList.layoutManager =  GridLayoutManager(context, 1)
+            photoList.adapter = photoListAdapter
+        }
 
     }
 

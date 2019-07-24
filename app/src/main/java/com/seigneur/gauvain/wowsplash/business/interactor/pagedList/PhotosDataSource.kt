@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.home.list
+package com.seigneur.gauvain.wowsplash.business.interactor.pagedList
 
 
 import com.seigneur.gauvain.wowsplash.data.model.Photo

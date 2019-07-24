@@ -1,5 +1,6 @@
 package com.seigneur.gauvain.wowsplash.ui.user
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.seigneur.gauvain.wowsplash.R
@@ -10,7 +11,17 @@ class UserFragment : BaseFragment() {
 
     private val mUserViewModel by viewModel<UserViewModel>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
+
     override fun onCreateView(inRootView: View, inSavedInstanceState: Bundle?) {
+        mUserViewModel.getMe()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

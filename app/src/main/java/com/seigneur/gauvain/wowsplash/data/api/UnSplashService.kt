@@ -1,9 +1,7 @@
 package com.seigneur.gauvain.wowsplash.data.api
 
-import com.seigneur.gauvain.wowsplash.data.model.AccessToken
-import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
-import com.seigneur.gauvain.wowsplash.data.model.SearchResult
+import com.seigneur.gauvain.wowsplash.data.model.*
+import com.seigneur.gauvain.wowsplash.data.model.user.User
 import io.reactivex.Flowable
 import io.reactivex.Single
 import retrofit2.http.*
@@ -26,6 +24,13 @@ interface UnSplashService {
                 @Query("order_by") value: String?): Flowable<List<Photo>>
 
     /**
+     * Like a photo
+     */
+    @POST("photos/{id}/like")
+    fun likePhoto(
+        @Path("id") id:String): Single<Photo>
+
+    /**
      * Collections end point
      */
     @GET("collections")
@@ -36,12 +41,10 @@ interface UnSplashService {
     fun featuredCollections( @Query("page") page: Long,
                      @Query("per_page") pagePage: Int): Flowable<List<PhotoCollection>>
 
-    /**
-     * Search
-     */
-    @GET("search/photos")
-    fun search(@Query("query") query: String?): Single<SearchResult>
 
+    /**
+     * Oauth2
+     */
     @POST()
     fun getAccessToken(
         @Url url:String,
@@ -54,9 +57,25 @@ interface UnSplashService {
 
 
     /**
-     * Like a photo
+     * User
      */
-    @POST("photos/{id}/like")
-    fun likePhoto(
-        @Path("id") id:String): Single<Photo>
+    @GET("me")
+    fun getMe(): Single<User>
+
+    /**
+     * Search
+     */
+    @GET("search/photos")
+    fun searchPhoto(@Query("query") query: String?): Single<SearchResponse<Photo>>
+
+    @GET("search/photos")
+    fun searchPhoto(@Query("query") query: String?,
+                    @Query("page") page: Long,
+                    @Query("per_page") pagePage: Int): Single<SearchResponse<Photo>>
+
+    @GET("search/collections")
+    fun searchCollection(@Query("query") query: String?): Single<SearchResponse<PhotoCollection>>
+
+    @GET("search/users")
+    fun searchUser(@Query("query") query: String?): Single<SearchResponse<User>>
 }

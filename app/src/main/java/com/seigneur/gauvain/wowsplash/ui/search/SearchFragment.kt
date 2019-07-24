@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -19,6 +20,9 @@ class SearchFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //listen LiveData
+        yoloButton.setOnClickListener {
+            mSearchViewModel.searchPhoto()
+        }
     }
 
     override val fragmentLayout: Int

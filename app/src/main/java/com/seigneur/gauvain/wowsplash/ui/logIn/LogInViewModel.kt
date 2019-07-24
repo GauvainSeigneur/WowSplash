@@ -2,49 +2,30 @@ package com.seigneur.gauvain.wowsplash.ui.logIn
 
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
-import com.seigneur.gauvain.wowsplash.data.api.AUTH_REDIRECT_URI
+import com.seigneur.gauvain.wowsplash.business.interactor.LogInInteractor
+import com.seigneur.gauvain.wowsplash.business.result.LogInResult
 import com.seigneur.gauvain.wowsplash.data.repository.AuthRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
-import io.reactivex.rxkotlin.subscribeBy
-import timber.log.Timber
 
-class LogInViewModel(private val mAuthRepository: AuthRepository) : BaseViewModel() {
+class LogInViewModel(private val mAuthRepository: AuthRepository) : BaseViewModel(), LogInInteractor.LogInCallback {
 
-    var mLoginResult = MutableLiveData<LoginResult>()
+    var mLoginResult = MutableLiveData<LogInResult>()
     var mWebProgressValue = MutableLiveData<Int>()
 
-    fun checkAuthUrl(url: Uri) {
-        if (url.toString().startsWith(AUTH_REDIRECT_URI)) {
-            val keyCode = url.getQueryParameter("code")
-            var accessTokenValue:String?=null
-            mDisposables.add(mAuthRepository.getAccessTokenFromAPi(keyCode)
-                .flatMap {
-                    accessTokenValue = it.access_token
-                    Timber.d("lol it works $accessTokenValue")
-                    return@flatMap mAuthRepository.storeAccessToken(it)
-                }
-                .map {
-                    AuthRepository.accessToken = accessTokenValue
-                }
-                .subscribeBy(
-                    onSuccess = {
-                        accessTokenValue?.let {
-                            mLoginResult.value = LoginResult.LogInSuccess(accessTokenValue)
-                            Timber.d("accesstoken rceived ${it.toString()}")
-                        }
-                    },
-                    onError = {
-                        Timber.d("onError $it")
-                        mLoginResult.value = LoginResult.LogInError(it)
-                    }
-                )
-            )
-        }
+    val loginInteractor by lazy {
+        LogInInteractor(mAuthRepository, mDisposables, this)
     }
 
-    sealed class LoginResult {
-        data class LogInSuccess(val accessToken: String?) : LoginResult()
-        data class LogInError(val inError: Throwable? = null) : LoginResult()
+    override fun onAuthFailed(throwable: Throwable) {
+        mLoginResult.value = LogInResult.LogInError(throwable)
+    }
+
+    override fun onAuthSuccess(accessToken: String) {
+        mLoginResult.value = LogInResult.LogInSuccess(accessToken)
+    }
+
+    fun checkAuthUrl(url: Uri) {
+        loginInteractor.checkAuthUrl(url)
     }
 
 }

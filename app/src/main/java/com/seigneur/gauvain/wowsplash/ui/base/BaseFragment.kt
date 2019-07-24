@@ -52,7 +52,7 @@ abstract class BaseFragment :Fragment() {
     }
 
     /**
-     * To be overriden
+     * To be overridden
      */
     open fun subscribeToLiveData(){}
 

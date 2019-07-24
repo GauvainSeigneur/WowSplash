@@ -8,8 +8,7 @@ import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
-import com.seigneur.gauvain.wowsplash.ui.home.list.PhotoDataSourceFactory
-import io.reactivex.disposables.CompositeDisposable
+import com.seigneur.gauvain.wowsplash.business.interactor.pagedList.PhotoDataSourceFactory
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
@@ -21,7 +20,11 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
 
     private var config: PagedList.Config? = null
     private val photoDataSourceFactory: PhotoDataSourceFactory by lazy {
-        PhotoDataSourceFactory(mDisposables, mPhotoRepository, photoListType)
+        PhotoDataSourceFactory(
+            mDisposables,
+            mPhotoRepository,
+            photoListType
+        )
     }
 
     val networkState: LiveData<NetworkState>

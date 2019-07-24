@@ -1,7 +1,7 @@
 package com.seigneur.gauvain.wowsplash.di
 
 import androidx.room.Room
-import com.seigneur.gauvain.wowsplash.data.WowSplashDataBase
+import com.seigneur.gauvain.wowsplash.data.local.WowSplashDataBase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

@@ -6,6 +6,7 @@ import android.view.View
 import android.webkit.*
 import androidx.lifecycle.Observer
 import com.seigneur.gauvain.wowsplash.R
+import com.seigneur.gauvain.wowsplash.business.result.LogInResult
 import com.seigneur.gauvain.wowsplash.data.api.AUTH_INITIAL_URI
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_log_in.progressBar
@@ -28,6 +29,7 @@ class LogInFragment : BaseFragment() {
                 mLogInViewModel.checkAuthUrl(webRessource.url)
                 return super.shouldOverrideUrlLoading(view, webRessource)
             }
+
             override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
                 mLogInViewModel.mWebProgressValue.value = 0
             }
@@ -44,9 +46,20 @@ class LogInFragment : BaseFragment() {
         mLogInViewModel.mWebProgressValue.observe(viewLifecycleOwner,
             Observer {
                 progressBar.progress = it
-                if (it==100)
+                if (it == 100)
                     progressBar.visibility = View.GONE
             })
+
+        mLogInViewModel.mLoginResult.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is LogInResult.LogInSuccess -> {
+                    //todo - close fragment or activity
+                }
+                is LogInResult.LogInError -> {
+                    //todo - close fragment or activity
+                }
+            }
+        })
 
     }
 

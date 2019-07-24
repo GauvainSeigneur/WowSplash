@@ -53,10 +53,9 @@ abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: C
      * Retry completable
      */
     fun retry() {
-        val vRetryComp = retryCompletable
-        vRetryComp?.let {
+        retryCompletable?.let {
             compositeDisposable.add(
-                vRetryComp
+                it
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ }, { throwable -> Timber.e(throwable.message) })

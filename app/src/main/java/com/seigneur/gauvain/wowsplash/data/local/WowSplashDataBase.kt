@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.data
+package com.seigneur.gauvain.wowsplash.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

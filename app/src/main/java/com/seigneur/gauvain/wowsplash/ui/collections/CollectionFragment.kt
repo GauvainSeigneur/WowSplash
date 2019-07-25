@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
+import com.seigneur.gauvain.wowsplash.ui.home.PhotoFragment
 import kotlinx.android.synthetic.main.fragment_tab_list.*
 
 class CollectionFragment : BaseFragment() {

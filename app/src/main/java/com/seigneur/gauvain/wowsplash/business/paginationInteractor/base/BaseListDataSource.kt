@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.base.pagingList.dataSource
+package com.seigneur.gauvain.wowsplash.business.paginationInteractor.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
@@ -11,7 +11,7 @@ import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: CompositeDisposable) :
+abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable: CompositeDisposable) :
     PageKeyedDataSource<Key, Value>() {
 
     val initialLoad = MutableLiveData<NetworkState>()
@@ -29,10 +29,24 @@ abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: C
      */
     private var retryCompletable: Completable? = null
 
+    /**
+     * Define request for initial and after request
+     */
+    abstract fun loadInitialRequest(keyPage: Key, pageSize:Int) : Flowable<T>
+    abstract fun loadAfterRequest(keyPage:Key, pageSize:Int) : Flowable<T>
+    /**
+     * Define callback result from request (if you have a request which an object a value different of @Value
+     * This method allows you to override the result and return the right object
+     */
+    abstract fun handleCallback(expectedResponse:T): List<Value>
 
     /**
-     * Must call onSuper in child class
+     * Define page for each request
      */
+    abstract val firstPageKey : Key
+    abstract val firstNextPageKey : Key
+    abstract fun nextKey(currentKey: Key) : Key
+
     override fun loadInitial(params: LoadInitialParams<Key>, callback: LoadInitialCallback<Key, Value>) {
         Timber.d("loadInitial called")
         // update network states.
@@ -40,6 +54,7 @@ abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: C
         // very first list is loaded.
         networkState.postValue(NetworkState.LOADING)
         initialLoad.postValue(NetworkState.LOADING)
+        handleFirstLoad(params, callback)
     }
 
     /**
@@ -48,7 +63,10 @@ abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: C
     override fun loadAfter(params: LoadParams<Key>, callback: LoadCallback<Key, Value>) {
         Timber.d("loadAfter called")
         networkState.postValue(NetworkState.LOADING)
+        handleLoadAfter(params, callback)
     }
+
+    override fun loadBefore(params: LoadParams<Key>, callback: LoadCallback<Key, Value>) {}
 
     /**
      * Retry completable
@@ -65,7 +83,7 @@ abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: C
 
     }
 
-    fun setRetry(action: Action?) {
+    private fun setRetry(action: Action?) {
         if (action == null) {
             this.retryCompletable = null
         } else {
@@ -73,21 +91,19 @@ abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: C
         }
     }
 
-
-    fun handleFirstLoad(
-        request: Flowable<List<Value>>,
+    private fun handleFirstLoad(
         params: LoadInitialParams<Key>,
-        callback: LoadInitialCallback<Key, Value>,
-        nextPageKey: Key
+        callback: LoadInitialCallback<Key, Value>
     ) {
-        compositeDisposable.add(request
+        compositeDisposable.add(
+            loadInitialRequest(firstPageKey,params.requestedLoadSize)
             .subscribe(
                 {
                     // clear retry since last request succeeded
                     setRetry(null)
                     networkState.postValue(NetworkState.LOADED)
                     initialLoad.postValue(NetworkState.LOADED)
-                    callback.onResult(it, null, nextPageKey)
+                    callback.onResult(handleCallback(it), null, firstNextPageKey)
                 },
                 { throwable ->
                     // keep a Completable for future retry
@@ -102,21 +118,22 @@ abstract class BaseListDataSource<Key, Value>(private val compositeDisposable: C
 
     }
 
-    fun handleLoadAfter(
-        request: Flowable<List<Value>>,
+    private fun handleLoadAfter(
         params: LoadParams<Key>,
-        callback: LoadCallback<Key, Value>,
-        nextPageKey: Key
+        callback: LoadCallback<Key, Value>
     ) {
+
+        Timber.d("handleLoadAfter called")
         compositeDisposable.add(
-            request
+            loadAfterRequest(params.key, params.requestedLoadSize)
                 .subscribe(
-                    { nextList ->
-                        val nextKey = nextPageKey//params.key + 1
+                    {
+                        //val nextKey = nextKey//(params.key) as Long + 1
                         // clear retry since last request succeeded
                         setRetry(null)
                         networkState.postValue(NetworkState.LOADED)
-                        callback.onResult(nextList, nextKey)
+                        callback.onResult(handleCallback(it), nextKey(params.key))
+                        Timber.d("handleLoadAfter second next key ${nextKey(params.key)}")
                     },
                     { throwable ->
                         // keep a Completable for future retry

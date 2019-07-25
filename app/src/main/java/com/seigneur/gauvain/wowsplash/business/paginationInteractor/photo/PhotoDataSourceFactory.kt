@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.business.interactor.pagedList
+package com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource

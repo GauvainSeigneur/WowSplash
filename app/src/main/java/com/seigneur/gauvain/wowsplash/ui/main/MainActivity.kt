@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             override fun getItem(position: Int): Fragment {
                 when (position) {
                     0 -> return HomeFragment()
-                    1 -> return SearchFragment()//CollectionFragment()
+                    1 -> return CollectionFragment()//CollectionFragment()
                     2 -> return PostPhotoFragment()
                     3 -> return SearchFragment()
                     4 -> return UserFragment()

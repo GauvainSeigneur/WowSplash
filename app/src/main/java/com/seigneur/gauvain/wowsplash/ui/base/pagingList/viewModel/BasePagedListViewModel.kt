@@ -2,19 +2,18 @@ package com.seigneur.gauvain.wowsplash.ui.base.pagingList.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
-import com.seigneur.gauvain.wowsplash.ui.base.pagingList.dataSource.BaseListDataSourceFactory
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSourceFactory
 import timber.log.Timber
 
-abstract class BasePagedListViewModel<Key, Value>(val pageSize:Int) : BaseViewModel() {
+abstract class BasePagedListViewModel<T, Key, Value>(val pageSize:Int) : BaseViewModel() {
 
     var list: LiveData<PagedList<Value>>? =null
     var config: PagedList.Config? = null
 
-    abstract val dataSourceFactory: BaseListDataSourceFactory<Key, Value>
+    abstract val dataSourceFactory: BaseListDataSourceFactory<T, Key, Value>
 
     val networkState: LiveData<NetworkState>
         get() =  Transformations.switchMap(dataSourceFactory.factoryListLiveData)

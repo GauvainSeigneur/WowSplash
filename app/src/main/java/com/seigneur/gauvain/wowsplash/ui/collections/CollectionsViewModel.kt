@@ -1,35 +1,68 @@
 package com.seigneur.gauvain.wowsplash.ui.collections
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.collection.CollectionDataSourceFactory
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
+import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
-import com.seigneur.gauvain.wowsplash.ui.base.pagingList.dataSource.BaseListDataSourceFactory
-import com.seigneur.gauvain.wowsplash.ui.base.pagingList.viewModel.BasePagedListViewModel
-import com.seigneur.gauvain.wowsplash.ui.collections.list.CollectionsDataSourceFactory
+import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
+import com.seigneur.gauvain.wowsplash.ui.home.PhotoViewModel
+import com.seigneur.gauvain.wowsplash.utils.COLLECTION_LIST_ALL
+import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
+import timber.log.Timber
 
 
 class CollectionsViewModel(private val mCollectionsRepository: CollectionsRepository) :
-    BasePagedListViewModel<Long, PhotoCollection>(15) {
+    BaseViewModel(){
 
-    var collectionType:String?=null
-
-    private val collectionsDataSourceFactory: CollectionsDataSourceFactory by lazy {
-        CollectionsDataSourceFactory(mDisposables, mCollectionsRepository,collectionType)
+    var list: LiveData<PagedList<PhotoCollection>>? = null
+    private var type: Int = COLLECTION_LIST_ALL
+    private var config: PagedList.Config? = null
+    private val photoDataSourceFactory: CollectionDataSourceFactory by lazy {
+        CollectionDataSourceFactory(
+            mDisposables,
+            mCollectionsRepository,
+            type
+        )
     }
 
-    override val dataSourceFactory: BaseListDataSourceFactory<Long, PhotoCollection>
-        get() = collectionsDataSourceFactory
+    val networkState: LiveData<NetworkState>
+        get() = Transformations.switchMap(photoDataSourceFactory.collectionDataSourceLiveData)
+        { it.networkState }
 
-    override fun init() {
-        if (config == null && list == null) {
+    val refreshState: LiveData<NetworkState>
+        get() = Transformations.switchMap(photoDataSourceFactory.collectionDataSourceLiveData) {
+            Timber.d("refresh called ")
+            it.initialLoad
+        }
+
+    fun init(inType: Int) {
+        type = inType
+        config.let {
             config = PagedList.Config.Builder()
-                .setPageSize(pageSize)
-                .setInitialLoadSizeHint(pageSize)
+                .setPageSize(15)
+                .setInitialLoadSizeHint(15)
                 .setEnablePlaceholders(false)
                 .build()
-            list = LivePagedListBuilder(dataSourceFactory, config!!).build()
+            list = LivePagedListBuilder(photoDataSourceFactory, config!!).build()
         }
     }
+
+    fun retry() {
+        if (photoDataSourceFactory.collectionDataSourceLiveData.value != null)
+            photoDataSourceFactory.collectionDataSourceLiveData.value!!.retry()
+    }
+
+    fun refresh() {
+        if (photoDataSourceFactory.collectionDataSourceLiveData.value != null)
+            photoDataSourceFactory.collectionDataSourceLiveData.value!!.invalidate()
+    }
+
 
 }

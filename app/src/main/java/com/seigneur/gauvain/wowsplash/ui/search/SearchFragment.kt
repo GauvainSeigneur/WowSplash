@@ -27,7 +27,7 @@ class SearchFragment : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mSearchViewModel.init("yolo")
+        //mSearchViewModel.init("yolo")
     }
 
     override fun onCreateView(inRootView: View, inSavedInstanceState: Bundle?) {
@@ -40,15 +40,7 @@ class SearchFragment : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
     }
 
     override fun subscribeToLiveData() {
-        mSearchViewModel.list?.observe(
-            viewLifecycleOwner, Observer<PagedList<Photo>> {
-                photoListAdapter.submitList(it)
 
-            })
-
-        mSearchViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
-            photoListAdapter.setNetworkState(it!!)
-        })
     }
 
     override val fragmentLayout: Int

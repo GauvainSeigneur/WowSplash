@@ -18,7 +18,18 @@ import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
+class PhotoFragment() : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
+
+    companion object {
+        private val LIST_ARG = "Photo_list_arg"
+        fun newInstance(photoListType: String?): PhotoFragment {
+            val args: Bundle = Bundle()
+            args.putSerializable(LIST_ARG, photoListType)
+            val fragment = PhotoFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     private val mHomeViewModel by viewModel<PhotoViewModel>()
     private lateinit var mGridLayoutManager:GridLayoutManager
@@ -32,8 +43,13 @@ class PhotoFragment(val photoListType:String?) : BaseFragment(), PhotoItemCallba
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mHomeViewModel.init(photoListType)
+        val bundle = this.arguments
+        if (bundle != null) {
+            val string = bundle.getString(LIST_ARG)
+            mHomeViewModel.init(string)
+        }
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

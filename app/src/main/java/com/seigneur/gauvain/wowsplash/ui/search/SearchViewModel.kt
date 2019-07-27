@@ -10,9 +10,12 @@ import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
 
 class SearchViewModel(private val searchRepository: SearchRepository) : BaseViewModel() {
 
+    companion object {
+        const val PAGE_SIZE=15
+    }
+
     var list: LiveData<PagedList<Photo>>? = null
     fun search(query: String) {
-
 
         val f = SearchPhotoDataSourceFactory(
             mDisposables,
@@ -21,10 +24,12 @@ class SearchViewModel(private val searchRepository: SearchRepository) : BaseView
         )
 
         val conf = PagedList.Config.Builder()
-            .setPageSize(15)
-            .setInitialLoadSizeHint(15)
+            .setPageSize(PAGE_SIZE)
+            .setInitialLoadSizeHint(PAGE_SIZE)
             .setEnablePlaceholders(false)
             .build()
         list = LivePagedListBuilder(f, conf).build()
     }
+
+
 }

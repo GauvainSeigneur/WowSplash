@@ -3,6 +3,7 @@ package com.seigneur.gauvain.wowsplash.data.repository
 import com.seigneur.gauvain.wowsplash.data.local.WowSplashDataBase
 import com.seigneur.gauvain.wowsplash.data.api.*
 import com.seigneur.gauvain.wowsplash.data.model.AccessToken
+import com.seigneur.gauvain.wowsplash.data.model.SearchResponse
 import com.seigneur.gauvain.wowsplash.data.model.user.User
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -19,4 +20,9 @@ class UserRepository(private val service: UnSplashService,
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    fun searchUser(query:String, page:Long, perPage:Int): Single<SearchResponse<User>> {
+        return service.searchUser(query, page, perPage)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

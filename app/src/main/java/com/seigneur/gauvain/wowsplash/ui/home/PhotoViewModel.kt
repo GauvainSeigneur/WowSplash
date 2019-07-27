@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
-import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber

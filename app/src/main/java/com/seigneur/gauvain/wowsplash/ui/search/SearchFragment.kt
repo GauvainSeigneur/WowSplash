@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
+import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import com.seigneur.gauvain.wowsplash.ui.base.pagingList.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoItemCallback
@@ -31,7 +32,7 @@ class SearchFragment : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
     }
 
     override fun onCreateView(inRootView: View, inSavedInstanceState: Bundle?) {
-        //mSearchViewModel.searchPhotos("BasePagedListAdapter")
+        mSearchViewModel.search("yolo")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -40,6 +41,11 @@ class SearchFragment : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
     }
 
     override fun subscribeToLiveData() {
+        mSearchViewModel.list?.observe(
+            viewLifecycleOwner, Observer<PagedList<Photo>> {
+                photoListAdapter.submitList(it)
+
+            })
 
     }
 

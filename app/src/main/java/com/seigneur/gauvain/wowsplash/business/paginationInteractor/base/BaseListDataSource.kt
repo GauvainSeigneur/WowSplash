@@ -5,6 +5,7 @@ import androidx.paging.PageKeyedDataSource
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import io.reactivex.Completable
 import io.reactivex.Flowable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action

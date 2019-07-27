@@ -1,51 +1,30 @@
 package com.seigneur.gauvain.wowsplash.ui.search
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.seigneur.gauvain.wowsplash.business.interactor.SearchInteractor
-import com.seigneur.gauvain.wowsplash.business.result.SearchResult
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.photo.SearchPhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
-import com.seigneur.gauvain.wowsplash.data.model.SearchResponse
-import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
-import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.data.repository.SearchRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
-import timber.log.Timber
 
-class SearchViewModel(private val searchRepository: SearchRepository) : BaseViewModel(),
-    SearchInteractor.SearchCallback {
+class SearchViewModel(private val searchRepository: SearchRepository) : BaseViewModel() {
+
+    var list: LiveData<PagedList<Photo>>? = null
+    fun search(query: String) {
 
 
+        val f = SearchPhotoDataSourceFactory(
+            mDisposables,
+            searchRepository,
+            query
+        )
 
-    val searchResult = MutableLiveData<SearchResult>()
-
-    val searchInteractor by lazy {
-        SearchInteractor(searchRepository, mDisposables, this)
+        val conf = PagedList.Config.Builder()
+            .setPageSize(15)
+            .setInitialLoadSizeHint(15)
+            .setEnablePlaceholders(false)
+            .build()
+        list = LivePagedListBuilder(f, conf).build()
     }
-
-    override fun onSearchPhotoSuccess(searchResponse: SearchResponse<Photo>) {
-        searchResult.value = SearchResult.searchPhoto(searchResponse)
-        Timber.d("photos founded $searchResponse")
-    }
-
-    override fun onSearchCollectionSuccess(searchResponse: SearchResponse<PhotoCollection>) {
-
-    }
-
-    override fun onSearchUserSuccess(searchResponse: SearchResponse<User>) {
-
-    }
-
-    override fun onError(throwable: Throwable) {
-
-    }
-
-    fun searchPhoto() {
-        searchInteractor.searchPhotos("yolo")
-    }
-
 }

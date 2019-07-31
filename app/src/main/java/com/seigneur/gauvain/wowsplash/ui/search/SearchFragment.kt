@@ -2,71 +2,46 @@ package com.seigneur.gauvain.wowsplash.ui.search
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
-import androidx.paging.PagedList
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager.widget.ViewPager
 import com.seigneur.gauvain.wowsplash.R
-import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
-import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
-import com.seigneur.gauvain.wowsplash.ui.base.pagingList.NetworkItemCallback
-import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoItemCallback
-import com.seigneur.gauvain.wowsplash.ui.home.list.adapter.PhotoListAdapter
-import kotlinx.android.synthetic.main.fragment_refresh_list.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class SearchFragment : BaseFragment(), PhotoItemCallback, NetworkItemCallback {
-
-    private val mSearchViewModel by viewModel<SearchViewModel>()
-    private lateinit var mGridLayoutManager:GridLayoutManager
-    private val photoListAdapter: PhotoListAdapter by lazy {
-        PhotoListAdapter(this, this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //mSearchViewModel.init("yolo")
-    }
-
-    override fun onCreateView(inRootView: View, inSavedInstanceState: Bundle?) {
-        mSearchViewModel.search("yolo")
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initAdapter()
-    }
-
-    override fun subscribeToLiveData() {
-        mSearchViewModel.list?.observe(
-            viewLifecycleOwner, Observer<PagedList<Photo>> {
-                photoListAdapter.submitList(it)
-
-            })
-
-    }
+class SearchFragment : BaseFragment() {
 
     override val fragmentLayout: Int
-        get() = R.layout.fragment_refresh_list
+        get() = R.layout.fragment_search
 
-    private fun initAdapter() {
-        if (photoList.layoutManager==null && photoList.adapter==null) {
-            mGridLayoutManager = GridLayoutManager(context, 1)
-            photoList.layoutManager =  GridLayoutManager(context, 1)
-            photoList.adapter = photoListAdapter
+    val mSearchViewModel by viewModel<SearchViewModel>()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val fragmentAdapter = SearchPagerAdapter(childFragmentManager)
+        viewPager.adapter = fragmentAdapter
+        mTabs.setupWithViewPager(viewPager)
+
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+            override fun onPageSelected(position: Int) {
+                mSearchViewModel.currentFragmentPos = position
+            }
+
+        })
+
+
+        searchBtn.setOnClickListener {
+            //mSearchViewModel.searchPhoto.value = "beach"
+            mSearchViewModel.searchQuery.value = Pair(mSearchViewModel.currentFragmentPos, "beach")
         }
-
     }
 
-    override fun onShotClicked(position: Int) {
-
-    }
-
-    override fun retry() {
-
-    }
 
 }

@@ -12,8 +12,8 @@ import com.seigneur.gauvain.wowsplash.ui.collections.CollectionFragment
 import com.seigneur.gauvain.wowsplash.ui.home.HomeFragment
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInFragment
 import com.seigneur.gauvain.wowsplash.ui.postPhoto.PostPhotoFragment
-import com.seigneur.gauvain.wowsplash.ui.postPhoto.PostPhotoViewModel
 import com.seigneur.gauvain.wowsplash.ui.search.SearchFragment
+import com.seigneur.gauvain.wowsplash.ui.search.photo.SearchPhotoFragment
 import com.seigneur.gauvain.wowsplash.ui.user.UserFragment
 import com.seigneur.gauvain.wowsplash.utils.FragmentStateManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     private fun getPostFragment(): BaseFragment {
         val accessToken:String?=AuthRepository.accessToken //data to be observed
         accessToken?.let {
-            return SearchFragment()
+            return SearchPhotoFragment()
         }
         return LogInFragment()
 

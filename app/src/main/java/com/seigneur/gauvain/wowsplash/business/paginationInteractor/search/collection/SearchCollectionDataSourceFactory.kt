@@ -1,8 +1,10 @@
-package com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.photo
+package com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.collection
 
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.photo.SearchPhotoDataSource
 import com.seigneur.gauvain.wowsplash.data.model.Photo
+import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.repository.SearchRepository
 
 import io.reactivex.disposables.CompositeDisposable
@@ -12,18 +14,18 @@ import io.reactivex.disposables.CompositeDisposable
  * This allows us to channel its network request status etc back to the UI. See the Listing creation
  * in the Repository class.
  */
-class SearchPhotoDataSourceFactory(
+class SearchCollectionDataSourceFactory(
     private val compositeDisposable: CompositeDisposable,
     private val mSearchRepository: SearchRepository,
     private val query: String
-) : BaseDataSourceFactory<SearchPhotoDataSource, Long, Photo>() {
+) : BaseDataSourceFactory<SearchCollectionDataSource, Long, PhotoCollection>() {
 
-    override fun createDataSource(): BaseListDataSource<SearchPhotoDataSource, Long, Photo> {
-        return SearchPhotoDataSource(
+    override fun createDataSource(): BaseListDataSource<SearchCollectionDataSource, Long, PhotoCollection> {
+        return SearchCollectionDataSource(
             compositeDisposable,
             mSearchRepository,
             query
-        ) as BaseListDataSource<SearchPhotoDataSource, Long, Photo>
+        ) as BaseListDataSource<SearchCollectionDataSource, Long, PhotoCollection>
     }
 
 }

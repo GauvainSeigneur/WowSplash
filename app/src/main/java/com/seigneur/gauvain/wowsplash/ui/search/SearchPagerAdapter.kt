@@ -1,33 +1,33 @@
-package com.seigneur.gauvain.wowsplash.ui.collections
+package com.seigneur.gauvain.wowsplash.ui.search
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.seigneur.gauvain.wowsplash.utils.COLLECTION_LIST_ALL
-import com.seigneur.gauvain.wowsplash.utils.COLLECTION_LIST_FEATURED
+import com.seigneur.gauvain.wowsplash.ui.search.collection.SearchCollectionFragment
+import com.seigneur.gauvain.wowsplash.ui.search.photo.SearchPhotoFragment
 
-class CollectionPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class SearchPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                CollectionListFragment.newInstance(COLLECTION_LIST_ALL)
+                SearchPhotoFragment()
             }
             else -> {
-                return CollectionListFragment.newInstance(COLLECTION_LIST_FEATURED)
+                return SearchCollectionFragment()
             }
         }
     }
 
     override fun getCount(): Int {
-        return 1
+        return 2
     }
 
     override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
-            0 -> "All"
+            0 -> "Photo"
             else -> {
-                return "Featured"
+                return "Collection"
             }
         }
     }

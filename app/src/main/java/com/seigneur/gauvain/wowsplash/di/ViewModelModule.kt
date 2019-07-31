@@ -1,45 +1,56 @@
 package com.seigneur.gauvain.wowsplash.di
+
 import com.seigneur.gauvain.wowsplash.ui.splash.SplashViewModel
 import com.seigneur.gauvain.wowsplash.ui.collections.CollectionsViewModel
 import com.seigneur.gauvain.wowsplash.ui.home.PhotoViewModel
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInViewModel
 import com.seigneur.gauvain.wowsplash.ui.postPhoto.PostPhotoViewModel
+import com.seigneur.gauvain.wowsplash.ui.search.photo.SearchPhotoViewModel
 import com.seigneur.gauvain.wowsplash.ui.search.SearchViewModel
+import com.seigneur.gauvain.wowsplash.ui.search.collection.SearchCollectionViewModel
 import com.seigneur.gauvain.wowsplash.ui.user.UserViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-    val viewModelModule =module {
+val viewModelModule = module {
 
-        viewModel {
-            PhotoViewModel(get())
-        }
+    viewModel {
+        PhotoViewModel(get())
+    }
 
-        viewModel {
-            CollectionsViewModel(get())
-        }
+    viewModel {
+        CollectionsViewModel(get())
+    }
 
-        viewModel {
-           SearchViewModel(get())
-       }
+    viewModel {
+        SearchViewModel()
+    }
 
-        viewModel {
-            LogInViewModel(get())
-        }
+    viewModel {
+        SearchPhotoViewModel(get())
+    }
 
-        viewModel {
-            SplashViewModel(get())
-        }
+    viewModel {
+        SearchCollectionViewModel(get())
+    }
 
-        viewModel {
-            PostPhotoViewModel()
-        }
+    viewModel {
+        LogInViewModel(get())
+    }
 
-        viewModel {
-            UserViewModel(get())
-        }
+    viewModel {
+        SplashViewModel(get())
+    }
 
-   }
+    viewModel {
+        PostPhotoViewModel()
+    }
+
+    viewModel {
+        UserViewModel(get())
+    }
+
+}
 
 
 

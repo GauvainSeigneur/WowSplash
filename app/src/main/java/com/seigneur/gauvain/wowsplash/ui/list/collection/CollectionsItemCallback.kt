@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.collections.list.adapter
+package com.seigneur.gauvain.wowsplash.ui.list.collection
 
 interface CollectionsItemCallback {
 

@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.home.list
+package com.seigneur.gauvain.wowsplash.ui.list.photo
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -38,7 +38,7 @@ class PhotoViewHolder private constructor(itemView: View, private val mPhotoItem
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.photoImage -> mPhotoItemCallback.onShotClicked(adapterPosition)
+            R.id.photoImage -> mPhotoItemCallback.onPhotoClicked(adapterPosition)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.collections.list.adapter
+package com.seigneur.gauvain.wowsplash.ui.list.collection
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +11,10 @@ class CollectionsListAdapter(private val photoItemCallback: CollectionsItemCallb
     BasePagedListAdapter<PhotoCollection, RecyclerView.ViewHolder>(collectionDiffCallback,networkItemCallback) {
 
     override val viewHolder: RecyclerView.ViewHolder
-        get() =  CollectionsViewHolder.create(itemParentView, photoItemCallback)
+        get() = CollectionsViewHolder.create(
+            itemParentView,
+            photoItemCallback
+        )
 
     override fun bindItemData(holder: RecyclerView.ViewHolder, position: Int) {
         super.bindItemData(holder, position)

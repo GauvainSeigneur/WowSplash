@@ -12,13 +12,14 @@ import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.paging.fragment.BasePagingFragment
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
-import com.seigneur.gauvain.wowsplash.ui.home.list.PhotoItemCallback
-import com.seigneur.gauvain.wowsplash.ui.home.list.PhotoListAdapter
+import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoItemCallback
+import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoListAdapter
 import kotlinx.android.synthetic.main.fragment_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PhotoFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(), PhotoItemCallback, NetworkItemCallback {
+class PhotoFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
+    PhotoItemCallback, NetworkItemCallback {
 
     companion object {
         private val LIST_ARG = "Photo_list_arg"
@@ -82,9 +83,9 @@ class PhotoFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(), Photo
 
     }
 
-    override fun onShotClicked(position: Int) {
+    override fun onPhotoClicked(position: Int) {
         val photoItem = photoListAdapter.getPhotoFromPos(position)
-        mHomeViewModel.likePhoto(photoItem?.id)
+       // mHomeViewModel.likePhoto(photoItem?.id)
     }
 
 

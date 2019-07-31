@@ -10,13 +10,14 @@ import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
-import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsItemCallback
-import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsListAdapter
+import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsItemCallback
+import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsListAdapter
 
 import kotlinx.android.synthetic.main.fragment_refresh_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CollectionListFragment : BaseFragment(), CollectionsItemCallback, NetworkItemCallback {
+class CollectionListFragment : BaseFragment(),
+    CollectionsItemCallback, NetworkItemCallback {
 
     companion object {
         private val LIST_ARG = "collection_list_arg"

@@ -9,15 +9,17 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.paging.fragment.BaseSearchPagingFragment
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultViewModel
-import com.seigneur.gauvain.wowsplash.ui.home.list.PhotoItemCallback
-import com.seigneur.gauvain.wowsplash.ui.home.list.PhotoListAdapter
+import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoItemCallback
+import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoListAdapter
 import com.seigneur.gauvain.wowsplash.ui.search.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_refresh_list.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long, Photo>(), PhotoItemCallback, NetworkItemCallback {
+class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long, Photo>(),
+    PhotoItemCallback,
+    NetworkItemCallback {
 
     private val mSearchViewModel by sharedViewModel<SearchViewModel>(from = { parentFragment!! })
     private val mSearchPhotoViewModel by viewModel<SearchPhotoViewModel>()
@@ -39,9 +41,7 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
 
     override fun subscribeToLiveData() {
         mSearchViewModel.searchQuery.observe(viewLifecycleOwner, Observer<Pair<Int, String>> {
-            when(it.first) {
-                0 ->   performSearch(it.second)
-            }
+            performSearch(it.second)
         })
     }
 
@@ -53,7 +53,7 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
         }
     }
 
-    override fun onShotClicked(position: Int) {
+    override fun onPhotoClicked(position: Int) {
 
     }
 

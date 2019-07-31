@@ -9,15 +9,16 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.paging.fragment.BaseSearchPagingFragment
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultViewModel
-import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsItemCallback
-import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsListAdapter
+import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsItemCallback
+import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsListAdapter
 import com.seigneur.gauvain.wowsplash.ui.search.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_refresh_list.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class SearchCollectionFragment : BaseSearchPagingFragment<SearchCollectionDataSource, Long, PhotoCollection>(), CollectionsItemCallback, NetworkItemCallback {
+class SearchCollectionFragment : BaseSearchPagingFragment<SearchCollectionDataSource, Long, PhotoCollection>(),
+    CollectionsItemCallback, NetworkItemCallback {
 
     private val mSearchViewModel by sharedViewModel<SearchViewModel>(from = { parentFragment!! })
     private val mSearchCollectionViewModel by viewModel<SearchCollectionViewModel>()
@@ -39,9 +40,8 @@ class SearchCollectionFragment : BaseSearchPagingFragment<SearchCollectionDataSo
 
     override fun subscribeToLiveData() {
         mSearchViewModel.searchQuery.observe(viewLifecycleOwner, Observer<Pair<Int, String>> {
-            when(it.first) {
-                1 ->   performSearch(it.second)
-            }
+            performSearch(it.second)
+
         })
     }
 

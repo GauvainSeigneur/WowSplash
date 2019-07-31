@@ -5,20 +5,22 @@ import androidx.paging.PageKeyedDataSource
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
+/**
+ * Base class for pagingDataSource
+ * it allows to perform same behavior on each pagingDataSource and reuse same code
+ */
 abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable: CompositeDisposable) :
     PageKeyedDataSource<Key, Value>() {
 
     val initialLoad = MutableLiveData<NetworkState>()
 
     /*
-    * Step 1: Initialize the restApiFactory.
     * The networkState and initialLoading variables
     * are for updating the UI when data is being fetched
     * by displaying a progress bar
@@ -33,23 +35,23 @@ abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable
     /**
      * Define request for initial and after request
      */
-    abstract fun loadInitialRequest(keyPage: Key, pageSize:Int) : Flowable<T>
-    abstract fun loadAfterRequest(keyPage:Key, pageSize:Int) : Flowable<T>
+    abstract fun loadInitialRequest(keyPage: Key, pageSize: Int): Flowable<T>
+
+    abstract fun loadAfterRequest(keyPage: Key, pageSize: Int): Flowable<T>
     /**
      * Define callback result from request (if you have a request which an object a value different of @Value
      * This method allows you to override the result and return the right object
      */
-    abstract fun handleCallback(expectedResponse:T): List<Value>
+    abstract fun handleCallback(expectedResponse: T): List<Value>
 
     /**
      * Define page for each request
      */
-    abstract val firstPageKey : Key
-    abstract val firstNextPageKey : Key
-    abstract fun nextKey(currentKey: Key) : Key
+    abstract val firstPageKey: Key
+    abstract val firstNextPageKey: Key
+    abstract fun nextKey(currentKey: Key): Key
 
     override fun loadInitial(params: LoadInitialParams<Key>, callback: LoadInitialCallback<Key, Value>) {
-        Timber.d("loadInitial called")
         // update network states.
         // we also provide an initial load state to the listeners so that the UI can know when the
         // very first list is loaded.
@@ -58,11 +60,7 @@ abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable
         handleFirstLoad(params, callback)
     }
 
-    /**
-     * Must call onSuper in child class
-     */
     override fun loadAfter(params: LoadParams<Key>, callback: LoadCallback<Key, Value>) {
-        Timber.d("loadAfter called")
         networkState.postValue(NetworkState.LOADING)
         handleLoadAfter(params, callback)
     }
@@ -97,24 +95,24 @@ abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable
         callback: LoadInitialCallback<Key, Value>
     ) {
         compositeDisposable.add(
-            loadInitialRequest(firstPageKey,params.requestedLoadSize)
-            .subscribe(
-                {
-                    // clear retry since last request succeeded
-                    setRetry(null)
-                    networkState.postValue(NetworkState.LOADED)
-                    initialLoad.postValue(NetworkState.LOADED)
-                    callback.onResult(handleCallback(it), null, firstNextPageKey)
-                },
-                { throwable ->
-                    // keep a Completable for future retry
-                    setRetry(Action { loadInitial(params, callback) })
-                    val error = NetworkState.error(throwable.message)
-                    // publish the error
-                    networkState.postValue(error)
-                    initialLoad.postValue(error)
-                }
-            )
+            loadInitialRequest(firstPageKey, params.requestedLoadSize)
+                .subscribe(
+                    {
+                        // clear retry since last request succeeded
+                        setRetry(null)
+                        networkState.postValue(NetworkState.LOADED)
+                        initialLoad.postValue(NetworkState.LOADED)
+                        callback.onResult(handleCallback(it), null, firstNextPageKey)
+                    },
+                    { throwable ->
+                        // keep a Completable for future retry
+                        setRetry(Action { loadInitial(params, callback) })
+                        val error = NetworkState.error(throwable.message)
+                        // publish the error
+                        networkState.postValue(error)
+                        initialLoad.postValue(error)
+                    }
+                )
         )
 
     }

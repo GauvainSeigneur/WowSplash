@@ -1,7 +1,7 @@
 package com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo
 
-import androidx.lifecycle.MutableLiveData
-import androidx.paging.DataSource
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
 import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 
@@ -18,20 +18,16 @@ class PhotoDataSourceFactory(
     private val listType: Int,
     private val orderBy: String?,
     private val query: String?
-) : DataSource.Factory<Long, Photo>() {
+) : BaseDataSourceFactory<PhotosDataSource, Long, Photo>() {
 
-    val photoDataSourceLiveData = MutableLiveData<PhotosDataSource>()
-
-    override fun create(): DataSource<Long, Photo> {
-        val shotsDataSource = PhotosDataSource(
+    override fun createDataSource(): BaseListDataSource<PhotosDataSource, Long, Photo> {
+        return PhotosDataSource(
             compositeDisposable,
             mPhotoRepository,
             listType,
             orderBy,
             query
-        )
-        photoDataSourceLiveData.postValue(shotsDataSource)
-        return shotsDataSource
+        ) as BaseListDataSource<PhotosDataSource, Long, Photo>
     }
 
 }

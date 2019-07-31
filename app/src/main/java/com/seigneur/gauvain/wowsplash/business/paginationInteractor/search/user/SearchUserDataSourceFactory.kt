@@ -2,6 +2,8 @@ package com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.user
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
 import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 
@@ -16,18 +18,14 @@ class SearchUserDataSourceFactory(
     private val compositeDisposable: CompositeDisposable,
     private val mUserRepository: UserRepository,
     private val query: String
-) : DataSource.Factory<Long, User>() {
+) : BaseDataSourceFactory<SearchUserDataSource, Long, User>(){
 
-    val userDataSourceLiveData = MutableLiveData<SearchUserDataSource>()
-
-    override fun create(): DataSource<Long, User> {
-        val userDataSource = SearchUserDataSource(
+    override fun createDataSource(): BaseListDataSource<SearchUserDataSource, Long, User> {
+        return SearchUserDataSource(
             compositeDisposable,
             mUserRepository,
             query
-        )
-        userDataSourceLiveData.postValue(userDataSource)
-        return userDataSource
+        ) as BaseListDataSource<SearchUserDataSource, Long, User>
     }
 
 }

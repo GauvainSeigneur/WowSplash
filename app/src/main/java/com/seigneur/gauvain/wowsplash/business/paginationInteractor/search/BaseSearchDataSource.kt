@@ -4,6 +4,7 @@ import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseLis
 import com.seigneur.gauvain.wowsplash.data.model.SearchResponse
 import io.reactivex.disposables.CompositeDisposable
 
+
 abstract class BaseSearchDataSource<T>
 internal constructor(
     compositeDisposable: CompositeDisposable

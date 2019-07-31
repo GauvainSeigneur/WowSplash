@@ -28,9 +28,10 @@ dependencies {
     /**
      * Android X & Android Material
      */
-    implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'
@@ -62,7 +63,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams:$archVersion"
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$archVersion"
-    def paging_version = "2.1.0-rc01"
+    def paging_version = "2.1.0"
     implementation "androidx.paging:paging-runtime:$paging_version"
     // alternatively - without Android dependencies for testing
     testImplementation "androidx.paging:paging-common:$paging_version"
@@ -85,7 +86,11 @@ dependencies {
      */
     def glideVersion = '4.8.0'
     implementation "com.github.bumptech.glide:glide:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+    /**
+     * PhotoView
+     */
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     /**
      * OKHTTP
      */

@@ -19,8 +19,4 @@ class HomeFragment : BaseFragment() {
         mTabs.setupWithViewPager(viewPager)
 
     }
-
-
-
-
 }

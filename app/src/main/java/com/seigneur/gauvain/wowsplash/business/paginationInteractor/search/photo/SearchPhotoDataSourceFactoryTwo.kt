@@ -1,7 +1,7 @@
 package com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.photo
 
-import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
-import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.SearchRepository
 
@@ -12,18 +12,23 @@ import io.reactivex.disposables.CompositeDisposable
  * This allows us to channel its network request status etc back to the UI. See the Listing creation
  * in the Repository class.
  */
-class SearchPhotoDataSourceFactory(
+class SearchPhotoDataSourceFactoryTwo(
     private val compositeDisposable: CompositeDisposable,
     private val mSearchRepository: SearchRepository,
     private val query: String
-) : BaseDataSourceFactory<SearchPhotoDataSource, Long, Photo>() {
+) : DataSource.Factory<Long, Photo>() {
 
-    override fun createDataSource(): BaseListDataSource<SearchPhotoDataSource, Long, Photo> {
-        return SearchPhotoDataSource(
-            compositeDisposable,
-            mSearchRepository,
-            query
-        ) as BaseListDataSource<SearchPhotoDataSource, Long, Photo>
+    val userDataSourceLiveData = MutableLiveData<SearchPhotoDataSource>()
+
+    override fun create(): DataSource<Long, Photo> {
+        val userDataSource =
+            SearchPhotoDataSource(
+                compositeDisposable,
+                mSearchRepository,
+                query
+            )
+        userDataSourceLiveData.postValue(userDataSource)
+        return userDataSource
     }
 
 }

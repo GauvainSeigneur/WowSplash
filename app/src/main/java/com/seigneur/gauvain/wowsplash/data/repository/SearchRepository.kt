@@ -24,8 +24,8 @@ class SearchRepository(private val service: UnSplashService)  {
     }
 
 
-    fun searchCollection(query:String): Single<SearchResponse<PhotoCollection>> {
-        return service.searchCollection(query)
+    fun searchCollection(query:String,page: Long, perPage: Int): Single<SearchResponse<PhotoCollection>> {
+        return service.searchCollection(query,page, perPage)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

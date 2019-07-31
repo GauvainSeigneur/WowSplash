@@ -6,18 +6,14 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import com.seigneur.gauvain.wowsplash.R
-import com.seigneur.gauvain.wowsplash.data.model.Photo
 import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
-import com.seigneur.gauvain.wowsplash.ui.base.pagingList.NetworkItemCallback
+import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
-import com.seigneur.gauvain.wowsplash.data.model.network.Status
 import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsItemCallback
 import com.seigneur.gauvain.wowsplash.ui.collections.list.adapter.CollectionsListAdapter
-import com.seigneur.gauvain.wowsplash.ui.home.PhotoFragment
 
 import kotlinx.android.synthetic.main.fragment_refresh_list.*
-import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CollectionListFragment : BaseFragment(), CollectionsItemCallback, NetworkItemCallback {

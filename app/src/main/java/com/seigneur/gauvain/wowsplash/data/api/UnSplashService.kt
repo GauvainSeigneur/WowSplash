@@ -74,7 +74,9 @@ interface UnSplashService {
                     @Query("per_page") pagePage: Int): Single<SearchResponse<Photo>>
 
     @GET("search/collections")
-    fun searchCollection(@Query("query") query: String?): Single<SearchResponse<PhotoCollection>>
+    fun searchCollection(@Query("query") query: String?,
+                         @Query("page") page: Long,
+                         @Query("per_page") pagePage: Int): Single<SearchResponse<PhotoCollection>>
 
     @GET("search/users")
     fun searchUser(@Query("query") query: String?): Single<SearchResponse<User>>

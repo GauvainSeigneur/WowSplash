@@ -1,7 +1,7 @@
 package com.seigneur.gauvain.wowsplash.business.paginationInteractor.collection
 
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
-import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
 import com.seigneur.gauvain.wowsplash.utils.COLLECTION_LIST_ALL
 import com.seigneur.gauvain.wowsplash.utils.COLLECTION_LIST_FEATURED

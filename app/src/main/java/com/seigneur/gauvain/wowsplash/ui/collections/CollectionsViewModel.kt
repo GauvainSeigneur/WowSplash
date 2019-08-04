@@ -5,7 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.collection.CollectionDataSourceFactory
-import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel

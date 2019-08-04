@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.data.model
+package com.seigneur.gauvain.wowsplash.data.model.photo
 
 data class PhotoCollection(
     val id: String,

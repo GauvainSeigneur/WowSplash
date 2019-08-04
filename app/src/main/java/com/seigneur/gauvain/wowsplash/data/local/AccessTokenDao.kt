@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.seigneur.gauvain.wowsplash.data.model.AccessToken
+import com.seigneur.gauvain.wowsplash.data.model.token.AccessToken
 import io.reactivex.Maybe
 
 @Dao

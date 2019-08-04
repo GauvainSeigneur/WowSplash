@@ -1,7 +1,7 @@
 package com.seigneur.gauvain.wowsplash.business.paginationInteractor.search
 
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
-import com.seigneur.gauvain.wowsplash.data.model.SearchResponse
+import com.seigneur.gauvain.wowsplash.data.model.search.SearchResponse
 import io.reactivex.disposables.CompositeDisposable
 
 

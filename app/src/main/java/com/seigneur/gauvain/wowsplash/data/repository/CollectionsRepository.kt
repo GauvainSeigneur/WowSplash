@@ -1,7 +1,7 @@
 package com.seigneur.gauvain.wowsplash.data.repository
 
 import com.seigneur.gauvain.wowsplash.data.api.*
-import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

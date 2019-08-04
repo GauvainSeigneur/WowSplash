@@ -2,7 +2,7 @@ package com.seigneur.gauvain.wowsplash.data.repository
 
 import com.seigneur.gauvain.wowsplash.data.local.WowSplashDataBase
 import com.seigneur.gauvain.wowsplash.data.api.*
-import com.seigneur.gauvain.wowsplash.data.model.AccessToken
+import com.seigneur.gauvain.wowsplash.data.model.token.AccessToken
 import io.reactivex.Maybe
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

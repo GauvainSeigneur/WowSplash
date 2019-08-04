@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
-import com.seigneur.gauvain.wowsplash.data.model.Photo
+import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter

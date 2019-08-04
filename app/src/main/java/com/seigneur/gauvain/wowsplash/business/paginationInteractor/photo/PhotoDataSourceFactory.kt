@@ -2,7 +2,7 @@ package com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo
 
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
-import com.seigneur.gauvain.wowsplash.data.model.Photo
+import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 
 import io.reactivex.disposables.CompositeDisposable

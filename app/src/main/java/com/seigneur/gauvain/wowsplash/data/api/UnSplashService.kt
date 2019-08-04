@@ -1,6 +1,9 @@
 package com.seigneur.gauvain.wowsplash.data.api
 
-import com.seigneur.gauvain.wowsplash.data.model.*
+import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.search.SearchResponse
+import com.seigneur.gauvain.wowsplash.data.model.token.AccessToken
 import com.seigneur.gauvain.wowsplash.data.model.user.User
 import io.reactivex.Flowable
 import io.reactivex.Single

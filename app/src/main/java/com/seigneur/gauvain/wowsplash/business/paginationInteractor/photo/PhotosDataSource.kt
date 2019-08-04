@@ -1,6 +1,6 @@
 package com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo
 
-import com.seigneur.gauvain.wowsplash.data.model.Photo
+import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
 

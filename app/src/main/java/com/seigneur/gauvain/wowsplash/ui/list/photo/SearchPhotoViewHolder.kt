@@ -13,7 +13,7 @@ import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.bumptech.glide.request.RequestOptions
 
-class PhotoViewHolder private constructor(itemView: View, private val mPhotoItemCallback: PhotoItemCallback) :
+class SearchPhotoViewHolder private constructor(itemView: View, private val mPhotoItemCallback: PhotoItemCallback) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
     val photoImage = itemView.findViewById(R.id.photoImage) as ImageView
@@ -27,7 +27,7 @@ class PhotoViewHolder private constructor(itemView: View, private val mPhotoItem
         val requestOptions = RequestOptions()
         requestOptions.placeholder(ColorDrawable(photoColor))
         requestOptions.error(R.drawable.ic_circle_info_24px)
-        requestOptions.fallback(R.drawable.ic_circle_info_24px) //in case of null value
+        //requestOptions.fallback(R.drawable.ic_circle_info_24px) //in case of null value
 
         Glide.with(itemView.context)
             .setDefaultRequestOptions(requestOptions)
@@ -43,10 +43,10 @@ class PhotoViewHolder private constructor(itemView: View, private val mPhotoItem
     }
 
     companion object {
-        fun create(parent: ViewGroup, photoItemCallback: PhotoItemCallback): PhotoViewHolder {
+        fun create(parent: ViewGroup, photoItemCallback: PhotoItemCallback): SearchPhotoViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val view = layoutInflater.inflate(R.layout.list_item_photo, parent, false)
-            return PhotoViewHolder(view, photoItemCallback)
+            val view = layoutInflater.inflate(R.layout.list_item_search_photo, parent, false)
+            return SearchPhotoViewHolder(view, photoItemCallback)
         }
     }
 

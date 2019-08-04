@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Widget" parent="WowTheme"/>
+    <style name="Widget" parent="WowTheme" />
 
     <style name="Widget.BottomNavigationTheme" parent="Widget.Design.BottomNavigationView">
         <item name="itemHorizontalTranslationEnabled">false</item>
@@ -15,13 +15,16 @@
         <item name="android:outlineSpotShadowColor" tools:targetApi="28">@color/colorSecondary</item>
     </style>
 
-    <style name="Widget.Button" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.Button" parent="Widget.MaterialComponents.Button"></style>
+
+    <style name="Widget.AppbarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface">
+        <item name="titleTextColor">@color/colorPrimary</item>
     </style>
 
     <style name="Widget.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
         <item name="titleTextColor">@color/colorPrimary</item>
     </style>
 
-    <style name="Widget.Tabs" parent="Widget.MaterialComponents.TabLayout"/>
+    <style name="Widget.Tabs" parent="Widget.MaterialComponents.TabLayout" />
 
 </resources>

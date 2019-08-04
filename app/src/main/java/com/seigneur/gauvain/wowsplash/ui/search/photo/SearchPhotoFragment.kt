@@ -12,7 +12,7 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultV
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoItemCallback
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoListAdapter
 import com.seigneur.gauvain.wowsplash.ui.search.SearchViewModel
-import kotlinx.android.synthetic.main.fragment_refresh_list.*
+import kotlinx.android.synthetic.main.fragment_search_result.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -46,10 +46,10 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
     }
 
     override fun initAdapter() {
-        if (photoList.layoutManager == null && photoList.adapter == null) {
+        if (searchResultList.layoutManager == null && searchResultList.adapter == null) {
             mGridLayoutManager = GridLayoutManager(context, 1)
-            photoList.layoutManager = GridLayoutManager(context, 1)
-            photoList.adapter = photoListAdapter
+            searchResultList.layoutManager = GridLayoutManager(context, 1)
+            searchResultList.adapter = photoListAdapter
         }
     }
 

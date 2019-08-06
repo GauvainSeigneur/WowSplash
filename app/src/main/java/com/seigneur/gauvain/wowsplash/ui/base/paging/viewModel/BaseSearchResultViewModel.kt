@@ -1,6 +1,7 @@
 package com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
@@ -9,12 +10,11 @@ import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
 
 abstract class BaseSearchResultViewModel<DataSource, Key, Value> : BaseViewModel() {
 
-
     var searchResultList: LiveData<PagedList<Value>>? = null
 
     var factory: BaseDataSourceFactory<DataSource, Key, Value>? = null
 
-    lateinit var networkState: LiveData<NetworkState>
+    var networkState: LiveData<NetworkState>? =null //todo - test or remake as lateinit if don't work
 
     abstract fun createDataSourceFactory(query: String): BaseDataSourceFactory<DataSource, Key, Value>
 

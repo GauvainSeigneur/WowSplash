@@ -26,12 +26,18 @@ class SearchFragment : BaseFragment() {
 
     var mQueryEntry: String? = null
 
+    lateinit var fragmentAdapter : SearchPagerAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fragmentAdapter = SearchPagerAdapter(childFragmentManager)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val fragmentAdapter = SearchPagerAdapter(childFragmentManager)
+        viewPager.offscreenPageLimit = 3
         viewPager.adapter = fragmentAdapter
         mTabs.setupWithViewPager(viewPager)
-
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -62,11 +68,11 @@ class SearchFragment : BaseFragment() {
 
         searchTextFieldView.mSearchEditText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val blamo = mQueryEntry
-                if (blamo != null && blamo.isNotEmpty()) {
-                    mSearchViewModel.searchQuery.value = Pair(mSearchViewModel.currentFragmentPos, blamo)
+                val entry = mQueryEntry
+                if (entry != null && entry.isNotEmpty()) {
+                    mSearchViewModel.updateSearchQuery(entry)
                 } else {
-                    Toast.makeText(context, "lol", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "empty", Toast.LENGTH_LONG).show()
                 }
                 true
             }

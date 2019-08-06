@@ -10,53 +10,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a094b00b-469c-4ce2-95fb-f39dce0bd484" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/collection/CollectionDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/collection/CollectionDataSource.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/collection/CollectionDataSourceFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/collection/CollectionDataSourceFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/photo/PhotoDataSourceFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/photo/PhotoDataSourceFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/photo/PhotosDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/photo/PhotosDataSource.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/BaseSearchDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/BaseSearchDataSource.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/collection/SearchCollectionDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/collection/SearchCollectionDataSource.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/collection/SearchCollectionDataSourceFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/collection/SearchCollectionDataSourceFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/photo/SearchPhotoDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/photo/SearchPhotoDataSource.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/photo/SearchPhotoDataSourceFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/photo/SearchPhotoDataSourceFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/photo/SearchPhotoDataSourceFactoryTwo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/photo/SearchPhotoDataSourceFactoryTwo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/user/SearchUserDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/paginationInteractor/search/user/SearchUserDataSource.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/result/SearchResult.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/result/SearchResult.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/api/UnSplashService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/api/UnSplashService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/local/AccessTokenDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/local/AccessTokenDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/local/WowSplashDataBase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/local/WowSplashDataBase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/AccessToken.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/token/AccessToken.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/Exif.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/photo/Exif.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/Links.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/photo/Links.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/Photo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/photo/Photo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/PhotoCollection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/photo/PhotoCollection.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/PhotoUrl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/photo/PhotoUrl.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/SearchResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/model/search/SearchResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/AuthRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/AuthRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/CollectionsRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/CollectionsRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/PhotoRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/PhotoRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/SearchRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/SearchRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/UserRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/UserRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/paging/fragment/BaseSearchPagingFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/paging/fragment/BaseSearchPagingFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/collections/CollectionListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/collections/CollectionListFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/collections/CollectionsViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/collections/CollectionsViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/PhotoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/PhotoFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/PhotoViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/home/PhotoViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/collection/CollectionsListAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/collection/CollectionsListAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/collection/CollectionsViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/collection/CollectionsViewHolder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoListAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoListAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoViewHolder.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/collection/SearchCollectionFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/collection/SearchCollectionFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/collection/SearchCollectionViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/collection/SearchCollectionViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_search_result.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_search_result.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/theme.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/theme.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a094b00b-469c-4ce2-95fb-f39dce0bd484" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,16 +40,28 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-425">
-              <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
+            <state relative-caret-position="147">
+              <caret line="50" column="71" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="71" />
+              <folding>
+                <element signature="e#56#1221#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0-beta01/d898001f8cf8d02ebbdf7d5f48a787deefae2be3/recyclerview-1.1.0-beta01-sources.jar!/androidx/recyclerview/widget/StaggeredGridLayoutManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="663">
+              <caret line="244" column="11" selection-start-line="244" selection-start-column="11" selection-end-line="244" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_search_result.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-200">
@@ -170,11 +136,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoViewModel.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/collection/SearchCollectionViewModel.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/collection/SearchCollectionFragment.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_search_photo.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/SearchPhotoListAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/paging/fragment/BaseSearchPagingFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_search_result.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt" />
       </list>
     </option>
   </component>
@@ -400,7 +366,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.33441034" />
@@ -657,13 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0-beta01/d898001f8cf8d02ebbdf7d5f48a787deefae2be3/recyclerview-1.1.0-beta01-sources.jar!/androidx/recyclerview/widget/StaggeredGridLayoutManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="244" column="11" selection-start-line="244" selection-start-column="11" selection-end-line="244" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/collection/SearchCollectionViewModel.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -717,13 +675,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-425">
-          <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_search_result.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-200">
@@ -731,6 +682,23 @@
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0-beta01/d898001f8cf8d02ebbdf7d5f48a787deefae2be3/recyclerview-1.1.0-beta01-sources.jar!/androidx/recyclerview/widget/StaggeredGridLayoutManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="244" column="11" selection-start-line="244" selection-start-column="11" selection-end-line="244" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="50" column="71" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="71" />
+          <folding>
+            <element signature="e#56#1221#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

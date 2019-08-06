@@ -1,8 +1,6 @@
 package com.seigneur.gauvain.wowsplash.ui.search.photo
 
-import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.photo.SearchPhotoDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
@@ -11,13 +9,13 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapte
 import com.seigneur.gauvain.wowsplash.ui.base.paging.fragment.BaseSearchPagingFragment
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultViewModel
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoItemCallback
-import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoListAdapter
 import com.seigneur.gauvain.wowsplash.ui.list.photo.SearchPhotoListAdapter
 import com.seigneur.gauvain.wowsplash.ui.search.SearchViewModel
 import kotlinx.android.synthetic.main.fragment_search_result.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
+import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
+
 
 class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long, Photo>(),
     PhotoItemCallback,
@@ -25,7 +23,7 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
 
     private val mSearchViewModel by sharedViewModel<SearchViewModel>(from = { parentFragment!! })
     private val mSearchPhotoViewModel by viewModel<SearchPhotoViewModel>()
-    //private lateinit var mGridLayoutManager: GridLayoutManager
+
     private val mSearchPhotoListAdapter: SearchPhotoListAdapter by lazy {
         SearchPhotoListAdapter(this, this)
     }
@@ -41,16 +39,17 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
     }
 
     override fun subscribeToLiveData() {
-        mSearchViewModel.searchQuery.observe(viewLifecycleOwner, Observer<Pair<Int, String>> {
-            performSearch(it.second)
+        mSearchViewModel.searchPhotoQuery.observe(viewLifecycleOwner, EventObserver<String> {
+            performSearch(it)
         })
     }
 
     override fun initAdapter() {
-        if (searchResultList.layoutManager == null && searchResultList.adapter == null) {
-            searchResultList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        searchResultList.layoutManager =  StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        searchResultList.adapter.let {
             searchResultList.adapter = mSearchPhotoListAdapter
         }
+
     }
 
     override fun onPhotoClicked(position: Int) {

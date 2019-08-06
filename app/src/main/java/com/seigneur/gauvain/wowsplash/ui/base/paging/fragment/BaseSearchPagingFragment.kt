@@ -1,7 +1,9 @@
 package com.seigneur.gauvain.wowsplash.ui.base.paging.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.R
@@ -27,27 +29,31 @@ abstract class BaseSearchPagingFragment<DataSource, Key, Value> :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        subscribeToPagedList() //subscribe in onCreate in case of the livePagedList is already made
         initAdapter()
     }
 
     abstract fun submitList(list:PagedList<Value>)
 
-    fun performSearch(query:String){
+    fun performSearch(query:String) {
         vm.search(query)
         setInitialLoadingState(NetworkState.LOADING)
+        //subscribe again after perform a search because that here we define the list.
+        // Is not perfect yet, but it works...
+        subscribeToPagedList()
+    }
 
-        /**
-         * Subscribe to it only when search is made
-         */
+    private fun subscribeToPagedList() {
         vm.searchResultList?.observe(
             viewLifecycleOwner, Observer<PagedList<Value>> {
+                Timber.d("vm.searchResultList called")
                 submitList(it)
                 if (listAdapter.itemCount>0) {
                     setInitialLoadingState(NetworkState.LOADED) // first load is made
                 }
             })
 
-        vm.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
+        vm.networkState?.observe(viewLifecycleOwner, Observer<NetworkState> {
             Timber.d("mSearchResultViewModel.networkState $it")
             listAdapter.setNetworkState(it)
             if (listAdapter.itemCount<1) {
@@ -55,7 +61,6 @@ abstract class BaseSearchPagingFragment<DataSource, Key, Value> :
             }
         })
     }
-
 
     /**
      * Show the current network state for the first load when the user list

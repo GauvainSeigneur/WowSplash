@@ -21,6 +21,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class PhotoFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
     PhotoItemCallback, NetworkItemCallback {
 
+    private var mTypeOfPhoto :String?=null
+
     companion object {
         private val LIST_ARG = "Photo_list_arg"
         fun newInstance(photoListType: String?): PhotoFragment {
@@ -33,7 +35,6 @@ class PhotoFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
     }
 
     private val mHomeViewModel by viewModel<PhotoViewModel>()
-    private lateinit var mGridLayoutManager:GridLayoutManager
 
     private val photoListAdapter: PhotoListAdapter by lazy {
         PhotoListAdapter(this, this)
@@ -43,20 +44,14 @@ class PhotoFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         super.onCreate(savedInstanceState)
         val bundle = this.arguments
         if (bundle != null) {
-            val string = bundle.getString(LIST_ARG)
-            mHomeViewModel.init(string)
+            mTypeOfPhoto =  bundle.getString(LIST_ARG)
         }
+        mHomeViewModel.init(mTypeOfPhoto)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        retryLoadingButton.setOnClickListener {
-            mHomeViewModel.retry()
-        }
-    }
-
-    override fun subscribeToLiveData() {
         mHomeViewModel.list?.observe(
             viewLifecycleOwner, Observer<PagedList<Photo>> {
                 photoListAdapter.submitList(it)
@@ -66,6 +61,13 @@ class PhotoFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         mHomeViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
             photoListAdapter.setNetworkState(it!!)
         })
+        retryLoadingButton.setOnClickListener {
+            mHomeViewModel.retry()
+        }
+    }
+
+    override fun subscribeToLiveData() {
+
     }
 
     override val listAdapter: BasePagedListAdapter<*, *>
@@ -75,9 +77,8 @@ class PhotoFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         get() = mHomeViewModel
 
     override fun initAdapter() {
-        if (photoList.layoutManager==null && photoList.adapter==null) {
-            mGridLayoutManager = GridLayoutManager(context, 1)
-            photoList.layoutManager =  GridLayoutManager(context, 1)
+        photoList.layoutManager = GridLayoutManager(context, 1)
+        photoList.adapter.let {
             photoList.adapter = photoListAdapter
         }
 
@@ -85,7 +86,7 @@ class PhotoFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
 
     override fun onPhotoClicked(position: Int) {
         val photoItem = photoListAdapter.getPhotoFromPos(position)
-       // mHomeViewModel.likePhoto(photoItem?.id)
+        // mHomeViewModel.likePhoto(photoItem?.id)
     }
 
 

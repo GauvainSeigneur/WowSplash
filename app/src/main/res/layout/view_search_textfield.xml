@@ -17,6 +17,6 @@
         android:layout_width="24dp"
         android:layout_height="match_parent"
         android:background="?selectableItemBackgroundBorderless"
-        android:src="@drawable/ic_circle_info_24px"/>
+        android:src="@drawable/ic_clear_black_24dp"/>
 
 </merge>

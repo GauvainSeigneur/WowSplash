@@ -27,17 +27,23 @@ private constructor(
     }
 
     fun bindTo(collection: PhotoCollection) {
-        val photoColor = Color.parseColor(collection.cover_photo.color)
-        val requestOptions = RequestOptions()
-        requestOptions.placeholder(ColorDrawable(photoColor))
-        requestOptions.error(R.drawable.ic_circle_info_24px)
-        requestOptions.fallback(R.drawable.ic_circle_info_24px) //in case of null value
+        val photoCover =  collection.cover_photo
 
-        Glide.with(itemView.context)
-            .setDefaultRequestOptions(requestOptions)
-            .load(collection.cover_photo.urls.small)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(shotImage)
+
+        photoCover?.let {
+            val photoColor = Color.parseColor(it.color)
+            val requestOptions = RequestOptions()
+            requestOptions.placeholder(ColorDrawable(photoColor))
+            requestOptions.error(R.drawable.ic_circle_info_24px)
+            requestOptions.fallback(R.drawable.ic_circle_info_24px) //in case of null value
+
+            Glide.with(itemView.context)
+                .setDefaultRequestOptions(requestOptions)
+                .load(it.urls.regular)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(shotImage)
+        }
+
     }
 
     override fun onClick(view: View) {

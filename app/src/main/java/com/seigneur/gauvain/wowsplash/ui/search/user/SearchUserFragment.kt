@@ -1,62 +1,57 @@
-package com.seigneur.gauvain.wowsplash.ui.search.collection
+package com.seigneur.gauvain.wowsplash.ui.search.user
 
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.collection.SearchCollectionDataSource
+import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.user.SearchUserDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.paging.fragment.BaseSearchPagingFragment
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultViewModel
 import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsItemCallback
-import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsListAdapter
+import com.seigneur.gauvain.wowsplash.ui.list.user.SearchUserListAdapter
 import com.seigneur.gauvain.wowsplash.ui.search.SearchViewModel
-import com.seigneur.gauvain.wowsplash.utils.event.Event
-import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 import kotlinx.android.synthetic.main.fragment_search_result.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class SearchCollectionFragment : BaseSearchPagingFragment<SearchCollectionDataSource, Long, PhotoCollection>(),
-    CollectionsItemCallback, NetworkItemCallback {
+class SearchUserFragment : BaseSearchPagingFragment<SearchUserDataSource, Long, User>(), NetworkItemCallback {
 
     private val mSearchViewModel by sharedViewModel<SearchViewModel>(from = { parentFragment!! })
-    private val mSearchCollectionViewModel by viewModel<SearchCollectionViewModel>()
-    private lateinit var mGridLayoutManager: GridLayoutManager
-    private val mCollectionsListAdapter: CollectionsListAdapter by lazy {
-        CollectionsListAdapter(this, this)
+    private val mSearchUserViewModel by viewModel<SearchUserViewModel>()
+
+    private val mSearchUserListAdapter: SearchUserListAdapter by lazy {
+        SearchUserListAdapter(this)
     }
 
     override val listAdapter: BasePagedListAdapter<*, *>
-        get() = mCollectionsListAdapter
+        get() = mSearchUserListAdapter
 
-    override val vm: BaseSearchResultViewModel<SearchCollectionDataSource, Long, PhotoCollection>
-        get() = mSearchCollectionViewModel
+    override val vm: BaseSearchResultViewModel<SearchUserDataSource, Long, User>
+        get() = mSearchUserViewModel
 
-    override fun submitList(list: PagedList<PhotoCollection>) {
+    override fun submitList(list: PagedList<User>) {
         Timber.d("submit list called ")
-        mCollectionsListAdapter.submitList(list)
+        mSearchUserListAdapter.submitList(list)
     }
 
     override fun subscribeToLiveData() {
-        mSearchViewModel.searchCollectionQuery.observe(viewLifecycleOwner, EventObserver<String> {
-            performSearch(it)
-        })
+        /*mSearchViewModel.searchQuery.observe(viewLifecycleOwner, Observer<Pair<Int, String>> {
+            performSearch(it.second)
+
+        })*/
     }
 
     override fun initAdapter() {
         if (searchResultList.layoutManager == null && searchResultList.adapter == null) {
-            mGridLayoutManager = GridLayoutManager(context, 1)
-            searchResultList.layoutManager = GridLayoutManager(context, 1)
-            searchResultList.adapter = mCollectionsListAdapter
+            searchResultList.layoutManager = LinearLayoutManager(context)
+            searchResultList.adapter = mSearchUserListAdapter
         }
-    }
-
-
-    override fun onCollectionClicked(position: Int) {
-
     }
 
     override fun retry() {

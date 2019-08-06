@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.seigneur.gauvain.wowsplash.R
 import kotlinx.android.synthetic.main.view_search_textfield.view.*
@@ -27,6 +28,7 @@ class SearchTextFieldView @JvmOverloads constructor(
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.view_search_textfield, this)
+        this.background = ContextCompat.getDrawable(context, R.drawable.search_view_bg)
         mSearchEditText = searchEditText
         changeIcon(false)
         manageIconAppearance()
@@ -64,9 +66,9 @@ class SearchTextFieldView @JvmOverloads constructor(
     private fun changeIcon(hasText: Boolean) {
         isIconMicMode = hasText
         if (hasText)
-            micClearIcon.visibility = View.INVISIBLE
-        else
             micClearIcon.visibility = View.VISIBLE
+        else
+            micClearIcon.visibility = View.INVISIBLE
     }
 
     /**

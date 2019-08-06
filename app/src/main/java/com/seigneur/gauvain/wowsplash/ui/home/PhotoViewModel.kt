@@ -35,7 +35,7 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
 
     fun init(inOrderBy: String?) {
         orderBy = inOrderBy
-        config.let {
+        if (config == null) {
             config = PagedList.Config.Builder()
                 .setPageSize(pageSize)
                 .setInitialLoadSizeHint(pageSize)
@@ -45,13 +45,13 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
         }
     }
 
-    fun likePhoto(id:String?){
+    fun likePhoto(id: String?) {
         id?.let {
             mDisposables.add(
                 mPhotoRepository.likePhoto(id)
                     .subscribeBy(  // named arguments for lambda Subscribers
                         onSuccess = { Timber.d("photo liked") },
-                        onError =  { Timber.d("error on photo liked $it") }
+                        onError = { Timber.d("error on photo liked $it") }
                     )
             )
         }

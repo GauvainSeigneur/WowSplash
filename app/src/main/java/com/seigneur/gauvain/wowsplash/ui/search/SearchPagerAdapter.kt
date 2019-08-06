@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.seigneur.gauvain.wowsplash.ui.search.collection.SearchCollectionFragment
 import com.seigneur.gauvain.wowsplash.ui.search.photo.SearchPhotoFragment
+import com.seigneur.gauvain.wowsplash.ui.search.user.SearchUserFragment
 
 class SearchPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
@@ -13,21 +14,25 @@ class SearchPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIO
             0 -> {
                 SearchPhotoFragment()
             }
+            1 -> {
+                SearchCollectionFragment()
+            }
             else -> {
-                return SearchCollectionFragment()
+                return SearchUserFragment()
             }
         }
     }
 
     override fun getCount(): Int {
-        return 2
+        return 3
     }
 
     override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
             0 -> "Photo"
+            1 -> "Collection"
             else -> {
-                return "Collection"
+                return "User"
             }
         }
     }

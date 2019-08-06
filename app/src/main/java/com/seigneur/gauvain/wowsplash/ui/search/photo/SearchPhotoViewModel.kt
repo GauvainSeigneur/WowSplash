@@ -1,6 +1,5 @@
 package com.seigneur.gauvain.wowsplash.ui.search.photo
 
-import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory

@@ -45,7 +45,9 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
     }
 
     override fun initAdapter() {
-        searchResultList.layoutManager =  StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS // todo - must define some stratgy with Glide before
+        searchResultList.layoutManager = layoutManager
         searchResultList.adapter.let {
             searchResultList.adapter = mSearchPhotoListAdapter
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/searchEditText"
@@ -8,15 +8,32 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:imeOptions="actionSearch"
+        android:backgroundTint="@color/colorPrimary"
         android:inputType="text"
         android:background="@null"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"
         android:hint="Search" />
 
     <ImageButton
         android:id="@+id/micClearIcon"
         android:layout_width="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
         android:layout_height="match_parent"
         android:background="?selectableItemBackgroundBorderless"
         android:src="@drawable/ic_clear_black_24dp"/>
+
+    <ImageButton
+        android:id="@+id/searchButton"
+        android:layout_width="56dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_height="match_parent"
+        android:background="?selectableItemBackground"
+        android:src="@drawable/ic_unsplash_search_black_24dp"/>
 
 </merge>

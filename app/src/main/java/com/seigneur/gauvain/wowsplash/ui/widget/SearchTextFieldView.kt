@@ -1,6 +1,7 @@
 package com.seigneur.gauvain.wowsplash.ui.widget
 
 import android.content.Context
+import android.graphics.Paint
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -10,6 +11,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.textfield.TextInputEditText
 import com.seigneur.gauvain.wowsplash.R
 import kotlinx.android.synthetic.main.view_search_textfield.view.*
@@ -33,6 +35,17 @@ class SearchTextFieldView @JvmOverloads constructor(
         changeIcon(false)
         manageIconAppearance()
         setOnIconClick()
+        setSearchBackgroundDrawable()
+    }
+
+    private fun setSearchBackgroundDrawable() {
+        val backgroundDrawable = MaterialShapeDrawable().apply {
+            setTint(ContextCompat.getColor(context, R.color.colorSecondary))
+            setCornerRadius(150F)
+            paintStyle = Paint.Style.FILL
+        }
+        searchButton.background = backgroundDrawable
+
     }
 
 

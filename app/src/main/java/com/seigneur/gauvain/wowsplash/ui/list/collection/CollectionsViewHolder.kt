@@ -20,10 +20,10 @@ private constructor(
 ) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-    val shotImage = itemView.findViewById(R.id.photoImage) as ImageView
+    val collectionCover = itemView.findViewById(R.id.collectionCover) as ImageView
 
     init {
-        shotImage.setOnClickListener(this)
+        collectionCover.setOnClickListener(this)
     }
 
     fun bindTo(collection: PhotoCollection) {
@@ -41,7 +41,7 @@ private constructor(
                 .setDefaultRequestOptions(requestOptions)
                 .load(it.urls.regular)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(shotImage)
+                .into(collectionCover)
         }
 
     }
@@ -55,7 +55,7 @@ private constructor(
     companion object {
         fun create(parent: ViewGroup, photoItemCallback: CollectionsItemCallback): CollectionsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val view = layoutInflater.inflate(R.layout.list_item_photo, parent, false)
+            val view = layoutInflater.inflate(R.layout.list_item_collection, parent, false)
             return CollectionsViewHolder(view, photoItemCallback)
         }
     }

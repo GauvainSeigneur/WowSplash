@@ -10,7 +10,7 @@ import com.seigneur.gauvain.wowsplash.data.model.network.Status
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
-import kotlinx.android.synthetic.main.fragment_refresh_list.*
+import kotlinx.android.synthetic.main.layout_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import timber.log.Timber
 
@@ -22,7 +22,7 @@ abstract class BasePagingFragment<DataSource, Key, Value> :
     abstract fun initAdapter()
 
     override val fragmentLayout: Int
-        get() = R.layout.fragment_refresh_list
+        get() = R.layout.layout_refresh_list
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

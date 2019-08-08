@@ -14,7 +14,9 @@ abstract class BaseSearchResultViewModel<DataSource, Key, Value> : BaseViewModel
 
     var factory: BaseDataSourceFactory<DataSource, Key, Value>? = null
 
-    var networkState: LiveData<NetworkState>? =null //todo - test or remake as lateinit if don't work
+    var networkState: LiveData<NetworkState>? = null //todo - test or remake as lateinit if don't work
+
+    var initialNetworkState: LiveData<NetworkState>? = null
 
     abstract fun createDataSourceFactory(query: String): BaseDataSourceFactory<DataSource, Key, Value>
 
@@ -25,6 +27,9 @@ abstract class BaseSearchResultViewModel<DataSource, Key, Value> : BaseViewModel
         initDataSource()
         networkState = Transformations.switchMap(factory!!.dataSourceLiveData)
         { it.networkState }
+
+        initialNetworkState = Transformations.switchMap(factory!!.dataSourceLiveData)
+        { it.initialLoad }
     }
 
     fun retry() {

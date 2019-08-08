@@ -8,6 +8,7 @@
         <item name="itemIconTint">@drawable/selector_item_menu_bottom_nav</item>
         <item name="itemTextColor">@drawable/selector_item_menu_bottom_nav</item>
         <item name="labelVisibilityMode">selected</item>
+        <item name="elevation">0dp</item>
     </style>
 
     <style name="Widget.Fab" parent="Widget.MaterialComponents.FloatingActionButton">

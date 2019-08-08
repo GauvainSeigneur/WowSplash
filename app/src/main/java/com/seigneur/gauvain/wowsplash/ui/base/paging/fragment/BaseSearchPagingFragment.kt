@@ -38,27 +38,23 @@ abstract class BaseSearchPagingFragment<DataSource, Key, Value> :
     fun performSearch(query:String) {
         vm.search(query)
         setInitialLoadingState(NetworkState.LOADING)
-        //subscribe again after perform a search because that here we define the list.
-        // Is not perfect yet, but it works...
+        //subscribe again after perform a search because when we perform a search request we reinitialize LiveData
+        //Is not perfect yet, but it works...
         subscribeToPagedList()
     }
 
     private fun subscribeToPagedList() {
         vm.searchResultList?.observe(
             viewLifecycleOwner, Observer<PagedList<Value>> {
-                Timber.d("vm.searchResultList called")
                 submitList(it)
-                if (listAdapter.itemCount>0) {
-                    setInitialLoadingState(NetworkState.LOADED) // first load is made
-                }
             })
 
+        vm.initialNetworkState?.observe(viewLifecycleOwner, Observer {
+            setInitialLoadingState(it)
+        })
+
         vm.networkState?.observe(viewLifecycleOwner, Observer<NetworkState> {
-            Timber.d("mSearchResultViewModel.networkState $it")
             listAdapter.setNetworkState(it)
-            if (listAdapter.itemCount<1) {
-                setInitialLoadingState(it) // first load is made
-            }
         })
     }
 

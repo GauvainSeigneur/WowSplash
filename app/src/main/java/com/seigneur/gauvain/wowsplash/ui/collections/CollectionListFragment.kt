@@ -13,7 +13,7 @@ import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsItemCallback
 import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsListAdapter
 
-import kotlinx.android.synthetic.main.fragment_refresh_list.*
+import kotlinx.android.synthetic.main.layout_refresh_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CollectionListFragment : BaseFragment(),
@@ -39,7 +39,7 @@ class CollectionListFragment : BaseFragment(),
     }
 
     override val fragmentLayout: Int
-        get() = R.layout.fragment_refresh_list
+        get() = R.layout.layout_refresh_list
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

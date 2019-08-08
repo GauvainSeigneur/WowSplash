@@ -14,7 +14,7 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.fragment.BasePagingFragment
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoItemCallback
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoListAdapter
-import kotlinx.android.synthetic.main.fragment_refresh_list.*
+import kotlinx.android.synthetic.main.layout_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

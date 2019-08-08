@@ -1,5 +1,6 @@
 package com.seigneur.gauvain.wowsplash.ui.search.photo
 
+import android.widget.Toast
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.photo.SearchPhotoDataSource
@@ -36,10 +37,15 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
 
     override fun submitList(list: PagedList<Photo>) {
         mSearchPhotoListAdapter.submitList(list)
+
+        if (mSearchPhotoListAdapter.itemCount ==0) {
+            Toast.makeText(context, "no items found", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     override fun subscribeToLiveData() {
-        mSearchViewModel.searchPhotoQuery.observe(viewLifecycleOwner, EventObserver<String> {
+        mSearchViewModel.searchPhotoQuery.observe(viewLifecycleOwner, EventObserver {
             performSearch(it)
         })
     }

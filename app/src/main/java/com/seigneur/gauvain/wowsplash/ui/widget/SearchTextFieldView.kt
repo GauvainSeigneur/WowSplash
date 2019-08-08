@@ -35,17 +35,6 @@ class SearchTextFieldView @JvmOverloads constructor(
         changeIcon(false)
         manageIconAppearance()
         setOnIconClick()
-        setSearchBackgroundDrawable()
-    }
-
-    private fun setSearchBackgroundDrawable() {
-        val backgroundDrawable = MaterialShapeDrawable().apply {
-            setTint(ContextCompat.getColor(context, R.color.colorSecondary))
-            setCornerRadius(150F)
-            paintStyle = Paint.Style.FILL
-        }
-        searchButton.background = backgroundDrawable
-
     }
 
 
@@ -79,23 +68,29 @@ class SearchTextFieldView @JvmOverloads constructor(
     private fun changeIcon(hasText: Boolean) {
         isIconMicMode = hasText
         if (hasText)
-            micClearIcon.visibility = View.VISIBLE
+            clearSearchButton.visibility = View.VISIBLE
         else
-            micClearIcon.visibility = View.INVISIBLE
+            clearSearchButton.visibility = View.INVISIBLE
     }
 
     /**
      * Listen icon click
      */
     private fun setOnIconClick() {
-        micClearIcon.setOnClickListener {
-            if (isIconMicMode) {
-
-            } else {
-
-            }
+        clearSearchButton.setOnClickListener {
+            mSearchEditText.text?.clear()
         }
 
+    }
+
+    fun setOnSearchClickListener(onSearchButtonListner : OnSearchButtonListner) {
+        searchButton.setOnClickListener {
+            onSearchButtonListner.onSearchClicked()
+        }
+    }
+
+    interface OnSearchButtonListner {
+        fun onSearchClicked()
     }
 
 }

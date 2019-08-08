@@ -11,10 +11,11 @@
     <color name="colorPrimaryVariant">#111111</color>
     <color name="colorOnPrimary">#FFFFFF</color>
 
-    <color name="unsplashGrey">#EEEEEE</color>
+    <color name="colorUnsplashGreyLight">#EEEEEE</color>
+    <color name="colorUnsplashGreyDark">#999999</color>
 
     <color name="colorSecondary">#3cb46e</color>
-    <color name="colorSecondaryVariant">#36a162</color>
+    <color name="colorSecondaryVariant">#308e56</color>
     <color name="colorOnSecondary">#fafafa</color>
 
     <color name="colorBackground">#fafafa</color>
@@ -25,7 +26,5 @@
 
     <color name="colorError">#ec391d</color>
     <color name="colorOnError">#FFFFFF</color>
-
-    <color name="colorGrayUnactived">#999999</color>
 
 </resources>

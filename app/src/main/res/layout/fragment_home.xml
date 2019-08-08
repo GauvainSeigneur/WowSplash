@@ -9,21 +9,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--app:endIconMode="clear_text"-->
-        <com.seigneur.gauvain.wowsplash.ui.widget.SearchTextFieldView
-            android:id="@+id/searchTextFieldView"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/mToolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"/>
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="WowSplash" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mTabs"
-            app:tabMode="scrollable"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

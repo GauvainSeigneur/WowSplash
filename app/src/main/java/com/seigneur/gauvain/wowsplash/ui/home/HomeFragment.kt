@@ -5,16 +5,16 @@ import android.os.Bundle
 import android.view.View
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.layout_tabbed_list.*
 
 class HomeFragment : BaseFragment() {
 
     override val fragmentLayout: Int
-        get() = R.layout.fragment_home
+        get() = R.layout.layout_tabbed_list
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val fragmentAdapter = PhotoPagerAdapter(childFragmentManager)
+        val fragmentAdapter = HomePagerAdapter(childFragmentManager)
         viewPager.adapter = fragmentAdapter
         mTabs.setupWithViewPager(viewPager)
 

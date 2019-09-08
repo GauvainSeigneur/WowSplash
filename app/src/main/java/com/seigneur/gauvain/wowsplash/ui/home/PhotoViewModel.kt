@@ -10,6 +10,7 @@ import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
+import com.seigneur.gauvain.wowsplash.utils.event.Event
 import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
@@ -54,6 +55,12 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
                         onError = { Timber.d("error on photo liked $it") }
                     )
             )
+        }
+    }
+
+    fun setPhotoClicked(photo: Photo?) {
+        photo?.let {
+            mPhotoRepository.photoClicked.postValue(Event(photo))
         }
     }
 

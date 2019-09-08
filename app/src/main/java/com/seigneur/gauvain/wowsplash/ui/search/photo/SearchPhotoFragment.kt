@@ -1,6 +1,5 @@
 package com.seigneur.gauvain.wowsplash.ui.search.photo
 
-import android.widget.Toast
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.photo.SearchPhotoDataSource
@@ -16,7 +15,6 @@ import kotlinx.android.synthetic.main.fragment_search_result.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
-
 
 class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long, Photo>(),
     PhotoItemCallback,
@@ -37,11 +35,6 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
 
     override fun submitList(list: PagedList<Photo>) {
         mSearchPhotoListAdapter.submitList(list)
-
-        if (mSearchPhotoListAdapter.itemCount ==0) {
-            Toast.makeText(context, "no items found", Toast.LENGTH_LONG).show()
-        }
-
     }
 
     override fun subscribeToLiveData() {
@@ -52,12 +45,20 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
 
     override fun initAdapter() {
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS // todo - must define some stratgy with Glide before
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+       // searchResultList.itemAnimator = null
         searchResultList.layoutManager = layoutManager
         searchResultList.adapter.let {
             searchResultList.adapter = mSearchPhotoListAdapter
         }
 
+        /*searchResultList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    searchResultList.invalidateItemDecorations()
+                }
+            }
+        })*/
     }
 
     override fun onPhotoClicked(position: Int) {

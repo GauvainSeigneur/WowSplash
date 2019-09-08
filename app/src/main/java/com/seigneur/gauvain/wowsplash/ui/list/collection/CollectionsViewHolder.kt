@@ -5,12 +5,15 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.seigneur.gauvain.wowsplash.R
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.card.MaterialCardView
 import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
 
 class CollectionsViewHolder
@@ -28,7 +31,6 @@ private constructor(
 
     fun bindTo(collection: PhotoCollection) {
         val photoCover =  collection.cover_photo
-
 
         photoCover?.let {
             val photoColor = Color.parseColor(it.color)

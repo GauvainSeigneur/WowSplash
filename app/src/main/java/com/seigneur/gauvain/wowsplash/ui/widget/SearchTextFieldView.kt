@@ -37,7 +37,6 @@ class SearchTextFieldView @JvmOverloads constructor(
         setOnIconClick()
     }
 
-
     /**
      * manage icon type according to search
      */

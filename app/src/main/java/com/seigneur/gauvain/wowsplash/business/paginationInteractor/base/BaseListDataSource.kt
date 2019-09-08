@@ -91,7 +91,6 @@ abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable
         params: LoadInitialParams<Key>,
         callback: LoadInitialCallback<Key, Value>
     ) {
-        Timber.d("first load happened")
         compositeDisposable.add(
             loadInitialRequest(firstPageKey, params.requestedLoadSize)
                 .doOnSubscribe {
@@ -121,8 +120,6 @@ abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable
         params: LoadParams<Key>,
         callback: LoadCallback<Key, Value>
     ) {
-
-        Timber.d("handleLoadAfter called")
         compositeDisposable.add(
             loadAfterRequest(params.key, params.requestedLoadSize)
                 .doOnSubscribe {

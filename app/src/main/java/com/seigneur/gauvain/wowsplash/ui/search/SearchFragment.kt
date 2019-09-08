@@ -56,7 +56,7 @@ class SearchFragment : BaseFragment() {
         searchTextFieldView.mSearchEditText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 mSearchViewModel.updateSearchQuery(mQueryEntry)
-                true
+               // true
             }
             false
         }

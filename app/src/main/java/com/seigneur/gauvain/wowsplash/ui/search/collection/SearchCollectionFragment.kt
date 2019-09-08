@@ -4,7 +4,7 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.collection.SearchCollectionDataSource
-import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.paging.fragment.BaseSearchPagingFragment
@@ -12,6 +12,8 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultV
 import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsItemCallback
 import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsListAdapter
 import com.seigneur.gauvain.wowsplash.ui.search.SearchViewModel
+import com.seigneur.gauvain.wowsplash.utils.event.Event
+import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 import kotlinx.android.synthetic.main.fragment_search_result.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,9 +41,8 @@ class SearchCollectionFragment : BaseSearchPagingFragment<SearchCollectionDataSo
     }
 
     override fun subscribeToLiveData() {
-        mSearchViewModel.searchQuery.observe(viewLifecycleOwner, Observer<Pair<Int, String>> {
-            performSearch(it.second)
-
+        mSearchViewModel.searchCollectionQuery.observe(viewLifecycleOwner, EventObserver<String> {
+            performSearch(it)
         })
     }
 

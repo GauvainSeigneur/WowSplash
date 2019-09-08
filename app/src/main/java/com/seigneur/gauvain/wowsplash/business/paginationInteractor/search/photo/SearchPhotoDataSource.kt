@@ -1,12 +1,9 @@
 package com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.photo
 
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.BaseSearchDataSource
-import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.data.model.SearchResponse
-import com.seigneur.gauvain.wowsplash.data.model.user.User
-import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
+import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
+import com.seigneur.gauvain.wowsplash.data.model.search.SearchResponse
 import com.seigneur.gauvain.wowsplash.data.repository.SearchRepository
-import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable

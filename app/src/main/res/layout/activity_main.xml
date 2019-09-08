@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="56dp" />
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/mBottomNavigation"
         style="@style/Widget.BottomNavigationTheme"
@@ -22,7 +23,7 @@
         android:layout_gravity="bottom"
         app:menu="@menu/navigation" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
@@ -33,6 +34,6 @@
         app:fabSize="normal"
         app:layout_anchor="@id/mBottomNavigation"
         app:layout_anchorGravity="top|end"
-        app:useCompatPadding="true" />
+        app:useCompatPadding="true" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,8 +1,8 @@
 package com.seigneur.gauvain.wowsplash.business.result
 
-import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
-import com.seigneur.gauvain.wowsplash.data.model.SearchResponse
+import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.search.SearchResponse
 import com.seigneur.gauvain.wowsplash.data.model.user.User
 
 sealed class SearchResult {

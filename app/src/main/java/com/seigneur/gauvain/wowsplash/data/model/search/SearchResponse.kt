@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.data.model
+package com.seigneur.gauvain.wowsplash.data.model.search
 
 data class SearchResponse<T>(
     val total:Int,

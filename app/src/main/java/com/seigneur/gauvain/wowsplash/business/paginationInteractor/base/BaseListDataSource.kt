@@ -55,13 +55,10 @@ abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable
         // update network states.
         // we also provide an initial load state to the listeners so that the UI can know when the
         // very first list is loaded.
-        networkState.postValue(NetworkState.LOADING)
-        initialLoad.postValue(NetworkState.LOADING)
         handleFirstLoad(params, callback)
     }
 
     override fun loadAfter(params: LoadParams<Key>, callback: LoadCallback<Key, Value>) {
-        networkState.postValue(NetworkState.LOADING)
         handleLoadAfter(params, callback)
     }
 
@@ -96,20 +93,22 @@ abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable
     ) {
         compositeDisposable.add(
             loadInitialRequest(firstPageKey, params.requestedLoadSize)
+                .doOnSubscribe {
+                    initialLoad.postValue(NetworkState.LOADING)
+                }
                 .subscribe(
                     {
-                        // clear retry since last request succeeded
-                        setRetry(null)
                         networkState.postValue(NetworkState.LOADED)
                         initialLoad.postValue(NetworkState.LOADED)
+                        Timber.d("first load success")
+                        // clear retry since last request succeeded
+                        setRetry(null)
                         callback.onResult(handleCallback(it), null, firstNextPageKey)
                     },
                     { throwable ->
                         // keep a Completable for future retry
                         setRetry(Action { loadInitial(params, callback) })
                         val error = NetworkState.error(throwable.message)
-                        // publish the error
-                        networkState.postValue(error)
                         initialLoad.postValue(error)
                     }
                 )
@@ -121,14 +120,14 @@ abstract class BaseListDataSource<T, Key, Value>(private val compositeDisposable
         params: LoadParams<Key>,
         callback: LoadCallback<Key, Value>
     ) {
-
-        Timber.d("handleLoadAfter called")
         compositeDisposable.add(
             loadAfterRequest(params.key, params.requestedLoadSize)
+                .doOnSubscribe {
+                    networkState.postValue(NetworkState.LOADING)
+                }
                 .subscribe(
                     {
-                        //val nextKey = nextKey//(params.key) as Long + 1
-                        // clear retry since last request succeeded
+                        Timber.d("handleLoadAfter sucess")
                         setRetry(null)
                         networkState.postValue(NetworkState.LOADED)
                         callback.onResult(handleCallback(it), nextKey(params.key))

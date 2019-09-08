@@ -2,6 +2,7 @@ package com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel

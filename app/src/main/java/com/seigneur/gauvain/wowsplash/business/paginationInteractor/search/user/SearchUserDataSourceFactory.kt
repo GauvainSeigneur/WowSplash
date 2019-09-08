@@ -1,7 +1,5 @@
 package com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.user
 
-import androidx.lifecycle.MutableLiveData
-import androidx.paging.DataSource
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
 import com.seigneur.gauvain.wowsplash.data.model.user.User

@@ -2,7 +2,7 @@ package com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.phot
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.seigneur.gauvain.wowsplash.data.model.Photo
+import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.SearchRepository
 
 import io.reactivex.disposables.CompositeDisposable

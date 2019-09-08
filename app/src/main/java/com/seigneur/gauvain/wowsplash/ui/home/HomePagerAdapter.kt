@@ -4,15 +4,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class PhotoPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class HomePagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> {
-                PhotoFragment.newInstance("latest")
+                PhotoListFragment.newInstance("latest")
             }
             else -> {
-                return PhotoFragment.newInstance("popular")
+                return PhotoListFragment.newInstance("popular")
             }
         }
     }

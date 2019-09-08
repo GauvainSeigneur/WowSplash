@@ -43,11 +43,10 @@ abstract class BaseFragment :Fragment() {
         mRootview = inflater.inflate(fragmentLayout, container, false)
         onCreateView(mRootview, savedInstanceState)
         return mRootview
-
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribeToLiveData()
     }
 
@@ -60,7 +59,7 @@ abstract class BaseFragment :Fragment() {
      * method to be overriden.
      * In this method, root view is already inflated and one can use below view getters
      */
-    open fun onCreateView(rootView: View, savedInstanceState: Bundle?) {}
+    open fun onCreateView(rootView: View, savedInstanceState: Bundle?)  {}
 
 }
 

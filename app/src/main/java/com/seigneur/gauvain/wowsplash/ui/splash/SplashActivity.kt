@@ -30,10 +30,12 @@ class SplashActivity : AppCompatActivity() {
                        Timber.d("token is saved and is ${it.token}")
                        val goIntent = Intent(this, MainActivity::class.java)
                        startActivity(goIntent)
+                       finish()
                    }
                    is AccessTokenResult.UnFetched -> {
                        val goIntent = Intent(this, MainActivity::class.java)
                        startActivity(goIntent)
+                       finish()
                    }
                }
             })

@@ -5,8 +5,7 @@ import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.collection.SearchCollectionDataSource
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.collection.SearchCollectionDataSourceFactory
-import com.seigneur.gauvain.wowsplash.data.model.Photo
-import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.repository.SearchRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultViewModel
 

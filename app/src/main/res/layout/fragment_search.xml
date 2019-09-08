@@ -10,27 +10,18 @@
         android:layout_height="wrap_content">
 
         <!--app:endIconMode="clear_text"-->
-        <com.google.android.material.card.MaterialCardView
+        <com.seigneur.gauvain.wowsplash.ui.widget.SearchTextFieldView
+            android:id="@+id/searchTextFieldView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:cardCornerRadius="24dp"
-            app:cardPreventCornerOverlap="true"
-            android:layout_margin="16dp"
-            app:contentPaddingTop="8dp"
-            app:contentPaddingBottom="8dp"
-            app:contentPaddingLeft="16dp"
-            app:contentPaddingRight="16dp">
-
-            <com.seigneur.gauvain.wowsplash.ui.widget.SearchTextFieldView
-                android:id="@+id/searchTextFieldView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </com.google.android.material.card.MaterialCardView>
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/mTabs"
+            app:tabMode="scrollable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -41,12 +32,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/searchBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="56dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,14 +2,13 @@ package com.seigneur.gauvain.wowsplash.ui.list.photo
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.seigneur.gauvain.wowsplash.data.model.Photo
+import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 
 class PhotoListAdapter(private val photoItemCallback: PhotoItemCallback,
                        private val networkItemCallback: NetworkItemCallback)
     : BasePagedListAdapter<Photo, RecyclerView.ViewHolder>(UserDiffCallback,networkItemCallback) {
-
 
     override val viewHolder: RecyclerView.ViewHolder
         get() = PhotoViewHolder.create(

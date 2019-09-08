@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import com.seigneur.gauvain.wowsplash.ui.widget.SearchTextFieldView
+import com.seigneur.gauvain.wowsplash.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.view_search_textfield.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,30 +25,22 @@ class SearchFragment : BaseFragment() {
 
     val mSearchViewModel by viewModel<SearchViewModel>()
 
-    var mQueryEntry: String? = null
+    private var mQueryEntry: String? = null
+
+    lateinit var fragmentAdapter: SearchPagerAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fragmentAdapter = SearchPagerAdapter(childFragmentManager)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val fragmentAdapter = SearchPagerAdapter(childFragmentManager)
-        viewPager.adapter = fragmentAdapter
-        mTabs.setupWithViewPager(viewPager)
+        setUpViewPager()
+        setUpSearchField()
+    }
 
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-                mSearchViewModel.currentFragmentPos = position
-            }
-
-        })
-
-
+    private fun setUpSearchField(){
         searchTextFieldView.mSearchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
@@ -62,16 +55,40 @@ class SearchFragment : BaseFragment() {
 
         searchTextFieldView.mSearchEditText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val blamo = mQueryEntry
-                if (blamo != null && blamo.isNotEmpty()) {
-                    mSearchViewModel.searchQuery.value = Pair(mSearchViewModel.currentFragmentPos, blamo)
-                } else {
-                    Toast.makeText(context, "lol", Toast.LENGTH_LONG).show()
-                }
-                true
+                mSearchViewModel.updateSearchQuery(mQueryEntry)
+               // true
             }
             false
         }
+
+
+        searchTextFieldView.setOnSearchClickListener(object : SearchTextFieldView.OnSearchButtonListner {
+            override fun onSearchClicked() {
+                searchTextFieldView.hideKeyboard()
+                mSearchViewModel.updateSearchQuery(mQueryEntry)
+            }
+        })
+
+    }
+
+    private fun setUpViewPager() {
+        viewPager.offscreenPageLimit = 3
+        viewPager.adapter = fragmentAdapter
+        mTabs.setupWithViewPager(viewPager)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                mSearchViewModel.currentFragmentPos = position
+            }
+
+        })
     }
 
 

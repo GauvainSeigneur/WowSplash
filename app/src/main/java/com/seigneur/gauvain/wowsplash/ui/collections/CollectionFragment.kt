@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.view.View
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
-import com.seigneur.gauvain.wowsplash.ui.home.PhotoFragment
-import kotlinx.android.synthetic.main.fragment_tab_list.*
+import kotlinx.android.synthetic.main.layout_tabbed_list.*
 
 class CollectionFragment : BaseFragment() {
 
     override val fragmentLayout: Int
-        get() = R.layout.fragment_tab_list
+        get() = R.layout.layout_tabbed_list
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +20,8 @@ class CollectionFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val fragmentAdapter = CollectionPagerAdapter(childFragmentManager)
         viewPager.adapter = fragmentAdapter
-        mTabs.setupWithViewPager(viewPager)
-
+        mTabs.visibility = View.GONE
+       // mTabs.setupWithViewPager(viewPager)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

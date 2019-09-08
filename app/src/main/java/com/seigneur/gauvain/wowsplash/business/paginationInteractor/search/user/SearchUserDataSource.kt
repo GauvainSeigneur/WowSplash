@@ -1,7 +1,7 @@
 package com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.user
 
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.BaseSearchDataSource
-import com.seigneur.gauvain.wowsplash.data.model.SearchResponse
+import com.seigneur.gauvain.wowsplash.data.model.search.SearchResponse
 import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 

@@ -5,13 +5,16 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.seigneur.gauvain.wowsplash.R
 import com.bumptech.glide.request.RequestOptions
-import com.seigneur.gauvain.wowsplash.data.model.PhotoCollection
+import com.google.android.material.card.MaterialCardView
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
 
 class CollectionsViewHolder
 private constructor(
@@ -20,24 +23,29 @@ private constructor(
 ) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-    val shotImage = itemView.findViewById(R.id.photoImage) as ImageView
+    val collectionCover = itemView.findViewById(R.id.collectionCover) as ImageView
 
     init {
-        shotImage.setOnClickListener(this)
+        collectionCover.setOnClickListener(this)
     }
 
     fun bindTo(collection: PhotoCollection) {
-        val photoColor = Color.parseColor(collection.cover_photo.color)
-        val requestOptions = RequestOptions()
-        requestOptions.placeholder(ColorDrawable(photoColor))
-        requestOptions.error(R.drawable.ic_circle_info_24px)
-        requestOptions.fallback(R.drawable.ic_circle_info_24px) //in case of null value
+        val photoCover =  collection.cover_photo
 
-        Glide.with(itemView.context)
-            .setDefaultRequestOptions(requestOptions)
-            .load(collection.cover_photo.urls.small)
-            .transition(DrawableTransitionOptions.withCrossFade())
-            .into(shotImage)
+        photoCover?.let {
+            val photoColor = Color.parseColor(it.color)
+            val requestOptions = RequestOptions()
+            requestOptions.placeholder(ColorDrawable(photoColor))
+            requestOptions.error(R.drawable.ic_circle_info_24px)
+            requestOptions.fallback(R.drawable.ic_circle_info_24px) //in case of null value
+
+            Glide.with(itemView.context)
+                .setDefaultRequestOptions(requestOptions)
+                .load(it.urls.regular)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(collectionCover)
+        }
+
     }
 
     override fun onClick(view: View) {
@@ -49,7 +57,7 @@ private constructor(
     companion object {
         fun create(parent: ViewGroup, photoItemCallback: CollectionsItemCallback): CollectionsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val view = layoutInflater.inflate(R.layout.list_item_photo, parent, false)
+            val view = layoutInflater.inflate(R.layout.list_item_collection, parent, false)
             return CollectionsViewHolder(view, photoItemCallback)
         }
     }

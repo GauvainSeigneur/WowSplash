@@ -37,8 +37,6 @@ class PhotoRepository(private val service: UnSplashService)  {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    val photoClicked = MutableLiveData<Event<Photo>>()
-
     /*fun searchPhotos(page: Long, perPage: Int, query:String): Single<Photo> {
         return service.searchPhoto(query, page, perPage)
             .subscribeOn(Schedulers.io())

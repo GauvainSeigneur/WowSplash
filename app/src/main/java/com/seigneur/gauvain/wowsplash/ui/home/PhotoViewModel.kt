@@ -7,15 +7,18 @@ import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDat
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
+import com.seigneur.gauvain.wowsplash.data.repository.PhotoDetailsTempRepository
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import com.seigneur.gauvain.wowsplash.utils.event.Event
 import io.reactivex.rxkotlin.subscribeBy
+import org.koin.core.KoinComponent
+import org.koin.core.qualifier.named
 import timber.log.Timber
 
 class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
-    BasePagingListViewModel<PhotosDataSource, Long, Photo>() {
+    BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent {
 
     override val dataSourceFactory: BaseDataSourceFactory<PhotosDataSource, Long, Photo>
         get() = photoDataSourceFactory
@@ -60,7 +63,11 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
 
     fun setPhotoClicked(photo: Photo?) {
         photo?.let {
-            mPhotoRepository.photoClicked.postValue(Event(photo))
+            val photoDetailsTempRepSession =
+                getKoin().getOrCreateScope("myScope1", named("PHOTO_DETAILS_TEMP"))
+            val photoDetailsTempRepository =
+                photoDetailsTempRepSession.get<PhotoDetailsTempRepository>()
+            photoDetailsTempRepository.photoClicked.postValue(Event(photo))
         }
     }
 

@@ -3,8 +3,7 @@ package com.seigneur.gauvain.wowsplash.ui.photoList
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.seigneur.gauvain.wowsplash.business.interactor.PhotoInteractor
-import com.seigneur.gauvain.wowsplash.business.interactor.pagedList.PhotoPagedListInteractor
+import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractor
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
@@ -16,10 +15,13 @@ import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import org.koin.core.KoinComponent
+import org.koin.core.inject
 import org.koin.core.qualifier.named
 
 class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
     BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
+
+    private val photoInteractor by inject<PhotoInteractor>()
 
     var list: LiveData<PagedList<Photo>>? = null
     private var orderBy: String? = null
@@ -33,8 +35,6 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
             null
         )
     }
-
-    private val photoInteractor=PhotoInteractor(mDisposables, mPhotoRepository, this)
 
     override val dataSourceFactory: BaseDataSourceFactory<PhotosDataSource, Long, Photo>
         get() = photoDataSourceFactory

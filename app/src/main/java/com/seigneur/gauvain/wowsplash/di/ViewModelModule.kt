@@ -5,6 +5,7 @@ import com.seigneur.gauvain.wowsplash.ui.collections.CollectionsViewModel
 import com.seigneur.gauvain.wowsplash.ui.photoList.PhotoViewModel
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInViewModel
 import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsViewModel
+import com.seigneur.gauvain.wowsplash.ui.photoList.PhotoPresenter
 import com.seigneur.gauvain.wowsplash.ui.postPhoto.PostPhotoViewModel
 import com.seigneur.gauvain.wowsplash.ui.search.photo.SearchPhotoViewModel
 import com.seigneur.gauvain.wowsplash.ui.search.SearchViewModel

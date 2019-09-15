@@ -16,7 +16,13 @@ class WowSplashApp : Application(), KoinComponent {
             // Android context
             androidContext(this@WowSplashApp)
             // modules
-            modules(listOf(remoteDataSourceModule, repositoryModule, viewModelModule, databaseModule, tempRepositoryModule))
+            modules(listOf(
+                remoteDataSourceModule,
+                repositoryModule,
+                viewModelModule,
+                databaseModule,
+                tempRepositoryModule,
+                interactorModule))
         }
         Timber.plant(Timber.DebugTree())
     }

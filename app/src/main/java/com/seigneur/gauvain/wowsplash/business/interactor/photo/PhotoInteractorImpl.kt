@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.business.interactor
+package com.seigneur.gauvain.wowsplash.business.interactor.photo
 
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.photoList.PhotoPresenter
@@ -8,13 +8,13 @@ import io.reactivex.rxkotlin.subscribeBy
 /**
  *  Must be used only by ViewModel which inject all dependencies
  */
-class PhotoInteractor(
+class PhotoInteractorImpl(
     private val compositeDisposable: CompositeDisposable,
     private val photoRepository: PhotoRepository,
     private val photoPresenter: PhotoPresenter
-) {
+): PhotoInteractor {
 
-    fun likePhoto(id: String?, pos: Int) {
+    override fun likePhoto(id: String?, pos: Int) {
         id?.let {
             compositeDisposable.add(
                 photoRepository.likePhoto(id)
@@ -24,7 +24,6 @@ class PhotoInteractor(
                     )
             )
         }?: photoPresenter.presentGlobalError()
-
     }
 }
 

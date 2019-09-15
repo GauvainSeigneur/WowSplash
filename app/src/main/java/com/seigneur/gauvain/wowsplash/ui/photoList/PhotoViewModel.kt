@@ -1,8 +1,10 @@
 package com.seigneur.gauvain.wowsplash.ui.photoList
 
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.interactor.PhotoInteractor
+import com.seigneur.gauvain.wowsplash.business.interactor.pagedList.PhotoPagedListInteractor
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
@@ -48,7 +50,15 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
      * Start request data list
      */
     fun init(inOrderBy: String?) {
-
+        orderBy = inOrderBy
+        if (config == null) {
+            config = PagedList.Config.Builder()
+                .setPageSize(pageSize)
+                .setInitialLoadSizeHint(pageSize)
+                .setEnablePlaceholders(false)
+                .build()
+            list = LivePagedListBuilder(photoDataSourceFactory, config!!).build()
+        }
     }
 
     fun likePhoto(id: String?, pos:Int) {

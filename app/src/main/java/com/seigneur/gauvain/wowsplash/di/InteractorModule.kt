@@ -10,7 +10,6 @@ val interactorModule = module {
     // Will match type Service only
     factory { PhotoInteractorImpl(
         CompositeDisposable(),
-        get(),
         get()
     ) as PhotoInteractor
     }

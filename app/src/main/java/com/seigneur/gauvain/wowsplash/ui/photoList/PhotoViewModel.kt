@@ -16,13 +16,43 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListVie
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import org.koin.core.qualifier.named
 
 class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
     BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
 
-    private val photoInteractor by inject<PhotoInteractor>()
+    private val interactor by inject<PhotoInteractor>()
 
+    init {
+        interactor.setUpPresenter(this)
+    }
+
+    override fun presentPhotoLiked(pos:Int) {
+    }
+
+    override fun presentGlobalError() {
+
+    }
+
+    override fun presentPhotoDetails() {
+
+    }
+
+    override fun onCleared() {
+        interactor.closeObservable()
+        super.onCleared()
+    }
+
+    fun likePhoto(id: String?, pos:Int) {
+        interactor.likePhoto(id, pos)
+    }
+
+    fun setPhotoClicked(photo: Photo?) {
+        interactor.onPhotoClicked(photo)
+    }
+
+    /**************************************************************************
+     * Paged List
+     *************************************************************************/
     var list: LiveData<PagedList<Photo>>? = null
     private var orderBy: String? = null
     private var config: PagedList.Config? = null
@@ -39,13 +69,6 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
     override val dataSourceFactory: BaseDataSourceFactory<PhotosDataSource, Long, Photo>
         get() = photoDataSourceFactory
 
-    override fun presentPhotoLiked(pos:Int) {
-    }
-
-    override fun presentGlobalError() {
-
-    }
-
     /**
      * Start request data list
      */
@@ -58,19 +81,6 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
                 .setEnablePlaceholders(false)
                 .build()
             list = LivePagedListBuilder(photoDataSourceFactory, config!!).build()
-        }
-    }
-
-    fun likePhoto(id: String?, pos:Int) {
-        photoInteractor.likePhoto(id, pos)
-    }
-
-    fun setPhotoClicked(photo: Photo?) {
-        photo?.let {
-            val temporaryDataProviderSession = getKoin()
-                .getOrCreateScope(PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID, named(PHOTO_DETAILS_TEMP_SCOPE_NAME))
-            val temporaryDataProvider = temporaryDataProviderSession.get<TemporaryDataProvider>()
-            temporaryDataProvider.photoClicked.postValue(photo)
         }
     }
 

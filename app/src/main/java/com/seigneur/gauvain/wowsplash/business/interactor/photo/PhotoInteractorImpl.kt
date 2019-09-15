@@ -1,11 +1,13 @@
 package com.seigneur.gauvain.wowsplash.business.interactor.photo
 
+import androidx.lifecycle.MutableLiveData
 import com.seigneur.gauvain.wowsplash.data.TemporaryDataProvider
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_NAME
 import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID
 import com.seigneur.gauvain.wowsplash.ui.photoList.PhotoPresenter
+import com.seigneur.gauvain.wowsplash.utils.event.Event
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import org.koin.core.KoinComponent
@@ -17,33 +19,34 @@ import org.koin.core.qualifier.named
 class PhotoInteractorImpl(
     private val compositeDisposable: CompositeDisposable,
     private val photoRepository: PhotoRepository
-): PhotoInteractor, KoinComponent {
+) : KoinComponent {
 
-    private lateinit var presenter:PhotoPresenter
+    val photoLiked = MutableLiveData<Event<Int>>()
+    val globalErrorEvent = MutableLiveData<Event<Throwable>>()
 
-    override fun setUpPresenter(photoPresenter: PhotoPresenter) {
-        presenter = photoPresenter
-    }
+    private lateinit var presenter: PhotoPresenter
 
-    override fun likePhoto(id: String?, pos: Int) {
+
+    fun likePhoto(id: String?, pos: Int) {
         id?.let {
             compositeDisposable.add(
                 photoRepository.likePhoto(id)
                     .subscribeBy(  // named arguments for lambda Subscribers
-                        onSuccess = { presenter.presentPhotoLiked(pos) },
-                        onError = { presenter.presentGlobalError() }
+                        onSuccess = {
+                            photoLiked.postValue(Event(pos))
+                        },
+                        onError = {
+                            globalErrorEvent.postValue(Event(it))
+                        }
                     )
             )
-        }?: presenter.presentGlobalError()
+        } ?: globalErrorEvent.postValue(Event(Throwable("oops")))
     }
 
-    override fun closeObservable() {
-        compositeDisposable.clear()
-    }
-
-    override fun onPhotoClicked(photo: Photo?) {
+    fun onPhotoClicked(photo: Photo?) {
         photo?.let {
-            val temporaryDataProviderSession = getKoin().getOrCreateScope(PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID, named(PHOTO_DETAILS_TEMP_SCOPE_NAME))
+            val temporaryDataProviderSession =
+                getKoin().getOrCreateScope(PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID, named(PHOTO_DETAILS_TEMP_SCOPE_NAME))
             val temporaryDataProvider = temporaryDataProviderSession.get<TemporaryDataProvider>()
             temporaryDataProvider.photoClicked.postValue(photo)
         }

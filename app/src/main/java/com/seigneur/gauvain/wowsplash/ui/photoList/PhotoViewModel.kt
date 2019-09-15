@@ -3,44 +3,23 @@ package com.seigneur.gauvain.wowsplash.ui.photoList
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractor
+import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractorImpl
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
-import com.seigneur.gauvain.wowsplash.data.TemporaryDataProvider
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
-import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_NAME
-import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import org.koin.core.KoinComponent
-import org.koin.core.inject
 
 class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
-    BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
+    BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent {
 
-    private val interactor by inject<PhotoInteractor>()
-
-    init {
-        interactor.setUpPresenter(this)
-    }
-
-    override fun presentPhotoLiked(pos:Int) {
-    }
-
-    override fun presentGlobalError() {
-
-    }
-
-    override fun presentPhotoDetails() {
-
-    }
-
-    override fun onCleared() {
-        interactor.closeObservable()
-        super.onCleared()
-    }
+    //private val interactor by inject<PhotoInteractor>()
+    val interactor  = PhotoInteractorImpl(mDisposables, mPhotoRepository)
+    val photoLiked = interactor.photoLiked
+    val globalErrorEvent = interactor.globalErrorEvent
 
     fun likePhoto(id: String?, pos:Int) {
         interactor.likePhoto(id, pos)

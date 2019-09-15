@@ -21,8 +21,7 @@ class WowSplashApp : Application(), KoinComponent {
                 repositoryModule,
                 viewModelModule,
                 databaseModule,
-                tempRepositoryModule,
-                interactorModule))
+                tempRepositoryModule))
         }
         Timber.plant(Timber.DebugTree())
     }

@@ -17,6 +17,7 @@ import com.seigneur.gauvain.wowsplash.ui.search.photo.SearchPhotoFragment
 import com.seigneur.gauvain.wowsplash.ui.user.UserFragment
 import com.seigneur.gauvain.wowsplash.utils.FragmentStateManager
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.core.Koin
 
 class MainActivity : AppCompatActivity() {
 

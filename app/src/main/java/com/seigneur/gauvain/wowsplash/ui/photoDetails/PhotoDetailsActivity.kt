@@ -38,14 +38,18 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.palette.graphics.Palette
 import com.seigneur.gauvain.wowsplash.utils.ImageUtils
 import com.seigneur.gauvain.wowsplash.utils.MyColorUtils
+import org.koin.android.ext.android.getKoin
 import timber.log.Timber
 
 class PhotoDetailsActivity : AppCompatActivity() {
 
     private val mPhotoDetailsViewModel by viewModel<PhotoDetailsViewModel>()
+
 
     private val appBarOffsetListener: AppBarLayout.OnOffsetChangedListener =
         AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -60,7 +64,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_photo_details)
         postponeEnterTransition()//todo. make a sharedtranstion to make it work!
 
-        mPhotoDetailsViewModel.getPhotoClicked().observe(this, EventObserver<Photo> {
+        mPhotoDetailsViewModel.getPhotoClicked().observe(this, Observer<Photo> {
             resizePhotoImageView(it)
             val photoColor = Color.parseColor(it.color)
             setUpFirstColors(photoColor)

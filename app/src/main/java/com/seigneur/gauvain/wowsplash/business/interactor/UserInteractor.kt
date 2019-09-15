@@ -3,6 +3,7 @@ package com.seigneur.gauvain.wowsplash.business.interactor
 import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.data.repository.AuthRepository
 import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
+import com.seigneur.gauvain.wowsplash.ui.user.UserPresenter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -12,13 +13,13 @@ import io.reactivex.rxkotlin.subscribeBy
 class UserInteractor(
     private val userRepository: UserRepository,
     private val compositeDisposable: CompositeDisposable,
-    private val userCallback: UserCallback
+    private val userPresenter: UserPresenter
 ) {
 
     fun getMe() {
         val accessToken = AuthRepository.accessToken
         if (accessToken.isNullOrEmpty()) {
-            userCallback.onError(Throwable("NO TOKEN AVAILABLE", null))
+            userPresenter.onError(Throwable("NO TOKEN AVAILABLE", null))
         } else {
             fecthMeFromAPI()
         }
@@ -28,18 +29,13 @@ class UserInteractor(
         compositeDisposable.add(userRepository.getMe()
             .subscribeBy(
                 onSuccess = {
-                    userCallback.onMeFetchedFromAPI(it)
+                    userPresenter.onMeFetchedFromAPI(it)
                 },
                 onError = {
-                    userCallback.onError(it)
+                    userPresenter.onError(it)
                 }
             )
         )
-    }
-
-    interface UserCallback {
-        fun onMeFetchedFromAPI(me: User)
-        fun onError(throwable: Throwable)
     }
 }
 

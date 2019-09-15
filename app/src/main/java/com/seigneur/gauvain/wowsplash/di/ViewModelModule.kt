@@ -2,7 +2,7 @@ package com.seigneur.gauvain.wowsplash.di
 
 import com.seigneur.gauvain.wowsplash.ui.splash.SplashViewModel
 import com.seigneur.gauvain.wowsplash.ui.collections.CollectionsViewModel
-import com.seigneur.gauvain.wowsplash.ui.home.PhotoViewModel
+import com.seigneur.gauvain.wowsplash.ui.photoList.PhotoViewModel
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInViewModel
 import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsViewModel
 import com.seigneur.gauvain.wowsplash.ui.postPhoto.PostPhotoViewModel

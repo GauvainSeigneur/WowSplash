@@ -3,6 +3,7 @@ package com.seigneur.gauvain.wowsplash.ui.home
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.seigneur.gauvain.wowsplash.ui.photoList.PhotoListFragment
 
 class HomePagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

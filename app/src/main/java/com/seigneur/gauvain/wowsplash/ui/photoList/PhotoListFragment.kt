@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.home
+package com.seigneur.gauvain.wowsplash.ui.photoList
 
 import android.app.Activity
 import android.app.ActivityOptions
@@ -21,7 +21,6 @@ import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsActivity
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.core.app.ActivityOptionsCompat
 
 
 class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
@@ -93,7 +92,6 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
     override fun onPhotoClicked(position: Int) {
         val photoItem = photoListAdapter.getPhotoFromPos(position)
         mHomeViewModel.setPhotoClicked(photoItem)
-
         //set it in VM
 
         var options: ActivityOptions? = null

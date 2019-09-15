@@ -1,9 +1,7 @@
 package com.seigneur.gauvain.wowsplash.ui.base.paging.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.R
@@ -15,7 +13,6 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapte
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultViewModel
 import kotlinx.android.synthetic.main.fragment_search_result.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
-import timber.log.Timber
 
 abstract class BaseSearchPagingFragment<DataSource, Key, Value> :
     BaseFragment(), NetworkItemCallback {

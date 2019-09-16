@@ -35,14 +35,14 @@ class PhotoInteractor(
         } ?: presenter.presentGlobalError()
     }
 
-    fun onPhotoClicked(photo: Photo?) {
+    fun onPhotoClicked(photo: Photo?, pos:Int) {
         photo?.let {
             val temporaryDataProviderSession =
                 getKoin().getOrCreateScope(PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID, named(PHOTO_DETAILS_TEMP_SCOPE_NAME))
             val temporaryDataProvider = temporaryDataProviderSession.get<TemporaryDataProvider>()
             temporaryDataProvider.photoClicked.postValue(photo)
         }
-        presenter.presentPhotoDetails()
+        presenter.presentPhotoDetails(pos)
     }
 
 

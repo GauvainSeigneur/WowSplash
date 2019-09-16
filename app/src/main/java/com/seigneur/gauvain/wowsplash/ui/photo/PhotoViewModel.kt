@@ -1,6 +1,7 @@
 package com.seigneur.gauvain.wowsplash.ui.photo
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractor
@@ -11,6 +12,7 @@ import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
+import com.seigneur.gauvain.wowsplash.utils.event.Event
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
@@ -19,13 +21,19 @@ class PhotoViewModel(private val photoRepository: PhotoRepository) :
     BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
 
     private val interactor by inject<PhotoInteractor>()
+    var goToDetailsEvent = MutableLiveData<Event<Int>>()
+    var lol = MutableLiveData<String>()
 
     override fun presentGlobalError() {
 
     }
 
-    override fun presentPhotoDetails() {
-        Timber.d("presentPhotoDetails")
+    override fun presentPhotoDetails(position: Int) {
+        Timber.d("presentPhotoDetails called")
+        goToDetailsEvent.postValue(Event(position))
+        lol.value = (position.toString())
+
+        Timber.d("lol value ${lol.value}")
     }
 
     override fun presentPhotoLiked(position: Int) {
@@ -36,8 +44,8 @@ class PhotoViewModel(private val photoRepository: PhotoRepository) :
         interactor.likePhoto(mDisposables, id, pos)
     }
 
-    fun setPhotoClicked(photo: Photo?) {
-        interactor.onPhotoClicked(photo)
+    fun setPhotoClicked(photo: Photo?, position: Int) {
+        interactor.onPhotoClicked(photo, position)
     }
 
     /**************************************************************************

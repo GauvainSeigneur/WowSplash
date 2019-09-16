@@ -12,17 +12,28 @@ import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import org.koin.core.KoinComponent
+import org.koin.core.inject
+import timber.log.Timber
 
-class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
-    BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent {
+class PhotoViewModel(private val photoRepository: PhotoRepository) :
+    BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
 
-    //private val interactor by inject<PhotoInteractor>()
-    val interactor  = PhotoInteractorImpl(mDisposables, mPhotoRepository)
-    val photoLiked = interactor.photoLiked
-    val globalErrorEvent = interactor.globalErrorEvent
+    private val interactor by inject<PhotoInteractorImpl>()
 
-    fun likePhoto(id: String?, pos:Int) {
-        interactor.likePhoto(id, pos)
+    override fun presentGlobalError() {
+
+    }
+
+    override fun presentPhotoDetails() {
+        Timber.d("presentPhotoDetails")
+    }
+
+    override fun presentPhotoLiked(position: Int) {
+
+    }
+
+    fun likePhoto(id: String?, pos: Int) {
+        interactor.likePhoto(mDisposables, id, pos)
     }
 
     fun setPhotoClicked(photo: Photo?) {
@@ -38,7 +49,7 @@ class PhotoViewModel(private val mPhotoRepository: PhotoRepository) :
     private val photoDataSourceFactory: PhotoDataSourceFactory by lazy {
         PhotoDataSourceFactory(
             mDisposables,
-            mPhotoRepository,
+            photoRepository,
             PHOTO_LIST_HOME,
             orderBy,
             null

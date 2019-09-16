@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.photoList
+package com.seigneur.gauvain.wowsplash.ui.photo
 
 interface PhotoPresenter {
     fun presentPhotoLiked(position:Int)

@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.photoList
+package com.seigneur.gauvain.wowsplash.ui.photo
 
 import android.app.Activity
 import android.app.ActivityOptions

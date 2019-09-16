@@ -5,7 +5,7 @@ import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_NAME
 import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID
-import com.seigneur.gauvain.wowsplash.ui.photoList.PhotoPresenter
+import com.seigneur.gauvain.wowsplash.ui.photo.PhotoPresenter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import org.koin.core.KoinComponent
@@ -14,7 +14,7 @@ import org.koin.core.qualifier.named
 /**
  *  Must be used only by ViewModel which inject all dependencies
  */
-class PhotoInteractorImpl(
+class PhotoInteractor(
     private val photoRepository: PhotoRepository,
     private val presenter: PhotoPresenter
 ) : KoinComponent {

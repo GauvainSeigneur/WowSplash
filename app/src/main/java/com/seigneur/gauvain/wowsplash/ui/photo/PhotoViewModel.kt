@@ -1,9 +1,9 @@
-package com.seigneur.gauvain.wowsplash.ui.photoList
+package com.seigneur.gauvain.wowsplash.ui.photo
 
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractorImpl
+import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractor
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
@@ -18,7 +18,7 @@ import timber.log.Timber
 class PhotoViewModel(private val photoRepository: PhotoRepository) :
     BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
 
-    private val interactor by inject<PhotoInteractorImpl>()
+    private val interactor by inject<PhotoInteractor>()
 
     override fun presentGlobalError() {
 

@@ -6,7 +6,6 @@ import android.view.View
 import android.webkit.*
 import androidx.lifecycle.Observer
 import com.seigneur.gauvain.wowsplash.R
-import com.seigneur.gauvain.wowsplash.business.result.LogInResult
 import com.seigneur.gauvain.wowsplash.data.api.AUTH_INITIAL_URI
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_log_in.progressBar

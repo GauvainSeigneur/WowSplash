@@ -1,6 +1,5 @@
-package com.seigneur.gauvain.wowsplash.business.interactor
+package com.seigneur.gauvain.wowsplash.business.interactor.user
 
-import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.data.repository.AuthRepository
 import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 import com.seigneur.gauvain.wowsplash.ui.user.UserPresenter
@@ -10,19 +9,24 @@ import io.reactivex.rxkotlin.subscribeBy
 /**
  *  Must be used only by ViewModel which inject all dependencies
  */
-class UserInteractor(
+class UserInteractorImpl(
     private val userRepository: UserRepository,
-    private val compositeDisposable: CompositeDisposable,
     private val userPresenter: UserPresenter
-) {
+):UserInteractor {
 
-    fun getMe() {
+    val compositeDisposable= CompositeDisposable()
+
+    override fun getMe() {
         val accessToken = AuthRepository.accessToken
         if (accessToken.isNullOrEmpty()) {
             userPresenter.onError(Throwable("NO TOKEN AVAILABLE", null))
         } else {
             fecthMeFromAPI()
         }
+    }
+
+    override fun close() {
+        compositeDisposable.clear()
     }
 
     private fun fecthMeFromAPI() {

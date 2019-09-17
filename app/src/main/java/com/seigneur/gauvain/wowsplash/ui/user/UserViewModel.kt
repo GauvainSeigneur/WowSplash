@@ -1,22 +1,30 @@
 package com.seigneur.gauvain.wowsplash.ui.user
 
 import androidx.lifecycle.MutableLiveData
-import com.seigneur.gauvain.wowsplash.business.interactor.UserInteractor
+import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractor
+import com.seigneur.gauvain.wowsplash.business.interactor.user.UserInteractor
 import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-class UserViewModel(userRepository: UserRepository) : BaseViewModel(), UserPresenter {
+class UserViewModel(userRepository: UserRepository) : BaseViewModel(), UserPresenter, KoinComponent{
 
     val mUserResult = MutableLiveData<UserResult>()
 
-    val mUserInteractor by lazy {
-        UserInteractor(userRepository, mDisposables, this)
+    private val interactor by inject<UserInteractor>{ parametersOf(this) }
+
+
+    override fun onCleared() {
+        interactor.close()
+        super.onCleared()
     }
 
     fun getMe() {
-        mUserInteractor.getMe()
+        interactor.getMe()
     }
 
     override fun onMeFetchedFromAPI(me: User) {

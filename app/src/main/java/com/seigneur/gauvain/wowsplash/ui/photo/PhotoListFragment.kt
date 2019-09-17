@@ -68,7 +68,10 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         mHomeViewModel.list?.observe(
             viewLifecycleOwner, Observer<PagedList<Photo>> {
                 photoListAdapter.submitList(it)
+
             })
+
+        Timber.d("vm $mHomeViewModel")
 
         mHomeViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
             photoListAdapter.setNetworkState(it!!)
@@ -89,9 +92,6 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
             }
         })
 
-        mHomeViewModel.lol.observe(this, Observer {
-            Timber.d("lol change")
-        })
     }
 
     override val listAdapter: BasePagedListAdapter<*, *>
@@ -101,6 +101,10 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         get() = mHomeViewModel
 
     override fun initAdapter() {
+        photoList.setItemViewCacheSize(30)
+        photoListAdapter.hasStableIds()
+        photoList.setDrawingCacheEnabled(true)
+        photoList.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH)
         photoList.layoutManager = GridLayoutManager(context, 1)
         photoList.adapter.let {
             photoList.adapter = photoListAdapter

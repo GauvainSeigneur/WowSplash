@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractor
+import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractorImpl
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
@@ -15,25 +16,27 @@ import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import com.seigneur.gauvain.wowsplash.utils.event.Event
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class PhotoViewModel(private val photoRepository: PhotoRepository) :
     BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
 
-    private val interactor by inject<PhotoInteractor>()
+    companion object {
+        private val pageSize = 15
+    }
+
+    private val interactor by inject<PhotoInteractor> { parametersOf(this) }
+
+    //LiveData to be listen
     var goToDetailsEvent = MutableLiveData<Event<Int>>()
-    var lol = MutableLiveData<String>()
 
     override fun presentGlobalError() {
 
     }
 
     override fun presentPhotoDetails(position: Int) {
-        Timber.d("presentPhotoDetails called")
         goToDetailsEvent.postValue(Event(position))
-        lol.value = (position.toString())
-
-        Timber.d("lol value ${lol.value}")
     }
 
     override fun presentPhotoLiked(position: Int) {
@@ -78,12 +81,9 @@ class PhotoViewModel(private val photoRepository: PhotoRepository) :
                 .setInitialLoadSizeHint(pageSize)
                 .setEnablePlaceholders(false)
                 .build()
-            list = LivePagedListBuilder(photoDataSourceFactory, config!!).build()
+            config?.let{
+                list = LivePagedListBuilder(photoDataSourceFactory, it).build()
+            }
         }
     }
-
-    companion object {
-        private val pageSize = 15
-    }
-
 }

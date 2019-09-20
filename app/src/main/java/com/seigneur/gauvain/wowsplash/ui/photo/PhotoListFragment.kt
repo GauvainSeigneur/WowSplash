@@ -1,10 +1,13 @@
-package com.seigneur.gauvain.wowsplash.ui.photoList
+package com.seigneur.gauvain.wowsplash.ui.photo
 
 import android.app.Activity
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.WindowManager
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,9 +21,11 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListVie
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoItemCallback
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoListAdapter
 import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsActivity
+import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
@@ -57,21 +62,38 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mHomeViewModel.list?.observe(
-            viewLifecycleOwner, Observer<PagedList<Photo>> {
-                photoListAdapter.submitList(it)
-
-            })
-
-        mHomeViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
-            photoListAdapter.setNetworkState(it!!)
-        })
         retryLoadingButton.setOnClickListener {
             mHomeViewModel.retry()
         }
     }
 
     override fun subscribeToLiveData() {
+        mHomeViewModel.list?.observe(
+            viewLifecycleOwner, Observer<PagedList<Photo>> {
+                photoListAdapter.submitList(it)
+
+            })
+
+        Timber.d("vm $mHomeViewModel")
+
+        mHomeViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
+            photoListAdapter.setNetworkState(it!!)
+        })
+
+        mHomeViewModel.goToDetailsEvent.observe(viewLifecycleOwner, EventObserver<Int> {
+            Timber.d("goToDetailsEvent change")
+            var options: ActivityOptions? = null
+            val i = Intent(activity, PhotoDetailsActivity::class.java)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                options = ActivityOptions.makeSceneTransitionAnimation(
+                    activity as Activity?,
+                    photoList.layoutManager?.findViewByPosition(it),
+                    "lol"
+                    //activity!!.getString(R.string.shot_transition_name)
+                )
+                context?.startActivity(i /*, options!!.toBundle()*/)
+            }
+        })
 
     }
 
@@ -82,7 +104,19 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         get() = mHomeViewModel
 
     override fun initAdapter() {
-        photoList.layoutManager = GridLayoutManager(context, 1)
+        photoList.setItemViewCacheSize(5)
+
+        val displayMetrics = DisplayMetrics()
+        val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val screenHeight = displayMetrics.heightPixels
+
+        context?.let {
+            val layoutManager = PreCachingLayoutManager(it, null, null)//GridLayoutManager(context, 1)
+            layoutManager.setExtraLayoutSpace(screenHeight)
+            photoList.layoutManager = layoutManager
+        }
+
         photoList.adapter.let {
             photoList.adapter = photoListAdapter
         }
@@ -91,20 +125,7 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
 
     override fun onPhotoClicked(position: Int) {
         val photoItem = photoListAdapter.getPhotoFromPos(position)
-        mHomeViewModel.setPhotoClicked(photoItem)
-        //set it in VM
-
-        var options: ActivityOptions? = null
-        val i = Intent(activity, PhotoDetailsActivity::class.java)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            options = ActivityOptions.makeSceneTransitionAnimation(
-                activity as Activity?,
-                photoList.layoutManager?.findViewByPosition(position),
-                "lol"
-                //activity!!.getString(R.string.shot_transition_name)
-            )
-            context!!.startActivity(i /*, options!!.toBundle()*/)
-        }
+        mHomeViewModel.setPhotoClicked(photoItem,position)
     }
 
 

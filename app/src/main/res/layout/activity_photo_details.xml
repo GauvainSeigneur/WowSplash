@@ -30,7 +30,7 @@
             <ImageView
                 android:id="@+id/photoImage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:fitsSystemWindows="false"
                 android:transitionName="lol"
@@ -40,13 +40,13 @@
             <View
                 android:id="@+id/imageScrim"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:alpha="0" />
 
             <View
                 android:id="@+id/fullImageViewAccessView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?android:attr/selectableItemBackground"/>
@@ -62,6 +62,33 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/appBarLayout"
+        android:layout_margin="@dimen/space_m"
+        app:layout_anchorGravity="bottom|end"
+        android:src="@drawable/ic_file_download_black_24dp"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

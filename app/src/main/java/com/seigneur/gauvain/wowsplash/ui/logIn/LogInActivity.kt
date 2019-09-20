@@ -10,7 +10,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.lifecycle.Observer
 import com.seigneur.gauvain.wowsplash.R
-import com.seigneur.gauvain.wowsplash.business.result.LogInResult
 import com.seigneur.gauvain.wowsplash.data.api.AUTH_INITIAL_URI
 import kotlinx.android.synthetic.main.fragment_log_in.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

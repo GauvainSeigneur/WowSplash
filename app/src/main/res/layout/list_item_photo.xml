@@ -1,22 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:id="@+id/photoImageParent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginTop="@dimen/space_s">
+
+    <com.tomlonghurst.roundimageview.RoundImageView
+        android:id="@+id/userPicParent"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="@dimen/space_m"
+        android:layout_marginTop="@dimen/space_s"
+        app:layout_constraintBottom_toTopOf="@id/photoImageParent"
+        app:layout_constraintEnd_toStartOf="@id/userName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_border_color="@color/colorUnsplashGreyLight"
+        app:riv_border_width="1dp"
+        app:riv_circle_placeholder_color="@color/colorUnsplashGreyMedium">
+
+        <ImageView
+            android:id="@+id/userPic"
+            android:layout_width="36dp"
+            android:layout_height="36dp" />
+
+    </com.tomlonghurst.roundimageview.RoundImageView>
 
 
-    <ImageView
-        android:id="@+id/photoImage"
-        android:transitionName="lol"
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/space_m"
+        app:layout_constraintBottom_toBottomOf="@id/userPicParent"
+        app:layout_constraintStart_toEndOf="@id/userPicParent"
+        app:layout_constraintTop_toTopOf="@id/userPicParent"
+        tools:text="userName" />
+
+    <FrameLayout
+        android:id="@+id/photoImageParent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_s"
+        android:background="@color/colorUnsplashGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userPicParent">
+
+        <ImageView
+            android:id="@+id/photoImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:transitionName="lol" />
+
+    </FrameLayout>
+
+    <com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
         android:layout_width="match_parent"
-        android:adjustViewBounds="true"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/photoImageParent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

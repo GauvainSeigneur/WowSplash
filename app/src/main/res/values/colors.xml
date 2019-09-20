@@ -11,14 +11,17 @@
     <color name="colorPrimaryVariant">#111111</color>
     <color name="colorOnPrimary">#FFFFFF</color>
 
-    <color name="colorUnsplashGreyLight">#EEEEEE</color>
-    <color name="colorUnsplashGreyDark">#999999</color>
+    <color name="colorUnsplashGreyLight">#d1d1d1</color>
+    <color name="colorUnsplashGreyMedium">#B9B9B9</color>
+
+    <color name="colorUnsplashButtonGreyLight">#767676</color>
+    <color name="colorUnsplashButtonGreyDark">@color/colorPrimary</color>
 
     <color name="colorSecondary">#3cb46e</color>
     <color name="colorSecondaryVariant">#308e56</color>
     <color name="colorOnSecondary">#fafafa</color>
 
-    <color name="colorBackground">#fafafa</color>
+    <color name="colorBackground">#fcfcfc</color>
     <color name="colorOnBackground">@color/colorPrimary</color>
 
     <color name="colorSurface">#FFFFFF</color>

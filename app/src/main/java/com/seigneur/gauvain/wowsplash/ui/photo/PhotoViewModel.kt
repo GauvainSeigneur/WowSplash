@@ -22,7 +22,8 @@ import timber.log.Timber
 
 class PhotoViewModel(
     private val photoRepository: PhotoRepository,
-    private val userLocalDataProvider: UserLocalDataProvider) :
+    private val userLocalDataProvider: UserLocalDataProvider
+) :
     BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
 
     companion object {
@@ -33,6 +34,7 @@ class PhotoViewModel(
 
     //LiveData to be listen
     var goToDetailsEvent = MutableLiveData<Event<Int>>()
+    var onPhotoLikedEvent = MutableLiveData<Event<Pair<Int, Boolean>>>()
 
     override fun presentGlobalError() {
 
@@ -42,17 +44,17 @@ class PhotoViewModel(
         goToDetailsEvent.postValue(Event(position))
     }
 
-    override fun presentPhotoLiked(position: Int) {
-
+    override fun presentPhotoLiked(position: Int, liked: Boolean) {
+        Timber.d("lol is liked")
+        onPhotoLikedEvent.postValue(Event(Pair(position, liked)))
     }
 
-    fun likePhoto(id: String?, pos: Int) {
+    fun likePhoto(id: String?, pos: Int, liked: Boolean) {
         if (userLocalDataProvider.isConnected) {
-            Timber.d("just do it")
+            interactor.likePhoto(mDisposables, id, pos, liked)
         } else {
             Timber.d("don't do it")
         }
-        interactor.likePhoto(mDisposables, id, pos)
     }
 
     fun setPhotoClicked(photo: Photo?, position: Int) {

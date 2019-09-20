@@ -16,25 +16,52 @@ import timber.log.Timber
 class PhotoInteractorImpl(
     private val photoRepository: PhotoRepository,
     private val presenter: PhotoPresenter
-) : PhotoInteractor,  KoinComponent {
+) : PhotoInteractor, KoinComponent {
 
-    override fun likePhoto(disposable: CompositeDisposable,id: String?, pos: Int) {
+    override fun likePhoto(
+        disposable: CompositeDisposable,
+        id: String?,
+        pos: Int,
+        isLiked: Boolean
+    ) {
+        //just presenter the liked/dislike animation first
+        //make the request after
+        presenter.presentPhotoLiked(pos, isLiked)
         id?.let {
-            disposable.add(
-                photoRepository.likePhoto(id)
-                    .subscribeBy(  // named arguments for lambda Subscribers
-                        onSuccess = {
-                            presenter.presentPhotoLiked(pos)
-                        },
-                        onError = {
-                            presenter.presentGlobalError()
-                        }
-                    )
-            )
+            if (isLiked) {
+                likeThePicture(disposable, it, pos)
+            } else {
+                unLikeThePhoto(disposable, it, pos)
+            }
+
         } ?: presenter.presentGlobalError()
     }
 
-    override fun onPhotoClicked(photo: Photo?, pos:Int) {
+    private fun likeThePicture(
+        disposable: CompositeDisposable, id: String,
+        pos: Int
+    ) {
+        disposable.add(
+            photoRepository.likePhoto(id)
+                .subscribeBy(  // named arguments for lambda Subscribers
+                    onSuccess = {
+                        //todo - change the item data and notifyItemDataChange
+                    },
+                    onError = {
+                        presenter.presentGlobalError()
+                    }
+                )
+        )
+    }
+
+    private fun unLikeThePhoto(
+        disposable: CompositeDisposable, id: String,
+        pos: Int
+    ) {
+
+    }
+
+    override fun onPhotoClicked(photo: Photo?, pos: Int) {
         photo?.let {
             //Create a session for tempProvider
             val temporaryDataProviderSession =

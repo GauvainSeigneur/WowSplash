@@ -20,6 +20,7 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.fragment.BasePagingFragment
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoItemCallback
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoListAdapter
+import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoViewHolder
 import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsActivity
 import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 import kotlinx.android.synthetic.main.layout_refresh_list.*
@@ -80,6 +81,11 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
             photoListAdapter.setNetworkState(it!!)
         })
 
+        mHomeViewModel.onPhotoLikedEvent.observe(viewLifecycleOwner, EventObserver{
+            val holder = photoList.findViewHolderForLayoutPosition(it.first) as PhotoViewHolder
+            holder.likeThePhoto(it.second)
+        })
+
         mHomeViewModel.goToDetailsEvent.observe(viewLifecycleOwner, EventObserver<Int> {
             Timber.d("goToDetailsEvent change")
             var options: ActivityOptions? = null
@@ -128,8 +134,9 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         mHomeViewModel.setPhotoClicked(photoItem,position)
     }
 
-    override fun onPhotoLiked(position: Int) {
-        mHomeViewModel.likePhoto("0", position)
+    override fun onPhotoLiked(position: Int, isLiked:Boolean) {
+        val photoItem = photoListAdapter.getPhotoFromPos(position)
+        mHomeViewModel.likePhoto(photoItem?.id, position, isLiked)
     }
 
 

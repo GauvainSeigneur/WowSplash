@@ -21,6 +21,8 @@ import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.seigneur.gauvain.wowsplash.data.model.user.User
+import com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
+import com.seigneur.gauvain.wowsplash.ui.widget.MultiTapImageView
 import com.seigneur.gauvain.wowsplash.utils.safeClick.setSafeOnClickListener
 import timber.log.Timber
 import javax.sql.DataSource
@@ -28,7 +30,8 @@ import javax.sql.DataSource
 class PhotoViewHolder private constructor(itemView: View, private val mPhotoItemCallback: PhotoItemCallback) :
     RecyclerView.ViewHolder(itemView) {
 
-    private val photoImage = itemView.findViewById(R.id.photoImage) as ImageView
+    private val photoImage = itemView.findViewById(R.id.photoImage) as MultiTapImageView
+    private val likeSaveShareView = itemView.findViewById(R.id.likeSaveShareView) as LikeSaveShareView
     private val photoImageParent = itemView.findViewById(R.id.photoImageParent) as FrameLayout
     private val userPic = itemView.findViewById(R.id.userPic) as ImageView
     private val userName = itemView.findViewById<TextView>(R.id.userName)
@@ -36,13 +39,37 @@ class PhotoViewHolder private constructor(itemView: View, private val mPhotoItem
     private val displayMetrics = DisplayMetrics()
     private val wm = itemView.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     private val screenWidth: Int
+    private var isLiked=false
 
     init {
-        photoImage.setSafeOnClickListener { view ->
-           mPhotoItemCallback.onPhotoClicked(adapterPosition)
-        }
         wm.defaultDisplay.getMetrics(displayMetrics)
         screenWidth = displayMetrics.widthPixels
+        photoImage.setDoubleTapListener(object : MultiTapImageView.MultiTapImageViewListener {
+            override fun onDoubleTap() {
+                mPhotoItemCallback.onPhotoLiked(adapterPosition)
+                //isLiked = true //only
+                //likeSaveShareView.animHeartSateChange(isLiked, false)
+            }
+            override fun onSingleTap() {
+                mPhotoItemCallback.onPhotoClicked(adapterPosition)
+            }
+        })
+
+        likeSaveShareView.setOnIconClick(object:LikeSaveShareView.OnIconClickListener{
+            override fun onLikeClicked() {
+                mPhotoItemCallback.onPhotoLiked(adapterPosition)
+                //isLiked = !isLiked //like or un like
+                //likeSaveShareView.animHeartSateChange(isLiked, false)
+            }
+
+            override fun onSaveClicked() {
+
+            }
+
+            override fun onShareClicked() {
+
+            }
+        })
     }
 
     fun bindTo(photo: Photo) {
@@ -50,6 +77,10 @@ class PhotoViewHolder private constructor(itemView: View, private val mPhotoItem
         loadImage(photo)
         photo.user?.let {
             bindUserInfo(it)
+        }
+        photo.liked_by_user?.let {
+            isLiked = it
+            //likeSaveShareView.animHeartSateChange(isLiked, true)
         }
     }
 

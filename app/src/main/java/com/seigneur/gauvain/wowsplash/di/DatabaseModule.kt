@@ -9,6 +9,7 @@ import org.koin.dsl.module
     val databaseModule =module {
         single {
             Room.databaseBuilder(androidApplication(), WowSplashDataBase::class.java, "wowsplash-db")
+                .fallbackToDestructiveMigration()
                 .build()
         }
 

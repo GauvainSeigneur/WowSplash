@@ -14,9 +14,26 @@ class LikeSaveShareView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
+    private val STATE_LIKED = intArrayOf(
+        R.attr.state_like
+    )
+    private val STATE_UNLIKED = intArrayOf(
+        -R.attr.state_like
+    )
+
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.view_like_share_save, this)
+    }
+
+    fun animHeartSateChange(isLiked:Boolean, jump: Boolean){
+        if (isLiked) {
+            likePhotoButton.setImageState(STATE_LIKED, true)
+            if(jump) likePhotoButton.jumpDrawablesToCurrentState()
+        } else {
+            likePhotoButton.setImageState(STATE_UNLIKED, true)
+            if(jump)likePhotoButton.jumpDrawablesToCurrentState()
+        }
     }
 
     fun setOnIconClick(listener: OnIconClickListener) {

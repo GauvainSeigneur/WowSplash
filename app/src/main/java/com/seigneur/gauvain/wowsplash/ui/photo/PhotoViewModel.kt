@@ -11,6 +11,7 @@ import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoD
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
+import com.seigneur.gauvain.wowsplash.data.repository.UserLocalDataProvider
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import com.seigneur.gauvain.wowsplash.utils.event.Event
@@ -19,7 +20,9 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-class PhotoViewModel(private val photoRepository: PhotoRepository) :
+class PhotoViewModel(
+    private val photoRepository: PhotoRepository,
+    private val userLocalDataProvider: UserLocalDataProvider) :
     BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
 
     companion object {
@@ -44,6 +47,11 @@ class PhotoViewModel(private val photoRepository: PhotoRepository) :
     }
 
     fun likePhoto(id: String?, pos: Int) {
+        if (userLocalDataProvider.isConnected) {
+            Timber.d("just do it")
+        } else {
+            Timber.d("don't do it")
+        }
         interactor.likePhoto(mDisposables, id, pos)
     }
 
@@ -81,7 +89,7 @@ class PhotoViewModel(private val photoRepository: PhotoRepository) :
                 .setInitialLoadSizeHint(pageSize)
                 .setEnablePlaceholders(false)
                 .build()
-            config?.let{
+            config?.let {
                 list = LivePagedListBuilder(photoDataSourceFactory, it).build()
             }
         }

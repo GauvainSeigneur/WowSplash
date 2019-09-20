@@ -65,6 +65,10 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
 
     }
 
+    override fun onPhotoLiked(position: Int) {
+
+    }
+
     override fun retry() {
 
     }

@@ -128,6 +128,10 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         mHomeViewModel.setPhotoClicked(photoItem,position)
     }
 
+    override fun onPhotoLiked(position: Int) {
+        mHomeViewModel.likePhoto("0", position)
+    }
+
 
     override fun retry() {
         mHomeViewModel.retry()

@@ -1,6 +1,11 @@
 package com.seigneur.gauvain.wowsplash.data.model.user
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class User(
+    @PrimaryKey val roomId:Int= 0,
     val id: String,
     val username: String,
     val first_name: String,

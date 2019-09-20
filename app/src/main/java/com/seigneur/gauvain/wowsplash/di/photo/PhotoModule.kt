@@ -11,7 +11,7 @@ import org.koin.dsl.module
 val photoModule = module {
 
     viewModel {
-        PhotoViewModel(get())
+        PhotoViewModel(get(), get())
     } bind PhotoPresenter::class
 
     factory<PhotoInteractor> { (photoPresenter: PhotoViewModel) ->

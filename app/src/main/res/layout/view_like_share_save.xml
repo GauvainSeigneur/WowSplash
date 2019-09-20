@@ -8,8 +8,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="@dimen/space_s"
         android:background="?actionBarItemBackground"
-        android:tint="@color/colorUnsplashButtonGreyLight"
-        android:src="@drawable/ic_favorite_border_black_24dp" />
+        android:src="@drawable/asl_like" />
 
     <ImageButton
         android:id="@+id/savePhotoButton"

@@ -48,7 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userPicParent">
 
-        <ImageView
+        <com.seigneur.gauvain.wowsplash.ui.widget.MultiTapImageView
             android:id="@+id/photoImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -58,6 +58,7 @@
     </FrameLayout>
 
     <com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
+        android:id="@+id/likeSaveShareView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/photoImageParent"

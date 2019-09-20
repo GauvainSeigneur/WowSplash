@@ -13,16 +13,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a094b00b-469c-4ce2-95fb-f39dce0bd484" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractor.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractorImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractorImpl.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/UserLocalDataProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/UserLocalDataProvider.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoItemCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoItemCallback.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoListAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoListAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoViewHolder.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoListFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoPresenter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,98 +41,7 @@
     <favorites_list name="WowSplash" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoViewModel.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="48" column="65" selection-start-line="48" selection-start-column="65" selection-end-line="48" selection-end-column="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoViewHolder.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="60" column="39" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoItemCallback.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/widget/LikeSaveShareView.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractor.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="6" column="8" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/base/paging/adapter/BasePagedListAdapter.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-299">
-              <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoListFragment.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="85" column="41" selection-start-line="85" selection-start-column="41" selection-end-line="85" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoListAdapter.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractorImpl.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoPresenter.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -204,13 +108,13 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/di/DatabaseModule.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoItemCallback.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractor.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/UserLocalDataProvider.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/search/photo/SearchPhotoFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoListAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoViewHolder.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoPresenter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoViewModel.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoListFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/UserLocalDataProvider.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractorImpl.kt" />
       </list>
     </option>
@@ -555,7 +459,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.77310926" visible="true" weight="0.33441034" />
@@ -620,28 +523,6 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-28/android.jar!/android/app/Activity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="92" column="25" selection-start-line="92" selection-start-column="25" selection-end-line="92" selection-end-column="25" />
-          <folding>
-            <element signature="e#3200#3201#0" expanded="true" />
-            <element signature="e#3251#3252#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photoDetails/PhotoDetailsActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="84" selection-start-line="84" selection-end-line="84" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_log_in.xml">
       <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="android-designer2" />
@@ -920,27 +801,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/UserLocalDataProvider.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding>
-            <element signature="e#56#216#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/widget/LikeSaveShareView.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
           <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoListAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
@@ -965,27 +829,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoPresenter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoViewModel.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="48" column="65" selection-start-line="48" selection-start-column="65" selection-end-line="48" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoListFragment.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="85" column="41" selection-start-line="85" selection-start-column="41" selection-end-line="85" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractor.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -993,10 +836,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="53" column="63" selection-start-line="53" selection-start-column="63" selection-end-line="53" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/list/photo/PhotoListAdapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-445">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.paging/paging-runtime/2.1.0/135a966f96c190ee634f43b783f3483291878caa/paging-runtime-2.1.0-sources.jar!/androidx/paging/PagedListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-838">
+          <caret line="150" column="16" selection-start-line="150" selection-start-column="16" selection-end-line="150" selection-end-column="16" />
+          <folding>
+            <element signature="e#6588#6589#0" expanded="true" />
+            <element signature="e#6633#6634#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoListFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="84" column="41" selection-start-line="84" selection-start-column="41" selection-end-line="84" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/SearchRepository.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/UserLocalDataProvider.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="27" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+          <folding>
+            <element signature="e#56#216#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/business/interactor/photo/PhotoInteractorImpl.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
+        <state relative-caret-position="138">
+          <caret line="6" column="20" lean-forward="true" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/data/repository/PhotoRepository.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/seigneur/gauvain/wowsplash/ui/photo/PhotoPresenter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="55" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
         </state>
       </provider>
     </entry>

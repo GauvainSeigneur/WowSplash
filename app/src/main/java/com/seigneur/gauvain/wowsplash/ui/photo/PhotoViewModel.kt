@@ -35,6 +35,7 @@ class PhotoViewModel(
     //LiveData to be listen
     var goToDetailsEvent = MutableLiveData<Event<Int>>()
     var onPhotoLikedEvent = MutableLiveData<Event<Pair<Int, Boolean>>>()
+    var onPhotoDataUpdated = MutableLiveData<Event<Pair<Int, Photo>>>()
 
     override fun presentGlobalError() {
 
@@ -47,6 +48,10 @@ class PhotoViewModel(
     override fun presentPhotoLiked(position: Int, liked: Boolean) {
         Timber.d("lol is liked")
         onPhotoLikedEvent.postValue(Event(Pair(position, liked)))
+    }
+
+    override fun updateDataPhotoLiked(position: Int, photo: Photo) {
+        onPhotoDataUpdated.postValue(Event(Pair(position, photo)))
     }
 
     fun likePhoto(id: String?, pos: Int, liked: Boolean) {

@@ -81,6 +81,10 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
             photoListAdapter.setNetworkState(it!!)
         })
 
+        mHomeViewModel.onPhotoDataUpdated.observe(viewLifecycleOwner, EventObserver{
+            photoListAdapter.currentList?.set(it.first, it.second)
+        })
+
         mHomeViewModel.onPhotoLikedEvent.observe(viewLifecycleOwner, EventObserver{
             val holder = photoList.findViewHolderForLayoutPosition(it.first) as PhotoViewHolder
             holder.likeThePhoto(it.second)

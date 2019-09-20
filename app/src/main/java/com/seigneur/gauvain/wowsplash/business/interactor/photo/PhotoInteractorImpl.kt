@@ -10,8 +10,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import org.koin.core.KoinComponent
 import org.koin.core.qualifier.named
-import timber.log.Timber
-
 
 class PhotoInteractorImpl(
     private val photoRepository: PhotoRepository,
@@ -29,7 +27,7 @@ class PhotoInteractorImpl(
         presenter.presentPhotoLiked(pos, isLiked)
         id?.let {
             if (isLiked) {
-                likeThePicture(disposable, it, pos)
+                likeThePhoto(disposable, it, pos)
             } else {
                 unLikeThePhoto(disposable, it, pos)
             }
@@ -37,15 +35,15 @@ class PhotoInteractorImpl(
         } ?: presenter.presentGlobalError()
     }
 
-    private fun likeThePicture(
+    private fun likeThePhoto(
         disposable: CompositeDisposable, id: String,
         pos: Int
     ) {
         disposable.add(
             photoRepository.likePhoto(id)
-                .subscribeBy(  // named arguments for lambda Subscribers
+                .subscribeBy(
                     onSuccess = {
-                        //todo - change the item data and notifyItemDataChange
+                        presenter.updateDataPhotoLiked(pos, it)
                     },
                     onError = {
                         presenter.presentGlobalError()

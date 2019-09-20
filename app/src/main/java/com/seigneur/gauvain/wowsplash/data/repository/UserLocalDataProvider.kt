@@ -6,7 +6,7 @@ import com.seigneur.gauvain.wowsplash.data.model.user.User
 
 class UserLocalDataProvider(private val database: WowSplashDataBase) {
 
-    var isConnected = true
+    var isConnected = false
 
     init {
         listenUserData()
@@ -14,7 +14,7 @@ class UserLocalDataProvider(private val database: WowSplashDataBase) {
 
     private fun listenUserData() {
         database.mUserDao().getUserLive.observeForever(Observer<User> {
-           // isConnected = it!=null
+            isConnected = it!=null
         })
     }
 

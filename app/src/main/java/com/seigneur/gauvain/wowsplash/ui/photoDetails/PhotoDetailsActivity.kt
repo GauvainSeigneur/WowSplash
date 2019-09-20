@@ -86,11 +86,13 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
         val newHeight = screenWidth * (ratio)
         params.height = newHeight.toInt()
-        params.width = CollapsingToolbarLayout.LayoutParams.MATCH_PARENT
+        toolbar_layout.minimumHeight = newHeight.toInt()
+
+        /*params.width = CollapsingToolbarLayout.LayoutParams.MATCH_PARENT
         // existing height is ok as is, no need to edit it
         photoImage.layoutParams = params
         imageScrim.layoutParams = params
-        fullImageViewAccessView.layoutParams = params
+        fullImageViewAccessView.layoutParams = params*/
 
     }
 

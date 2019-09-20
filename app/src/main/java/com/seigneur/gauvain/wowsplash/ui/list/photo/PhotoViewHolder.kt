@@ -1,13 +1,11 @@
 package com.seigneur.gauvain.wowsplash.ui.list.photo
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.*
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -30,90 +28,66 @@ import javax.sql.DataSource
 class PhotoViewHolder private constructor(itemView: View, private val mPhotoItemCallback: PhotoItemCallback) :
     RecyclerView.ViewHolder(itemView) {
 
-    val photoImage = itemView.findViewById(R.id.photoImage) as ImageView
-    val photoImageParent = itemView.findViewById(R.id.photoImageParent) as FrameLayout
-    val userPic = itemView.findViewById(R.id.userPic) as ImageView
-    val userName = itemView.findViewById<TextView>(R.id.userName)
+    private val photoImage = itemView.findViewById(R.id.photoImage) as ImageView
+    private val photoImageParent = itemView.findViewById(R.id.photoImageParent) as FrameLayout
+    private val userPic = itemView.findViewById(R.id.userPic) as ImageView
+    private val userName = itemView.findViewById<TextView>(R.id.userName)
 
-    val displayMetrics = DisplayMetrics()
-    val screenWidth = displayMetrics.widthPixels
+    private val displayMetrics = DisplayMetrics()
+    private val wm = itemView.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    private val screenWidth: Int
 
     init {
-        photoImage.setSafeOnClickListener {
-            mPhotoItemCallback.onPhotoClicked(adapterPosition)
+        photoImage.setSafeOnClickListener { view ->
+           mPhotoItemCallback.onPhotoClicked(adapterPosition)
         }
-
+        wm.defaultDisplay.getMetrics(displayMetrics)
+        screenWidth = displayMetrics.widthPixels
     }
 
     fun bindTo(photo: Photo) {
-        //resize(photo)
+        resize(photo)
+        loadImage(photo)
         photo.user?.let {
             bindUserInfo(it)
         }
-        val photoColor = Color.parseColor(photo.color)
-        photoImageParent.setBackgroundColor(photoColor)
+    }
+
+    private fun loadImage(photo: Photo) {
         Glide.with(itemView.context)
-            .load(photo.urls.full)
+            .load(photo.urls.regular)
             .thumbnail(
                 Glide.with(itemView.context)
                     .load(photo.urls.thumb)
-                    .listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(
-                            p0: GlideException?,
-                            p1: Any?,
-                            p2: Target<Drawable>?,
-                            p3: Boolean
-                        ): Boolean {
-                            return false
-                        }
-
-                        override fun onResourceReady(
-                            resource: Drawable?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            dataSource: com.bumptech.glide.load.DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            //resize(photo)
-                            return false
-                        }
-                    })
             )
             .apply(
                 RequestOptions()
-                    .placeholder(ColorDrawable(photoColor))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.ic_circle_info_24px)
                     .fallback(R.drawable.ic_circle_info_24px) //in case of null value
             )
-            .transition(DrawableTransitionOptions.withCrossFade(100))
+            .error(
+                Glide.with(itemView.context)
+                    .load(photo.urls.small)
+            ) // if an error happened, try to download a smaller image
+            .transition(DrawableTransitionOptions.withCrossFade())
             .into(photoImage)
-
     }
 
     private fun resize(photo: Photo) {
-        photoImageParent.viewTreeObserver.addOnGlobalLayoutListener(
-            object : ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    photoImageParent.viewTreeObserver.removeOnGlobalLayoutListener(this);
-
-                    val params = photoImageParent.layoutParams as ConstraintLayout.LayoutParams
-                    val ratio: Double = (photo.height.toDouble() / photo.width.toDouble())
-                    val newHeight = photoImageParent.width * (ratio)
-                    params.height = newHeight.toInt()
-                    params.width = ConstraintLayout.LayoutParams.MATCH_PARENT
-                    photoImageParent.layoutParams = params
-                }
-            })
+        val ratio = photo.height.toDouble() / photo.width.toDouble()
+        val newHeight = screenWidth * (ratio)
+        photoImage.minimumHeight = newHeight.toInt()
     }
 
     private fun bindUserInfo(user: User) {
         userName.text = user.username
         Glide.with(itemView.context)
             .load(user.profile_image.medium)
-            .apply(
-                RequestOptions().circleCrop()
-            )
+            .error(
+                Glide.with(itemView.context)
+                    .load(user.profile_image.small)
+            ) // if an error happened, try to download a smaller image
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(userPic)
     }

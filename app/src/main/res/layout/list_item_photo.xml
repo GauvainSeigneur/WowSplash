@@ -1,51 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/space_s"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginTop="@dimen/space_s">
 
-    <ImageView
-        android:id="@+id/userPic"
+    <com.tomlonghurst.roundimageview.RoundImageView
+        android:id="@+id/userPicParent"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginTop="@dimen/space_s"
         android:layout_marginStart="@dimen/space_m"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/space_s"
+        app:layout_constraintBottom_toTopOf="@id/photoImageParent"
         app:layout_constraintEnd_toStartOf="@id/userName"
-        app:layout_constraintBottom_toTopOf="@id/photoImageParent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_border_color="@color/colorUnsplashGreyLight"
+        app:riv_border_width="1dp"
+        app:riv_circle_placeholder_color="@color/colorUnsplashGreyMedium">
+
+        <ImageView
+            android:id="@+id/userPic"
+            android:layout_width="36dp"
+            android:layout_height="36dp" />
+
+    </com.tomlonghurst.roundimageview.RoundImageView>
+
 
     <TextView
         android:id="@+id/userName"
-        android:layout_marginStart="@dimen/space_m"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="@id/userPic"
-        app:layout_constraintStart_toEndOf="@id/userPic"
-        app:layout_constraintBottom_toBottomOf="@id/userPic"
-        tools:text="userName"/>
+        android:layout_marginStart="@dimen/space_m"
+        app:layout_constraintBottom_toBottomOf="@id/userPicParent"
+        app:layout_constraintStart_toEndOf="@id/userPicParent"
+        app:layout_constraintTop_toTopOf="@id/userPicParent"
+        tools:text="userName" />
 
     <FrameLayout
         android:id="@+id/photoImageParent"
-        android:layout_marginTop="@dimen/space_s"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/userPic"
+        android:layout_marginTop="@dimen/space_s"
+        android:background="@color/colorUnsplashGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/userPicParent">
 
         <ImageView
             android:id="@+id/photoImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:transitionName="lol" />
 
     </FrameLayout>
 
+    <com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/photoImageParent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

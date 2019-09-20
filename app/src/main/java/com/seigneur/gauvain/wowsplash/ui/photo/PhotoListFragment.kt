@@ -2,9 +2,12 @@ package com.seigneur.gauvain.wowsplash.ui.photo
 
 import android.app.Activity
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.WindowManager
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.GridLayoutManager
@@ -101,11 +104,19 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         get() = mHomeViewModel
 
     override fun initAdapter() {
-        photoList.setItemViewCacheSize(30)
-        photoListAdapter.hasStableIds()
-        photoList.setDrawingCacheEnabled(true)
-        photoList.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH)
-        photoList.layoutManager = GridLayoutManager(context, 1)
+        photoList.setItemViewCacheSize(5)
+
+        val displayMetrics = DisplayMetrics()
+        val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val screenHeight = displayMetrics.heightPixels
+
+        context?.let {
+            val layoutManager = PreCachingLayoutManager(it, null, null)//GridLayoutManager(context, 1)
+            layoutManager.setExtraLayoutSpace(screenHeight)
+            photoList.layoutManager = layoutManager
+        }
+
         photoList.adapter.let {
             photoList.adapter = photoListAdapter
         }

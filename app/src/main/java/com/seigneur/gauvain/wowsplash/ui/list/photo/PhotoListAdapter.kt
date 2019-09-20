@@ -12,9 +12,7 @@ class PhotoListAdapter(
 ) : BasePagedListAdapter<Photo, RecyclerView.ViewHolder>(UserDiffCallback, networkItemCallback) {
 
     override val viewHolder: RecyclerView.ViewHolder
-        get() = PhotoViewHolder.create(
-            itemParentView,
-            photoItemCallback
+        get() = PhotoViewHolder.create(itemParentView, photoItemCallback
         )
 
     override fun bindItemData(holder: RecyclerView.ViewHolder, position: Int) {
@@ -22,10 +20,6 @@ class PhotoListAdapter(
         getItem(position)?.let {
             (holder as PhotoViewHolder).bindTo(it)
         }
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
     }
 
     fun getPhotoFromPos(pos: Int): Photo? {

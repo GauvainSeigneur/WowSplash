@@ -10,7 +10,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.google.android.material.snackbar.Snackbar
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
@@ -45,7 +44,7 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         }
     }
 
-    private val mHomeViewModel by viewModel<PhotoViewModel>()
+    private val mHomeViewModel by viewModel<PhotoListViewModel>()
 
     private val photoListAdapter: PhotoListAdapter by lazy {
         PhotoListAdapter(this, this)

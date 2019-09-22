@@ -1,23 +1,21 @@
 package com.seigneur.gauvain.wowsplash.business.interactor.photo
 
-import android.util.TimingLogger
 import com.seigneur.gauvain.wowsplash.data.TemporaryDataProvider
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_NAME
 import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID
-import com.seigneur.gauvain.wowsplash.ui.photo.PhotoPresenter
+import com.seigneur.gauvain.wowsplash.ui.photo.PhotoListPresenter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import org.koin.core.KoinComponent
 import org.koin.core.qualifier.named
-import timber.log.Timber
 
 class PhotoInteractorImpl(
     private val photoRepository: PhotoRepository,
     private val userRepository: UserRepository,
-    private val presenter: PhotoPresenter
+    private val presenter: PhotoListPresenter
 ) : PhotoInteractor, KoinComponent {
 
     override fun likePhoto(
@@ -27,7 +25,7 @@ class PhotoInteractorImpl(
         isLiked: Boolean
     ) {
         if (userRepository.isConnected) {
-            //just presenter the liked/dislike animation first
+            //just presenter the like/unlike animation first
             //make the request after
             presenter.presentPhotoLiked(pos, isLiked)
             id?.let {
@@ -39,8 +37,6 @@ class PhotoInteractorImpl(
 
             } ?: presenter.presentGlobalError()
         } else {
-            //do something in presenter
-            Timber.d("lol you are not connected")
             presenter.presentLoginRequestedMessage()
         }
     }

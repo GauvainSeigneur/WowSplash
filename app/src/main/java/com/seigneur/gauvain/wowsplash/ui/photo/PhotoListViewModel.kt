@@ -10,19 +10,17 @@ import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoD
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
-import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import com.seigneur.gauvain.wowsplash.utils.event.Event
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
-import timber.log.Timber
 
-class PhotoViewModel(
+class PhotoListViewModel(
     private val photoRepository: PhotoRepository
 ) :
-    BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
+    BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoListPresenter {
 
     companion object {
         private val pageSize = 15

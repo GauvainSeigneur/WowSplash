@@ -104,9 +104,10 @@ class PhotoDetailsActivity : AppCompatActivity() {
         Glide
             .with(this)
             .load(photo?.urls?.full)
+            .thumbnail(Glide.with(this).load(photo?.urls?.regular))
             .apply(
                 RequestOptions()
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.ic_circle_info_24px)
             )
             .listener(object : RequestListener<Drawable> {

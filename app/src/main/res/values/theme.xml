@@ -21,6 +21,7 @@
         <!-- New MaterialComponents attributes. -->
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <!-- color for tab, toolbar, bototm navgation, snackbar -->
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>

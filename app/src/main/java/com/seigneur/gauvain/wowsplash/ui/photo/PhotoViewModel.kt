@@ -5,13 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractor
-import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractorImpl
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
-import com.seigneur.gauvain.wowsplash.data.repository.UserLocalDataProvider
+import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import com.seigneur.gauvain.wowsplash.utils.event.Event
@@ -21,8 +20,7 @@ import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class PhotoViewModel(
-    private val photoRepository: PhotoRepository,
-    private val userLocalDataProvider: UserLocalDataProvider
+    private val photoRepository: PhotoRepository
 ) :
     BasePagingListViewModel<PhotosDataSource, Long, Photo>(), KoinComponent, PhotoPresenter {
 
@@ -36,6 +34,7 @@ class PhotoViewModel(
     var goToDetailsEvent = MutableLiveData<Event<Int>>()
     var onPhotoLikedEvent = MutableLiveData<Event<Pair<Int, Boolean>>>()
     var onPhotoDataUpdated = MutableLiveData<Event<Pair<Int, Photo>>>()
+    var onDisplayLoginRequestedMessage = MutableLiveData<Event<Int>>()
 
     override fun presentGlobalError() {
 
@@ -46,7 +45,6 @@ class PhotoViewModel(
     }
 
     override fun presentPhotoLiked(position: Int, liked: Boolean) {
-        Timber.d("lol is liked")
         onPhotoLikedEvent.postValue(Event(Pair(position, liked)))
     }
 
@@ -54,12 +52,12 @@ class PhotoViewModel(
         onPhotoDataUpdated.postValue(Event(Pair(position, photo)))
     }
 
+    override fun presentLoginRequestedMessage() {
+        onDisplayLoginRequestedMessage.postValue(Event(0))
+    }
+
     fun likePhoto(id: String?, pos: Int, liked: Boolean) {
-        if (userLocalDataProvider.isConnected) {
-            interactor.likePhoto(mDisposables, id, pos, liked)
-        } else {
-            Timber.d("don't do it")
-        }
+        interactor.likePhoto(mDisposables, id, pos, liked)
     }
 
     fun setPhotoClicked(photo: Photo?, position: Int) {

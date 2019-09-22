@@ -7,4 +7,5 @@ interface PhotoPresenter {
     fun updateDataPhotoLiked(position: Int, photo:Photo)
     fun presentPhotoDetails(position: Int)
     fun presentGlobalError()
+    fun presentLoginRequestedMessage()
 }

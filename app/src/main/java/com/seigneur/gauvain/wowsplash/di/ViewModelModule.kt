@@ -47,7 +47,6 @@ val viewModelModule = module {
         PhotoDetailsViewModel(get())
     }
 
-
 }
 
 

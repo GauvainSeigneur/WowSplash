@@ -50,7 +50,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
     private val mPhotoDetailsViewModel by viewModel<PhotoDetailsViewModel>()
 
-
     private val appBarOffsetListener: AppBarLayout.OnOffsetChangedListener =
         AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             val vTotalScrollRange = appBarLayout.totalScrollRange

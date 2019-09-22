@@ -6,6 +6,5 @@ import io.reactivex.disposables.CompositeDisposable
 interface PhotoInteractor {
     fun likePhoto(disposable: CompositeDisposable,id: String?, pos: Int,isLiked:Boolean)
     fun onPhotoClicked(photo: Photo?, pos:Int)
-
 }
 

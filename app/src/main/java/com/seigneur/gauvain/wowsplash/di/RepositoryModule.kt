@@ -4,9 +4,9 @@ import com.seigneur.gauvain.wowsplash.data.repository.*
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { PhotoRepository(get()) }
-    single { AuthRepository(get(), get()) }
-    single { CollectionsRepository(get()) }
-    single { UserRepository(get(), get()) }
-    single { SearchRepository(get()) }
+    factory { PhotoRepository(get()) }
+    factory { AuthRepository(get(), get()) }
+    factory { CollectionsRepository(get()) }
+    factory { UserRepository(get(), get()) }
+    factory { SearchRepository(get()) }
 }

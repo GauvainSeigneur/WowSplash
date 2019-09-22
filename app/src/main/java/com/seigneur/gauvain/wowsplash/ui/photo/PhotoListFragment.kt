@@ -10,7 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
@@ -21,13 +21,13 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListVie
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoItemCallback
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoListAdapter
 import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoViewHolder
+import com.seigneur.gauvain.wowsplash.ui.main.MainActivity
 import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsActivity
 import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-
 
 class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
     PhotoItemCallback, NetworkItemCallback {
@@ -81,13 +81,17 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
             photoListAdapter.setNetworkState(it!!)
         })
 
-        mHomeViewModel.onPhotoDataUpdated.observe(viewLifecycleOwner, EventObserver{
+        mHomeViewModel.onPhotoDataUpdated.observe(viewLifecycleOwner, EventObserver {
             photoListAdapter.currentList?.set(it.first, it.second)
         })
 
-        mHomeViewModel.onPhotoLikedEvent.observe(viewLifecycleOwner, EventObserver{
+        mHomeViewModel.onPhotoLikedEvent.observe(viewLifecycleOwner, EventObserver {
             val holder = photoList.findViewHolderForLayoutPosition(it.first) as PhotoViewHolder
             holder.likeThePhoto(it.second)
+        })
+
+        mHomeViewModel.onDisplayLoginRequestedMessage.observe(viewLifecycleOwner, EventObserver {
+            (mParentActivity as MainActivity).displayRequestLoginSnackBar()
         })
 
         mHomeViewModel.goToDetailsEvent.observe(viewLifecycleOwner, EventObserver<Int> {
@@ -135,10 +139,10 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
 
     override fun onPhotoClicked(position: Int) {
         val photoItem = photoListAdapter.getPhotoFromPos(position)
-        mHomeViewModel.setPhotoClicked(photoItem,position)
+        mHomeViewModel.setPhotoClicked(photoItem, position)
     }
 
-    override fun onPhotoLiked(position: Int, isLiked:Boolean) {
+    override fun onPhotoLiked(position: Int, isLiked: Boolean) {
         val photoItem = photoListAdapter.getPhotoFromPos(position)
         mHomeViewModel.likePhoto(photoItem?.id, position, isLiked)
     }

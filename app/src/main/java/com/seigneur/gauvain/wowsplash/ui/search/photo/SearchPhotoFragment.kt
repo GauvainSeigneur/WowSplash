@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 
-class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long, Photo>(),
+class SearchPhotoFragment: BaseSearchPagingFragment<SearchPhotoDataSource, Long, Photo>(),
     PhotoItemCallback,
     NetworkItemCallback {
 

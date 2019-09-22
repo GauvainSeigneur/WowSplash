@@ -6,7 +6,7 @@ import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_NAME
 import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID
-import com.seigneur.gauvain.wowsplash.ui.photo.PhotoListPresenter
+import com.seigneur.gauvain.wowsplash.ui.photo.PhotoPresenter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import org.koin.core.KoinComponent
@@ -15,7 +15,7 @@ import org.koin.core.qualifier.named
 class PhotoInteractorImpl(
     private val photoRepository: PhotoRepository,
     private val userRepository: UserRepository,
-    private val presenter: PhotoListPresenter
+    private val presenter: PhotoPresenter
 ) : PhotoInteractor, KoinComponent {
 
     override fun likePhoto(
@@ -41,6 +41,19 @@ class PhotoInteractorImpl(
         }
     }
 
+    override fun onPhotoClicked(photo: Photo?, pos: Int) {
+        photo?.let {
+            //Create a session for tempProvider
+            val temporaryDataProviderSession =
+                getKoin().getOrCreateScope(PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID, named(PHOTO_DETAILS_TEMP_SCOPE_NAME))
+            //Create an instance from that session
+            val temporaryDataProvider = temporaryDataProviderSession.get<TemporaryDataProvider>()
+            //store data
+            temporaryDataProvider.photoClicked.postValue(photo)
+        }
+        presenter.presentPhotoDetails(pos)
+    }
+
     private fun likeThePhoto(
         disposable: CompositeDisposable, id: String,
         pos: Int
@@ -62,22 +75,17 @@ class PhotoInteractorImpl(
         disposable: CompositeDisposable, id: String,
         pos: Int
     ) {
-
+        disposable.add(
+            photoRepository.unlikePhoto(id)
+                .subscribeBy(
+                    onSuccess = {
+                        presenter.updateDataPhotoLiked(pos, it)
+                    },
+                    onError = {
+                        presenter.presentGlobalError()
+                    }
+                )
+        )
     }
-
-    override fun onPhotoClicked(photo: Photo?, pos: Int) {
-        photo?.let {
-            //Create a session for tempProvider
-            val temporaryDataProviderSession =
-                getKoin().getOrCreateScope(PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID, named(PHOTO_DETAILS_TEMP_SCOPE_NAME))
-            //Create an instance from that session
-            val temporaryDataProvider = temporaryDataProviderSession.get<TemporaryDataProvider>()
-            //store data
-            temporaryDataProvider.photoClicked.postValue(photo)
-        }
-        presenter.presentPhotoDetails(pos)
-    }
-
-
 }
 

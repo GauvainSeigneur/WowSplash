@@ -34,6 +34,13 @@ interface UnSplashService {
         @Path("id") id:String): Single<Photo>
 
     /**
+     * Unlike a photo
+     */
+    @DELETE("photos/{id}/like")
+    fun unlikePhoto(
+        @Path("id") id:String): Single<Photo>
+
+    /**
      * Collections end point
      */
     @GET("collections")

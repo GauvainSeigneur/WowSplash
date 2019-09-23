@@ -1,4 +1,4 @@
-package com.seigneur.gauvain.wowsplash.ui.photo
+package com.seigneur.gauvain.wowsplash.ui.base
 
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 

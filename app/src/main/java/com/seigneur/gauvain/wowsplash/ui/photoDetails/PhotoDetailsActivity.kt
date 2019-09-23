@@ -41,14 +41,20 @@ import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.palette.graphics.Palette
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
+import com.seigneur.gauvain.wowsplash.ui.base.PhotoViewModel
+import com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
 import com.seigneur.gauvain.wowsplash.utils.ImageUtils
 import com.seigneur.gauvain.wowsplash.utils.MyColorUtils
+import com.seigneur.gauvain.wowsplash.utils.event.Event
 import org.koin.android.ext.android.getKoin
 import timber.log.Timber
 
 class PhotoDetailsActivity : AppCompatActivity() {
 
     private val mPhotoDetailsViewModel by viewModel<PhotoDetailsViewModel>()
+    private val photoViewModel by viewModel<PhotoViewModel>()
+    private var isLiked = false
 
     private val appBarOffsetListener: AppBarLayout.OnOffsetChangedListener =
         AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -60,20 +66,39 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        listenLiveData()
         setContentView(R.layout.activity_photo_details)
-        postponeEnterTransition()//todo. make a sharedtranstion to make it work!
+        toolbar.setNavigationOnClickListener { onBackPressed() }
+        setUpLikeSaveShareView()
+    }
 
-        mPhotoDetailsViewModel.getPhotoClicked().observe(this, Observer<Photo> {
-            resizePhotoImageView(it)
-            val photoColor = Color.parseColor(it.color)
-            setUpFirstColors(photoColor)
-            loadShotImage(true, it)
+    private fun listenLiveData() {
+        mPhotoDetailsViewModel.getPhotoClicked().observe(this, Observer<PhotoItem> {
+            resizePhotoImageView(it.photo)
+            loadShotImage(it.photo)
+            photoViewModel.photoItem = it
+            isLiked = it.photo.liked_by_user
+            likeSaveShareView.animHeartSateChange(it.photo.liked_by_user, true)
         })
 
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
+        photoViewModel.photoItemViewModel.observe(this, Observer {
+            likeSaveShareView.animHeartSateChange(it.photo.liked_by_user, false)
+        })
 
+    }
+
+
+    private fun setUpLikeSaveShareView() {
+        likeSaveShareView.setOnIconClick(object : LikeSaveShareView.OnIconClickListener {
+            override fun onLikeClicked() {
+                isLiked = !isLiked
+                photoViewModel.likePhoto(isLiked)
+            }
+
+            override fun onSaveClicked() {}
+
+            override fun onShareClicked() {}
+        })
     }
 
     private fun resizePhotoImageView(photo: Photo) {
@@ -82,42 +107,51 @@ class PhotoDetailsActivity : AppCompatActivity() {
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenWidth = displayMetrics.widthPixels
-
         val newHeight = screenWidth * (ratio)
         params.height = newHeight.toInt()
-        toolbar_layout.minimumHeight = newHeight.toInt()
-
-        /*params.width = CollapsingToolbarLayout.LayoutParams.MATCH_PARENT
-        // existing height is ok as is, no need to edit it
-        photoImage.layoutParams = params
-        imageScrim.layoutParams = params
-        fullImageViewAccessView.layoutParams = params*/
-
+        collapsingToolbar.minimumHeight = newHeight.toInt()
     }
 
-    private fun loadShotImage(isTransactionPostponed: Boolean, photo: Photo?) {
-        /*if (isTransactionPostponed)
-            postponeEnterTransition()*/
+    private fun loadShotImage(photo: Photo) {
         /**
          * AS shot image is loaded from Glide ressource, put listener to define when to start startPostponedEnterTransition
          */
         Glide
             .with(this)
-            .load(photo?.urls?.full)
-            .thumbnail(Glide.with(this).load(photo?.urls?.regular))
-            .apply(
-                RequestOptions()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .error(R.drawable.ic_circle_info_24px)
-            )
-            .listener(object : RequestListener<Drawable> {
+            .load(photo.urls.full)
+            .thumbnail(
+                Glide.with(this)
+                    .load(photo.urls.regular)
+                    .listener(object : RequestListener<Drawable> {
+                        override fun onResourceReady(
+                            resource: Drawable?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            setUpPhotoInfo(photo, true, resource)
+                            return false
+                        }
+
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Drawable>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            setUpPhotoInfo(photo, false, null)
+                            return false
+                        }
+                    }
+                    ))
+            /*.listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
                     model: Any,
                     target: Target<Drawable>,
                     isFirstResource: Boolean
                 ): Boolean {
-                    resizePhotoImageView(photo!!)
                     //do something! - make an API call or load another image and call mShotDetailPresenter.onShotImageAvailable();
                     if (isTransactionPostponed) {
                         setUpPhotoInfo(photo, false, null)
@@ -133,34 +167,26 @@ class PhotoDetailsActivity : AppCompatActivity() {
                     dataSource: DataSource,
                     isFirstResource: Boolean
                 ): Boolean {
-                    resizePhotoImageView(photo!!)
-                    if (isTransactionPostponed) {
-                        //TODO - singleLive event and try reload it
-                        setUpPhotoInfo(photo, true, resource)
-                    }
+                    //TODO - singleLive event and try reload it
+                    setUpPhotoInfo(photo, true, resource)
                     return false
                 }
-            })
+            })*/
+            .apply(
+                RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .error(R.drawable.ic_circle_info_24px)
+            )
             .into(photoImage)
     }
 
     private fun setUpPhotoInfo(shot: Photo?, isImageReady: Boolean, drawable: Drawable?) {
-        startPostponedEnterTransition() //todo reactivate if use sharedtransition
         if (isImageReady && drawable != null)
             adaptColorToPhoto(drawable)
         initImageScrollBehavior()
         //setUpShotInfo(shot)*/
     }
 
-
-    /**
-     * set up first color, to not let background empty
-     */
-    private fun setUpFirstColors(color: Int) {
-        //window.statusBarColor = color
-        //animateStatusBarColorChange(100L, color)
-        photoImage.setBackgroundColor(color)
-    }
 
     /**
      * When photo is ready change color top adapt layout to it

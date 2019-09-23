@@ -28,13 +28,13 @@ class LogInInteractorImpl(
                     return@flatMap authRepository.storeAccessToken(it)
                 }
                 .map {
-                    AuthRepository.accessToken = accessTokenValue
+                    //authRepository.accessToken = accessTokenValue
                 }
                 .subscribeBy(
                     onSuccess = {
                         accessTokenValue?.let {
                             presenter.onAuthSuccess()
-                            AuthRepository.accessToken = it
+                            //AuthRepository.accessToken = it
                         }
                     },
                     onError = {

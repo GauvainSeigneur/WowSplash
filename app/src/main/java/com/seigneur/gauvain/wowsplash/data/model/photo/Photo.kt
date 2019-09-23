@@ -12,5 +12,5 @@ data class Photo(
     var exif: Exif,
     var links: Links,
     var description: String?="No description provided",
-    var liked_by_user:Boolean?=false
+    var liked_by_user:Boolean
 )

@@ -12,10 +12,10 @@ class HeaderAccessTokenInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val builder = chain.request().newBuilder()
         builder.addHeader("Accept-Version", "v1")
-        val tokenValue = AuthRepository.accessToken
+        val tokenValue = AuthRepository.constAccessToken
         if (!tokenValue.isNullOrEmpty()) {
-            Timber.d("is not empty ${AuthRepository.accessToken}")
-            builder.addHeader("Authorization", "Bearer " + AuthRepository.accessToken)
+            Timber.d("is not empty ${AuthRepository.constAccessToken}")
+            builder.addHeader("Authorization", "Bearer " + AuthRepository.constAccessToken)
         } else{
             Timber.d("is empty")
         }

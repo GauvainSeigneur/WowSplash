@@ -107,10 +107,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getPostFragment(): BaseFragment {
-        val accessToken:String?=AuthRepository.accessToken //data to be observed
+        /*val accessToken:String?=AuthRepository.accessToken //data to be observed
         accessToken?.let {
             return SearchPhotoFragment()
-        }
+        }*/
         return LogInFragment()
 
     }

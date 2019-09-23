@@ -1,9 +1,7 @@
 package com.seigneur.gauvain.wowsplash.data.repository
 
-import androidx.lifecycle.MutableLiveData
 import com.seigneur.gauvain.wowsplash.data.api.*
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
-import com.seigneur.gauvain.wowsplash.utils.event.Event
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

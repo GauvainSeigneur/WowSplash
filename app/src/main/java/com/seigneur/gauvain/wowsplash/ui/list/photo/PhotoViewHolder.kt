@@ -2,6 +2,8 @@ package com.seigneur.gauvain.wowsplash.ui.list.photo
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Animatable2
+import android.graphics.drawable.AnimatedStateListDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
@@ -24,12 +26,14 @@ import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
 import com.seigneur.gauvain.wowsplash.ui.widget.MultiTapImageView
 import com.seigneur.gauvain.wowsplash.utils.safeClick.setSafeOnClickListener
+import kotlinx.android.synthetic.main.view_like_share_save.view.*
 import timber.log.Timber
 import javax.sql.DataSource
 
 class PhotoViewHolder private constructor(
     itemView: View,
-    private val mPhotoItemCallback: PhotoItemCallback) :
+    private val mPhotoItemCallback: PhotoItemCallback
+) :
     RecyclerView.ViewHolder(itemView) {
 
     private val photoImage = itemView.findViewById(R.id.photoImage) as MultiTapImageView
@@ -41,7 +45,8 @@ class PhotoViewHolder private constructor(
     private val wm = itemView.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     private val screenWidth: Int
 
-    private var isLiked = false
+    var isLiked = false
+        private set
 
     init {
         wm.defaultDisplay.getMetrics(displayMetrics)
@@ -74,22 +79,19 @@ class PhotoViewHolder private constructor(
     fun bindTo(photo: Photo) {
         resize(photo)
         loadImage(photo)
-        photo.user?.let {
-            bindUserInfo(it)
-        }
+        photo.user?.let { bindUserInfo(it) }
         setUpInitialLikeState(photo)
     }
 
-    fun likeThePhoto(like:Boolean) {
-        isLiked=like
+    fun likeThePhoto(like: Boolean) {
+        isLiked = like
         likeSaveShareView.animHeartSateChange(isLiked, false)
     }
 
     private fun setUpInitialLikeState(photo: Photo) {
-        photo.liked_by_user?.let {
-            isLiked = it
-            likeSaveShareView.animHeartSateChange(isLiked, true)
-        }
+        isLiked = photo.liked_by_user
+        likeSaveShareView.animHeartSateChange(isLiked, true)
+
     }
 
     private fun loadImage(photo: Photo) {

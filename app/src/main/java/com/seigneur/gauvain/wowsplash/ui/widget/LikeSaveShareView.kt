@@ -48,7 +48,6 @@ class LikeSaveShareView @JvmOverloads constructor(
         }
     }
 
-
     interface OnIconClickListener {
         fun onLikeClicked()
         fun onSaveClicked()

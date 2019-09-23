@@ -20,25 +20,9 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        mSplashViewModel.fetchToken()
-
-
-       mSplashViewModel.mTokenResult.observe(
-            this, Observer{
-               when(it){
-                   is AccessTokenResult.Fetched -> {
-                       Timber.d("token is saved and is ${it.token}")
-                       val goIntent = Intent(this, MainActivity::class.java)
-                       startActivity(goIntent)
-                       finish()
-                   }
-                   is AccessTokenResult.UnFetched -> {
-                       val goIntent = Intent(this, MainActivity::class.java)
-                       startActivity(goIntent)
-                       finish()
-                   }
-               }
-            })
+        val goIntent = Intent(this, MainActivity::class.java)
+        startActivity(goIntent)
+        finish()
 
     }
 

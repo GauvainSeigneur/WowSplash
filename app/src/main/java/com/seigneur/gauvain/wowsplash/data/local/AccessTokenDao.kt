@@ -1,5 +1,7 @@
 package com.seigneur.gauvain.wowsplash.data.local
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -21,6 +23,6 @@ interface AccessTokenDao {
      * @return AccessToken if exists, nothing if not
      */
     @get:Query("SELECT * FROM accesstoken")
-    val accessToken: Maybe<AccessToken>
+    val accessToken: LiveData<AccessToken>
 
 }

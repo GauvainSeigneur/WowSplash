@@ -11,14 +11,12 @@ import timber.log.Timber
 
 class AuthRepository(private val service: UnSplashService, private val database: WowSplashDataBase)  {
 
-    /**
-     * get access token from DB
-     */
-    fun getAccessTokenFromDB():Maybe<AccessToken> {
-        return database.mAccessTokenDao().accessToken
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
+    var accessToken:String?=null
+
+    init {
+        listenLiveData()
     }
+
 
     /**
      * Store Task in database
@@ -48,9 +46,17 @@ class AuthRepository(private val service: UnSplashService, private val database:
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    private fun listenLiveData() {
+        database.mAccessTokenDao().accessToken.observeForever {
+            accessToken = it.access_token
+            constAccessToken = accessToken
+
+        }
+    }
+
     companion object {
         //Access Token for API request
-        var accessToken: String?=null
+        var constAccessToken :String?=null
     }
 
 

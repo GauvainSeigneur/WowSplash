@@ -1,19 +1,20 @@
 package com.seigneur.gauvain.wowsplash.ui.photo
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
+import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
 import com.seigneur.gauvain.wowsplash.ui.base.PhotoViewModel
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.paging.fragment.BasePagingFragment
@@ -24,6 +25,7 @@ import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoViewHolder
 import com.seigneur.gauvain.wowsplash.ui.main.MainActivity
 import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsActivity
 import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
+import kotlinx.android.synthetic.main.activity_photo_details.*
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -76,19 +78,13 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
 
             })
 
-        Timber.d("vm $mHomeViewModel")
-
         mHomeViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
             photoListAdapter.setNetworkState(it!!)
         })
 
-        photoViewModel.onPhotoDataUpdated.observe(viewLifecycleOwner, EventObserver {
-            photoListAdapter.currentList?.set(it.first, it.second)
-        })
 
-        photoViewModel.onPhotoLikedEvent.observe(viewLifecycleOwner, EventObserver {
-            val holder = photoList.findViewHolderForLayoutPosition(it.first) as PhotoViewHolder
-            holder.likeThePhoto(it.second)
+        photoViewModel.photoItemViewModel.observe(this, Observer {
+            manageLikeEvent(it)
         })
 
         photoViewModel.onDisplayLoginRequestedMessage.observe(viewLifecycleOwner, EventObserver {
@@ -96,18 +92,8 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         })
 
         photoViewModel.goToDetailsEvent.observe(viewLifecycleOwner, EventObserver<Int> {
-            Timber.d("goToDetailsEvent change")
-            var options: ActivityOptions? = null
             val i = Intent(activity, PhotoDetailsActivity::class.java)
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                options = ActivityOptions.makeSceneTransitionAnimation(
-                    activity as Activity?,
-                    photoList.layoutManager?.findViewByPosition(it),
-                    "lol"
-                    //activity!!.getString(R.string.shot_transition_name)
-                )
-                context?.startActivity(i /*, options!!.toBundle()*/)
-            }
+            context?.startActivity(i)
         })
 
     }
@@ -139,16 +125,36 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
     }
 
     override fun onPhotoClicked(position: Int) {
-        val photoItem = photoListAdapter.getPhotoFromPos(position)
-        photoViewModel.setPhotoClicked(photoItem, position)
+        val item = photoListAdapter.getPhotoFromPos(position)
+        item?.let {
+            photoViewModel.photoItem = PhotoItem(it, position)
+            photoViewModel.setPhotoClicked(item, position)
+        }
     }
 
     override fun onPhotoLiked(position: Int, isLiked: Boolean) {
-        val photoItem = photoListAdapter.getPhotoFromPos(position)
-        photoViewModel.likePhoto(photoItem?.id, position, isLiked)
+        val item = photoListAdapter.getPhotoFromPos(position)
+        item?.let {
+            photoViewModel.photoItem = PhotoItem(it, position)
+            photoViewModel.likePhoto(isLiked)
+        }
+
     }
 
     override fun retry() {
         mHomeViewModel.retry()
+    }
+
+    private fun manageLikeEvent(photoItem: PhotoItem) {
+        val holder = photoList.findViewHolderForLayoutPosition(photoItem.position) as PhotoViewHolder
+        holder.likeThePhoto(photoItem.photo.liked_by_user)
+        val item = photoListAdapter.getPhotoFromPos(photoItem.position)
+        item?.liked_by_user = photoItem.photo.liked_by_user
+        likeSaveShareView.animHeartSateChange(photoItem.photo.liked_by_user, false)
+        //Give the time to the animation before update the RecyclerView
+        Handler().postDelayed({
+            photoListAdapter.notifyItemChanged(photoItem.position, item)
+        }, resources.getInteger(R.integer.duration_avd_like_unlike).toLong())
+
     }
 }

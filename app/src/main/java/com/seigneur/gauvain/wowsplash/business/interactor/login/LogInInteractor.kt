@@ -4,7 +4,6 @@ import android.net.Uri
 
 
 interface LogInInteractor {
-
     fun checkAuthUrl(url: Uri)
     fun close()
 }

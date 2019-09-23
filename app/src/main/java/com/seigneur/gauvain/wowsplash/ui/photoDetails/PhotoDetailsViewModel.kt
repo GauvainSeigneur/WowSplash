@@ -3,6 +3,7 @@ package com.seigneur.gauvain.wowsplash.ui.photoDetails
 import androidx.lifecycle.MutableLiveData
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.TemporaryDataProvider
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
@@ -15,7 +16,7 @@ class PhotoDetailsViewModel(private val mPhotoRepository: PhotoRepository) :
     private val temporaryDataSession = getKoin().getScope(PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID)
     private val temporaryDataProvider = temporaryDataSession.get<TemporaryDataProvider>()
 
-    fun getPhotoClicked(): MutableLiveData<Photo> {
+    fun getPhotoClicked(): MutableLiveData<PhotoItem> {
         return temporaryDataProvider.photoClicked
     }
 

@@ -4,6 +4,8 @@ import android.app.Application
 import com.seigneur.gauvain.wowsplash.di.*
 import com.seigneur.gauvain.wowsplash.di.logIn.logInModule
 import com.seigneur.gauvain.wowsplash.di.photo.photoModule
+import com.seigneur.gauvain.wowsplash.di.photoDetails.photoDetailsModule
+import com.seigneur.gauvain.wowsplash.di.photoList.photoListModule
 import com.seigneur.gauvain.wowsplash.di.user.userModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinComponent
@@ -24,10 +26,13 @@ class WowSplashApp : Application(), KoinComponent {
                 repositoryModule,
                 viewModelModule,
                 databaseModule,
-                tempRepositoryModule,
                 photoModule,
+                photoListModule,
                 userModule,
-                logInModule
+                logInModule,
+                photoDetailsModule,
+                photoDetailsDataProviderModule,
+                photoListDataProviderModule
             ))
         }
         Timber.plant(Timber.DebugTree())

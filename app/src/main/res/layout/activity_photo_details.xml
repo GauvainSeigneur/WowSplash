@@ -19,7 +19,7 @@
         android:fitsSystemWindows="false">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -75,6 +75,7 @@
             android:layout_height="wrap_content">
 
             <com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
+                android:id="@+id/likeSaveShareView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

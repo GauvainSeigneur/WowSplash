@@ -7,8 +7,10 @@ import android.os.Handler
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
@@ -25,7 +27,6 @@ import com.seigneur.gauvain.wowsplash.ui.list.photo.PhotoViewHolder
 import com.seigneur.gauvain.wowsplash.ui.main.MainActivity
 import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsActivity
 import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
-import kotlinx.android.synthetic.main.activity_photo_details.*
 import kotlinx.android.synthetic.main.layout_refresh_list.*
 import kotlinx.android.synthetic.main.list_item_network_state.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,6 +36,7 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
     PhotoItemCallback, NetworkItemCallback {
 
     private var mTypeOfPhoto: String? = null
+    private val displayMetrics = DisplayMetrics()
 
     companion object {
         private val LIST_ARG = "Photo_list_arg"
@@ -47,7 +49,7 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         }
     }
 
-    private val mHomeViewModel by viewModel<PhotoListViewModel>()
+    private val photoListViewModel by viewModel<PhotoListViewModel>()
     private val photoViewModel by viewModel<PhotoViewModel>()
 
     private val photoListAdapter: PhotoListAdapter by lazy {
@@ -56,29 +58,39 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+
         val bundle = this.arguments
         if (bundle != null) {
             mTypeOfPhoto = bundle.getString(LIST_ARG)
         }
-        mHomeViewModel.init(mTypeOfPhoto)
+        photoListViewModel.init(mTypeOfPhoto)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         retryLoadingButton.setOnClickListener {
-            mHomeViewModel.retry()
+            photoListViewModel.retry()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== AppCompatActivity.RESULT_OK) {
+            Timber.d("lol is ok")
         }
     }
 
     override fun subscribeToLiveData() {
-        mHomeViewModel.list?.observe(
+        photoListViewModel.list?.observe(
             viewLifecycleOwner, Observer<PagedList<Photo>> {
                 photoListAdapter.submitList(it)
 
             })
 
-        mHomeViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
+        photoListViewModel.networkState.observe(viewLifecycleOwner, Observer<NetworkState> {
             photoListAdapter.setNetworkState(it!!)
         })
 
@@ -91,33 +103,29 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
             (mParentActivity as MainActivity).displayRequestLoginSnackBar()
         })
 
-        photoViewModel.goToDetailsEvent.observe(viewLifecycleOwner, EventObserver<Int> {
+        photoListViewModel.goToDetailsEvent.observe(viewLifecycleOwner, EventObserver {
             val i = Intent(activity, PhotoDetailsActivity::class.java)
-            context?.startActivity(i)
+            startActivityForResult(i, PhotoDetailsActivity.PHOTO_DETAILS_RESULT_CODE)
         })
-
     }
 
     override val listAdapter: BasePagedListAdapter<*, *>
         get() = photoListAdapter
 
     override val vm: BasePagingListViewModel<PhotosDataSource, Long, Photo>
-        get() = mHomeViewModel
+        get() = photoListViewModel
 
     override fun initAdapter() {
-        photoList.setItemViewCacheSize(5)
+        photoList.setItemViewCacheSize(10)
 
-        val displayMetrics = DisplayMetrics()
-        val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenHeight = displayMetrics.heightPixels
 
         context?.let {
-            val layoutManager = PreCachingLayoutManager(it, null, null)//GridLayoutManager(context, 1)
+            val layoutManager =
+                PreCachingLayoutManager(it, LinearLayoutManager.VERTICAL, false)//GridLayoutManager(context, 1)
             layoutManager.setExtraLayoutSpace(screenHeight)
             photoList.layoutManager = layoutManager
         }
-
         photoList.adapter.let {
             photoList.adapter = photoListAdapter
         }
@@ -128,7 +136,7 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         val item = photoListAdapter.getPhotoFromPos(position)
         item?.let {
             photoViewModel.photoItem = PhotoItem(it, position)
-            photoViewModel.setPhotoClicked(item, position)
+            photoListViewModel.setPhotoClicked(item, position)
         }
     }
 
@@ -142,15 +150,14 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
     }
 
     override fun retry() {
-        mHomeViewModel.retry()
+        photoListViewModel.retry()
     }
 
     private fun manageLikeEvent(photoItem: PhotoItem) {
-        val holder = photoList.findViewHolderForLayoutPosition(photoItem.position) as PhotoViewHolder
-        holder.likeThePhoto(photoItem.photo.liked_by_user)
+        val holder = photoList.findViewHolderForLayoutPosition(photoItem.position) as? PhotoViewHolder
+        holder?.likeThePhoto(photoItem.photo.liked_by_user)
         val item = photoListAdapter.getPhotoFromPos(photoItem.position)
         item?.liked_by_user = photoItem.photo.liked_by_user
-        likeSaveShareView.animHeartSateChange(photoItem.photo.liked_by_user, false)
         //Give the time to the animation before update the RecyclerView
         Handler().postDelayed({
             photoListAdapter.notifyItemChanged(photoItem.position, item)

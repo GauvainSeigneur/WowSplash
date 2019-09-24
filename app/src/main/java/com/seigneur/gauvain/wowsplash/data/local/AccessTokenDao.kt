@@ -23,6 +23,6 @@ interface AccessTokenDao {
      * @return AccessToken if exists, nothing if not
      */
     @get:Query("SELECT * FROM accesstoken")
-    val accessToken: LiveData<AccessToken>
+    val accessToken: Maybe<AccessToken>
 
 }

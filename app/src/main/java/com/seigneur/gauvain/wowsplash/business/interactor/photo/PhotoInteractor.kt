@@ -5,8 +5,6 @@ import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
 import io.reactivex.disposables.CompositeDisposable
 
 interface PhotoInteractor {
-    fun init()
     fun likePhoto(disposable: CompositeDisposable, photoItem: PhotoItem?, isLiked: Boolean)
-    fun onPhotoClicked(photo: Photo?, pos: Int)
 }
 

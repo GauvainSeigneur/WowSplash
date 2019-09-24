@@ -3,6 +3,7 @@ package com.seigneur.gauvain.wowsplash.business.interactor.login
 import android.net.Uri
 import com.seigneur.gauvain.wowsplash.data.api.AUTH_REDIRECT_URI
 import com.seigneur.gauvain.wowsplash.data.repository.AuthRepository
+import com.seigneur.gauvain.wowsplash.data.repository.TokenRepository
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInPresenter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -25,20 +26,20 @@ class LogInInteractorImpl(
             compositeDisposable.add(authRepository.getAccessTokenFromAPi(keyCode)
                 .flatMap {
                     accessTokenValue = it.access_token
+                    TokenRepository.accessToken = accessTokenValue
                     return@flatMap authRepository.storeAccessToken(it)
                 }
                 .map {
-                    //authRepository.accessToken = accessTokenValue
+                    TokenRepository.accessToken = accessTokenValue
                 }
                 .subscribeBy(
                     onSuccess = {
                         accessTokenValue?.let {
+                            TokenRepository.accessToken = it
                             presenter.onAuthSuccess()
-                            //AuthRepository.accessToken = it
                         }
                     },
                     onError = {
-                        Timber.d("onError $it")
                         presenter.onAuthFailed(it)
                     }
                 )

@@ -14,15 +14,6 @@ class UserRepository(
     private val database: WowSplashDataBase
 ) {
 
-    var isConnected: Boolean = false
-
-
-    init {
-        Timber.d("isConnected $isConnected")
-        init()
-        Timber.d("isConnected after $isConnected")
-    }
-
     fun getMe(): Single<User> {
         return service.getMe()
             .subscribeOn(Schedulers.io())
@@ -35,7 +26,4 @@ class UserRepository(
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun init(){
-        database.mAccessTokenDao().accessToken.observeForever { isConnected = it != null }
-    }
 }

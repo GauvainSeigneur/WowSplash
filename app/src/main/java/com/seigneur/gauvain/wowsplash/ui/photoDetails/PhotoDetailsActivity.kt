@@ -46,11 +46,12 @@ import com.seigneur.gauvain.wowsplash.ui.base.PhotoViewModel
 import com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
 import com.seigneur.gauvain.wowsplash.utils.ImageUtils
 import com.seigneur.gauvain.wowsplash.utils.MyColorUtils
-import com.seigneur.gauvain.wowsplash.utils.event.Event
-import org.koin.android.ext.android.getKoin
-import timber.log.Timber
 
 class PhotoDetailsActivity : AppCompatActivity() {
+
+    companion object {
+        const val  PHOTO_DETAILS_RESULT_CODE = 1
+    }
 
     private val mPhotoDetailsViewModel by viewModel<PhotoDetailsViewModel>()
     private val photoViewModel by viewModel<PhotoViewModel>()
@@ -72,6 +73,11 @@ class PhotoDetailsActivity : AppCompatActivity() {
         setUpLikeSaveShareView()
     }
 
+    override fun finish() {
+        setResult(RESULT_OK)
+        super.finish()
+    }
+
     private fun listenLiveData() {
         mPhotoDetailsViewModel.getPhotoClicked().observe(this, Observer<PhotoItem> {
             resizePhotoImageView(it.photo)
@@ -86,7 +92,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
         })
 
     }
-
 
     private fun setUpLikeSaveShareView() {
         likeSaveShareView.setOnIconClick(object : LikeSaveShareView.OnIconClickListener {
@@ -145,33 +150,6 @@ class PhotoDetailsActivity : AppCompatActivity() {
                         }
                     }
                     ))
-            /*.listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any,
-                    target: Target<Drawable>,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    //do something! - make an API call or load another image and call mShotDetailPresenter.onShotImageAvailable();
-                    if (isTransactionPostponed) {
-                        setUpPhotoInfo(photo, false, null)
-                    }
-
-                    return false
-                }
-
-                override fun onResourceReady(
-                    resource: Drawable,
-                    model: Any,
-                    target: Target<Drawable>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    //TODO - singleLive event and try reload it
-                    setUpPhotoInfo(photo, true, resource)
-                    return false
-                }
-            })*/
             .apply(
                 RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)

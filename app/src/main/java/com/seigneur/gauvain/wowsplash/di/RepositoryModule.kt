@@ -9,4 +9,5 @@ val repositoryModule = module {
     factory { CollectionsRepository(get()) }
     factory { UserRepository(get(), get()) }
     factory { SearchRepository(get()) }
+    single { TokenRepository(get()) }
 }

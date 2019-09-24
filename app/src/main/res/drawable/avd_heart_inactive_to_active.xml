@@ -26,14 +26,14 @@
             <set>
                 <objectAnimator
                     android:propertyName="pathData"
-                    android:duration="300"
+                    android:duration="@integer/duration_avd_like_unlike"
                     android:valueFrom="M 12 12.719 L 11.914 12.641 C 11.609 12.364 11.407 12.181 11.407 11.957 C 11.407 11.774 11.55 11.631 11.733 11.631 C 11.836 11.631 11.935 11.679 12 11.755 C 12.065 11.679 12.164 11.631 12.267 11.631 C 12.45 11.631 12.593 11.774 12.593 11.957 C 12.593 12.181 12.391 12.364 12.086 12.641 L 12 12.719 Z"
                     android:valueTo="M 12 21.35 L 10.55 20.03 C 5.4 15.36 2 12.28 2 8.5 C 2 5.42 4.42 3 7.5 3 C 9.24 3 10.91 3.81 12 5.09 C 13.09 3.81 14.76 3 16.5 3 C 19.58 3 22 5.42 22 8.5 C 22 12.28 18.6 15.36 13.45 20.04 L 12 21.35 Z"
                     android:valueType="pathType"
                     android:interpolator="@android:interpolator/fast_out_slow_in"/>
                 <objectAnimator
                     android:propertyName="fillAlpha"
-                    android:duration="300"
+                    android:duration="@integer/duration_avd_like_unlike"
                     android:valueFrom="0"
                     android:valueTo="1"
                     android:valueType="floatType"
@@ -45,7 +45,7 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="fillAlpha"
-                android:duration="300"
+                android:duration="@integer/duration_avd_like_unlike"
                 android:valueFrom="1"
                 android:valueTo="0"
                 android:valueType="floatType"

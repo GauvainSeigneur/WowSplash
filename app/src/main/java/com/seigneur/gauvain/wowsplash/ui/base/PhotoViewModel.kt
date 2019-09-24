@@ -14,22 +14,13 @@ class PhotoViewModel : BaseViewModel(), KoinComponent, PhotoPresenter {
     private val interactor by inject<PhotoInteractor> { parametersOf(this) }
 
     //LiveData to be listen
-    var goToDetailsEvent = MutableLiveData<Event<Int>>()
     var onDisplayLoginRequestedMessage = MutableLiveData<Event<Int>>()
     //
     var photoItem: PhotoItem? = null
     var photoItemViewModel = MutableLiveData<PhotoItem>()
 
-    init {
-        interactor.init()
-    }
-
     override fun presentGlobalError() {
 
-    }
-
-    override fun presentPhotoDetails(position: Int) {
-        goToDetailsEvent.postValue(Event(position))
     }
 
     override fun presentPhotoLiked(position: Int, liked: Boolean) {
@@ -49,7 +40,4 @@ class PhotoViewModel : BaseViewModel(), KoinComponent, PhotoPresenter {
         interactor.likePhoto(mDisposables, photoItem, liked)
     }
 
-    fun setPhotoClicked(photo: Photo?, position: Int) {
-        interactor.onPhotoClicked(photo, position)
-    }
 }

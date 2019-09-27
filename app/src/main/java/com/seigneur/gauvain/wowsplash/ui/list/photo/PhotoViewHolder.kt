@@ -67,7 +67,7 @@ class PhotoViewHolder private constructor(
             }
 
             override fun onSaveClicked() {
-
+                mPhotoItemCallback.onRegisterPhotoClicked(adapterPosition)
             }
 
             override fun onShareClicked() {

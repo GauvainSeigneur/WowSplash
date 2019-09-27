@@ -1,8 +1,8 @@
 package com.seigneur.gauvain.wowsplash.business.interactor.photoList
 
-import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
 
 interface PhotoListInteractor {
-    fun onPhotoClicked(photo: Photo?, pos: Int)
+
 }
 

@@ -9,38 +9,33 @@ import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDat
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
 import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
+import com.seigneur.gauvain.wowsplash.data.repository.TempDataRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
 import com.seigneur.gauvain.wowsplash.utils.event.Event
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
+import org.koin.core.scope.Scope
 
 class PhotoListViewModel(
     private val photoRepository: PhotoRepository
 ) : BasePagingListViewModel<PhotosDataSource, Long, Photo>(), PhotoListPresenter, KoinComponent {
 
-
-    private val interactor by inject<PhotoListInteractor> { parametersOf(this) }
-
-    var goToDetailsEvent = MutableLiveData<Event<Int>>()
-
     companion object {
         private val pageSize = 15
     }
 
-    override fun presentPhotoDetails(position: Int) {
-        goToDetailsEvent.postValue(Event(position))
-    }
+    private val interactor by inject<PhotoListInteractor> { parametersOf(this) }
+    private val tempDataRepository by inject<TempDataRepository>()
 
-    fun setPhotoClicked(photo: Photo?, position: Int) {
-        interactor.onPhotoClicked(photo, position)
-    }
+    var itemModifiedFromDetails = tempDataRepository.photoItemModifiedFromDetails
 
     /**************************************************************************
-    * Paged List
-    *************************************************************************/
+     * Paged List
+     *************************************************************************/
     var list: LiveData<PagedList<Photo>>? = null
     private var orderBy: String? = null
     private var config: PagedList.Config? = null

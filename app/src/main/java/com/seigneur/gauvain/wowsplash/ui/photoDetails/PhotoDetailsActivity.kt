@@ -4,14 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.app.ActionBar
-import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -26,23 +20,15 @@ import kotlinx.android.synthetic.main.activity_photo_details.*
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AlphaAnimation
-import android.view.animation.DecelerateInterpolator
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.widget.ImageViewCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.palette.graphics.Palette
 import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
-import com.seigneur.gauvain.wowsplash.ui.base.PhotoViewModel
+import com.seigneur.gauvain.wowsplash.ui.photoActions.PhotoActionsViewModel
 import com.seigneur.gauvain.wowsplash.ui.widget.LikeSaveShareView
 import com.seigneur.gauvain.wowsplash.utils.ImageUtils
 import com.seigneur.gauvain.wowsplash.utils.MyColorUtils
@@ -50,12 +36,12 @@ import com.seigneur.gauvain.wowsplash.utils.MyColorUtils
 class PhotoDetailsActivity : AppCompatActivity() {
 
     companion object {
-        const val  PHOTO_DETAILS_RESULT_CODE = 1
+        const val PHOTO_DETAILS_RESULT_CODE = 1
+        const val PHOTO_ITEM_KEY = "PHOTO_ITEM_KEY"
     }
 
     private val mPhotoDetailsViewModel by viewModel<PhotoDetailsViewModel>()
-    private val photoViewModel by viewModel<PhotoViewModel>()
-    private var isLiked = false
+    private val photoViewModel by viewModel<PhotoActionsViewModel>()
 
     private val appBarOffsetListener: AppBarLayout.OnOffsetChangedListener =
         AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -67,6 +53,7 @@ class PhotoDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mPhotoDetailsViewModel.photoItem.postValue(intent.getParcelableExtra<PhotoItem>(PHOTO_ITEM_KEY))
         listenLiveData()
         setContentView(R.layout.activity_photo_details)
         toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -79,12 +66,12 @@ class PhotoDetailsActivity : AppCompatActivity() {
     }
 
     private fun listenLiveData() {
-        mPhotoDetailsViewModel.getPhotoClicked().observe(this, Observer<PhotoItem> {
-            resizePhotoImageView(it.photo)
-            loadShotImage(it.photo)
-            photoViewModel.photoItem = it
-            isLiked = it.photo.liked_by_user
-            likeSaveShareView.animHeartSateChange(it.photo.liked_by_user, true)
+        mPhotoDetailsViewModel.photoItem.observe(this, Observer {
+            it?.let {
+                resizePhotoImageView(it.photo)
+                loadShotImage(it.photo)
+                likeSaveShareView.animHeartSateChange(it.photo.liked_by_user, true)
+            }
         })
 
         photoViewModel.photoItemViewModel.observe(this, Observer {
@@ -96,8 +83,9 @@ class PhotoDetailsActivity : AppCompatActivity() {
     private fun setUpLikeSaveShareView() {
         likeSaveShareView.setOnIconClick(object : LikeSaveShareView.OnIconClickListener {
             override fun onLikeClicked() {
-                isLiked = !isLiked
-                photoViewModel.likePhoto(isLiked)
+                mPhotoDetailsViewModel.photoItem.value?.let {
+                    photoViewModel.likePhoto(it, true)
+                }
             }
 
             override fun onSaveClicked() {}

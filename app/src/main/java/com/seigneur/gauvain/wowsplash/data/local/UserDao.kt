@@ -6,6 +6,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.seigneur.gauvain.wowsplash.data.model.user.User
+import io.reactivex.Maybe
+import io.reactivex.Single
 
 @Dao
 interface UserDao {
@@ -15,12 +17,12 @@ interface UserDao {
      * return long (transaction id)
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(user: User): Long
+    fun insertUser(user: User): Single<Long>
 
     /**
      *
      */
     @get:Query("SELECT * FROM user")
-    val getUserLive: LiveData<User>
+    val getUser: Maybe<User>
 
 }

@@ -1,5 +1,6 @@
 package com.seigneur.gauvain.wowsplash.di
 
+import com.seigneur.gauvain.wowsplash.ui.addToCollections.AddToCollectionsListViewModel
 import com.seigneur.gauvain.wowsplash.ui.splash.SplashViewModel
 import com.seigneur.gauvain.wowsplash.ui.collections.CollectionsViewModel
 import com.seigneur.gauvain.wowsplash.ui.postPhoto.PostPhotoViewModel
@@ -26,6 +27,10 @@ val viewModelModule = module {
 
     viewModel {
         SearchCollectionViewModel(get())
+    }
+
+    viewModel {
+        AddToCollectionsListViewModel(get(), get())
     }
 
     viewModel {

@@ -78,7 +78,6 @@ abstract class BasePagingFragment<DataSource, Key, Value> :
         photoGlobalNetworkState.visibility = if (networkState.status == Status.SUCCESS) View.GONE else View.VISIBLE
         //set default state
         photoSwipeRefreshLayout.isEnabled = networkState.status == Status.SUCCESS
-
     }
 
     override fun retry() {

@@ -7,10 +7,10 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class PhotoRepository(private val service: UnSplashService)  {
+class PhotoRepository(private val service: UnSplashService) {
 
     //get list of Shot from Unsplash
-    fun getPhotos(page: Long, perPage: Int, order_by:String?): Flowable<List<Photo>> {
+    fun getPhotos(page: Long, perPage: Int, order_by: String?): Flowable<List<Photo>> {
         return service.photos(page, perPage, order_by)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -29,13 +29,13 @@ class PhotoRepository(private val service: UnSplashService)  {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun likePhoto(id:String):Single<Photo> {
+    fun likePhoto(id: String): Single<Photo> {
         return service.likePhoto(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun unlikePhoto(id:String):Single<Photo> {
+    fun unlikePhoto(id: String): Single<Photo> {
         return service.unlikePhoto(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

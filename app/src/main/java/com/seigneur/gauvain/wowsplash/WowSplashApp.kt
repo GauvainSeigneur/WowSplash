@@ -30,9 +30,7 @@ class WowSplashApp : Application(), KoinComponent {
                 photoListModule,
                 userModule,
                 logInModule,
-                photoDetailsModule,
-                photoDetailsDataProviderModule,
-                photoListDataProviderModule
+                photoDetailsModule
             ))
         }
         Timber.plant(Timber.DebugTree())

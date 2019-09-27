@@ -1,7 +1,6 @@
 package com.seigneur.gauvain.wowsplash.ui.user
 
 import androidx.lifecycle.MutableLiveData
-import com.seigneur.gauvain.wowsplash.business.interactor.photo.PhotoInteractor
 import com.seigneur.gauvain.wowsplash.business.interactor.user.UserInteractor
 import com.seigneur.gauvain.wowsplash.data.model.user.User
 import com.seigneur.gauvain.wowsplash.data.repository.UserRepository

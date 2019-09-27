@@ -43,6 +43,10 @@ class SearchPhotoFragment: BaseSearchPagingFragment<SearchPhotoDataSource, Long,
         })
     }
 
+    override fun onRegisterPhotoClicked(position: Int) {
+
+    }
+
     override fun initAdapter() {
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS

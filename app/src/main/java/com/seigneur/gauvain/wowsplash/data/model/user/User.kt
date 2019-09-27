@@ -1,9 +1,12 @@
 package com.seigneur.gauvain.wowsplash.data.model.user
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 @Entity
+@Parcelize
 data class User(
     @PrimaryKey val roomId:Int= 0,
     val id: String,
@@ -20,4 +23,4 @@ data class User(
     val followers_count: Int,
     val following_count: Int,
     val downloads: Int
-)
+):Parcelable

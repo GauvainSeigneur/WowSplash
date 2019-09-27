@@ -8,10 +8,15 @@ import com.seigneur.gauvain.wowsplash.business.paginationInteractor.search.photo
 import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 
 import com.seigneur.gauvain.wowsplash.data.repository.SearchRepository
+import com.seigneur.gauvain.wowsplash.data.repository.TempDataRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultViewModel
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class SearchPhotoViewModel(private val searchRepository: SearchRepository) :
-    BaseSearchResultViewModel<SearchPhotoDataSource, Long, Photo>() {
+    BaseSearchResultViewModel<SearchPhotoDataSource, Long, Photo>(), KoinComponent {
+
+    private val tempDataRepository by inject<TempDataRepository>()
 
     override fun createDataSourceFactory(query:String): BaseDataSourceFactory<SearchPhotoDataSource, Long, Photo> {
         return SearchPhotoDataSourceFactory(

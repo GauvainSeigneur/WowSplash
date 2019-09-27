@@ -18,46 +18,95 @@ interface UnSplashService {
     fun photos(): Flowable<List<Photo>>
 
     @GET("photos")
-    fun photos( @Query("page") page: Long,
-                @Query("per_page") pagePage: Int): Flowable<List<Photo>>
+    fun photos(
+        @Query("page") page: Long,
+        @Query("per_page") pagePage: Int
+    ): Flowable<List<Photo>>
 
     @GET("photos")
-    fun photos( @Query("page") page: Long,
-                @Query("per_page") pagePage: Int,
-                @Query("order_by") value: String?): Flowable<List<Photo>>
+    fun photos(
+        @Query("page") page: Long,
+        @Query("per_page") pagePage: Int,
+        @Query("order_by") value: String?
+    ): Flowable<List<Photo>>
 
     /**
      * Like a photo
      */
     @POST("photos/{id}/like")
     fun likePhoto(
-        @Path("id") id:String): Single<Photo>
+        @Path("id") id: String
+    ): Single<Photo>
 
     /**
      * Unlike a photo
      */
     @DELETE("photos/{id}/like")
     fun unlikePhoto(
-        @Path("id") id:String): Single<Photo>
+        @Path("id") id: String
+    ): Single<Photo>
 
     /**
      * Collections end point
      */
     @GET("collections")
-    fun collections( @Query("page") page: Long,
-                @Query("per_page") pagePage: Int): Flowable<List<PhotoCollection>>
+    fun collections(
+        @Query("page") page: Long,
+        @Query("per_page") pagePage: Int
+    ): Flowable<List<PhotoCollection>>
 
     @GET("collections/featured")
-    fun featuredCollections( @Query("page") page: Long,
-                     @Query("per_page") pagePage: Int): Flowable<List<PhotoCollection>>
+    fun featuredCollections(
+        @Query("page") page: Long,
+        @Query("per_page") pagePage: Int
+    ): Flowable<List<PhotoCollection>>
+
+    /**
+     * Get a user collections
+     */
+    @GET("users/{username}/collections")
+    fun userCollections(
+        @Path("username") username: String,
+        @Query("page") page: Long,
+        @Query("per_page") pagePage: Int
+    ): Flowable<List<PhotoCollection>>
+
+
+    /**
+     * create a collection
+     */
+    @POST("collections")
+    fun addCollection(
+        @Query("title") title: String,
+        @Query("description") description: String? = null,
+        @Query("private") private: Boolean? = false
+    ): Single<Photo>
+
+    /**
+     * Add a photo to a collection
+     */
+    @POST("collections/{collection_id}/add")
+    fun addPhotoToCollection(
+        @Path("collection_id") collection_id: String,
+        @Query("photo_id") photo_id: String
+    ): Single<Photo>
+
+    /**
+     * remove a photo from a collection
+     */
+    @DELETE("collections/{collection_id}/remove")
+    fun removePhotoFromCollection(
+        @Path("collection_id") collection_id: String,
+        @Query("photo_id") photo_id: String
+    ): Single<Photo>
 
 
     /**
      * Oauth2
      */
-    @POST()
+    @POST
     fun getAccessToken(
-        @Url url:String,
+        @Url url: String,
         @Query("client_id") clientID: String,
         @Query("client_secret") clientSecret: String,
         @Query("redirect_uri") redirectUri: String,
@@ -79,20 +128,26 @@ interface UnSplashService {
     fun searchPhoto(@Query("query") query: String?): Single<SearchResponse<Photo>>
 
     @GET("search/photos")
-    fun searchPhoto(@Query("query") query: String?,
-                    @Query("page") page: Long,
-                    @Query("per_page") pagePage: Int): Single<SearchResponse<Photo>>
+    fun searchPhoto(
+        @Query("query") query: String?,
+        @Query("page") page: Long,
+        @Query("per_page") pagePage: Int
+    ): Single<SearchResponse<Photo>>
 
     @GET("search/collections")
-    fun searchCollection(@Query("query") query: String?,
-                         @Query("page") page: Long,
-                         @Query("per_page") pagePage: Int): Single<SearchResponse<PhotoCollection>>
+    fun searchCollection(
+        @Query("query") query: String?,
+        @Query("page") page: Long,
+        @Query("per_page") pagePage: Int
+    ): Single<SearchResponse<PhotoCollection>>
 
     @GET("search/users")
     fun searchUser(@Query("query") query: String?): Single<SearchResponse<User>>
 
     @GET("search/users")
-    fun searchUser(@Query("query") query: String?,
-                    @Query("page") page: Long,
-                    @Query("per_page") pagePage: Int): Single<SearchResponse<User>>
+    fun searchUser(
+        @Query("query") query: String?,
+        @Query("page") page: Long,
+        @Query("per_page") pagePage: Int
+    ): Single<SearchResponse<User>>
 }

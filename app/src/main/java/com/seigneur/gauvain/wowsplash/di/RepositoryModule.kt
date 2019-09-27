@@ -10,4 +10,5 @@ val repositoryModule = module {
     factory { UserRepository(get(), get()) }
     factory { SearchRepository(get()) }
     single { TokenRepository(get()) }
+    single { TempDataRepository() }
 }

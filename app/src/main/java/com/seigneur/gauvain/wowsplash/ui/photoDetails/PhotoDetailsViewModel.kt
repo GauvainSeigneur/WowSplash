@@ -1,27 +1,19 @@
 package com.seigneur.gauvain.wowsplash.ui.photoDetails
 
 import androidx.lifecycle.MutableLiveData
-import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
-import com.seigneur.gauvain.wowsplash.data.TemporaryDataProvider
-import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
-import com.seigneur.gauvain.wowsplash.di.PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID
+import com.seigneur.gauvain.wowsplash.business.interactor.photoDetails.PhotoDetailsInteractor
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
+import com.seigneur.gauvain.wowsplash.data.repository.TempDataRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
 import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.parameter.parametersOf
 
-class PhotoDetailsViewModel(private val mPhotoRepository: PhotoRepository) :
-    BaseViewModel(), KoinComponent {
+class PhotoDetailsViewModel : BaseViewModel(), PhotoDetailsPresenter, KoinComponent {
 
-    // create the scope
-    private val temporaryDataSession = getKoin().getScope(PHOTO_DETAILS_TEMP_SCOPE_SESSION_ID)
-    private val temporaryDataProvider = temporaryDataSession.get<TemporaryDataProvider>()
+    private val interactor by inject<PhotoDetailsInteractor> { parametersOf(this) }
+    private val tempDataRepository by inject<TempDataRepository>()
 
-    fun getPhotoClicked(): MutableLiveData<Photo> {
-        return temporaryDataProvider.photoClicked
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        temporaryDataSession.close() // close it
-    }
+    var photoItem = MutableLiveData<PhotoItem>()
 
 }

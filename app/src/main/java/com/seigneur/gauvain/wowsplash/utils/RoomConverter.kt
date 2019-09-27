@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.seigneur.gauvain.wowsplash.data.model.user.ProfileImage
 
 import java.util.ArrayList
 import java.util.Date
@@ -16,6 +17,24 @@ object RoomConverter {
     fun toDate(timestamp: Long?): Date? {
         return if (timestamp == null) null else Date(timestamp)
     }
+
+    @TypeConverter
+    @JvmStatic
+    fun ProfileImageToString(profileImage: ProfileImage?): String? {
+        val gson = Gson()
+        return if (profileImage == null) null else gson.toJson(profileImage)
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun stringToProfileImage(string: String): ProfileImage? {
+        val listType = object : TypeToken<ProfileImage>() {
+
+        }.type
+        return Gson().fromJson<ProfileImage>(string, listType)
+    }
+
+
 
     @TypeConverter
     @JvmStatic

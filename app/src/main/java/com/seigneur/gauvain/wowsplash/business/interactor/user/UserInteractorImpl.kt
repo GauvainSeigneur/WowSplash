@@ -17,12 +17,12 @@ class UserInteractorImpl(
     val compositeDisposable= CompositeDisposable()
 
     override fun getMe() {
-        val accessToken = AuthRepository.accessToken
+        /*val accessToken = null
         if (accessToken.isNullOrEmpty()) {
             userPresenter.onError(Throwable("NO TOKEN AVAILABLE", null))
         } else {
             fecthMeFromAPI()
-        }
+        }*/
     }
 
     override fun close() {

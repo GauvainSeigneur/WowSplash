@@ -16,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 
-class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long, Photo>(),
+class SearchPhotoFragment: BaseSearchPagingFragment<SearchPhotoDataSource, Long, Photo>(),
     PhotoItemCallback,
     NetworkItemCallback {
 
@@ -43,6 +43,10 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
         })
     }
 
+    override fun onRegisterPhotoClicked(position: Int) {
+
+    }
+
     override fun initAdapter() {
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
@@ -62,6 +66,10 @@ class SearchPhotoFragment : BaseSearchPagingFragment<SearchPhotoDataSource, Long
     }
 
     override fun onPhotoClicked(position: Int) {
+
+    }
+
+    override fun onPhotoLiked(position: Int, isLiked:Boolean) {
 
     }
 

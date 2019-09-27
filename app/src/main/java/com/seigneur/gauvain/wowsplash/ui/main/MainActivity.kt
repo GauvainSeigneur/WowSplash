@@ -1,16 +1,22 @@
 package com.seigneur.gauvain.wowsplash.ui.main
 
+import android.app.ActivityOptions
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.data.repository.AuthRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import com.seigneur.gauvain.wowsplash.ui.collections.CollectionFragment
-import com.seigneur.gauvain.wowsplash.ui.home.HomeFragment
+import com.seigneur.gauvain.wowsplash.ui.logIn.LogInActivity
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInFragment
+import com.seigneur.gauvain.wowsplash.ui.photo.PhotoListFragment
+import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsActivity
 import com.seigneur.gauvain.wowsplash.ui.postPhoto.PostPhotoFragment
 import com.seigneur.gauvain.wowsplash.ui.search.SearchFragment
 import com.seigneur.gauvain.wowsplash.ui.search.photo.SearchPhotoFragment
@@ -45,6 +51,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun displayRequestLoginSnackBar(){
+        Snackbar.make(container, "you have to connected", Snackbar.LENGTH_LONG)
+            .setAnchorView(R.id.mBottomNavigation)
+            .setAction("Connect", object: View.OnClickListener{
+                override fun onClick(p0: View?) {
+                    val i = Intent(this@MainActivity, LogInActivity::class.java)
+                    startActivity(i)
+                }
+            })
+            .show()
+    }
+
 
     /**
      * Initialize Fragment manager and default value
@@ -53,13 +71,13 @@ class MainActivity : AppCompatActivity() {
         mFragmentStateManager = object : FragmentStateManager(mfragmentContainer, supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 when (position) {
-                    0 -> return HomeFragment()
+                    0 -> return PhotoListFragment()
                     1 -> return CollectionFragment()//CollectionFragment()
                     2 -> return PostPhotoFragment()
                     3 -> return SearchFragment()
                     4 -> return UserFragment()
                 }
-                return HomeFragment()
+                return PhotoListFragment()
             }
         }
         if (savedInstanceState == null) {
@@ -89,10 +107,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getPostFragment(): BaseFragment {
-        val accessToken:String?=AuthRepository.accessToken //data to be observed
+        /*val accessToken:String?=AuthRepository.accessToken //data to be observed
         accessToken?.let {
             return SearchPhotoFragment()
-        }
+        }*/
         return LogInFragment()
 
     }

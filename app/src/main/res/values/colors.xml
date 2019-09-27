@@ -25,7 +25,7 @@
     <color name="colorOnBackground">@color/colorPrimary</color>
 
     <color name="colorSurface">#FFFFFF</color>
-    <color name="colorOnSurface">#fafafa</color>
+    <color name="colorOnSurface">@color/colorPrimary</color>
 
     <color name="colorError">#ec391d</color>
     <color name="colorOnError">#FFFFFF</color>

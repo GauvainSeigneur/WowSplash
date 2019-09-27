@@ -21,6 +21,7 @@ class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_log_in)
+        progressBar.max = 100
         webView.loadUrl(AUTH_INITIAL_URI)
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, webRessource: WebResourceRequest): Boolean {
@@ -41,7 +42,7 @@ class LogInActivity : AppCompatActivity() {
         subscribeToLiveData()
     }
 
-    fun subscribeToLiveData() {
+    private fun subscribeToLiveData() {
         mLogInViewModel.mWebProgressValue.observe(this,
             Observer {
                 progressBar.progress = it
@@ -52,7 +53,7 @@ class LogInActivity : AppCompatActivity() {
         mLogInViewModel.mLoginResult.observe(this, Observer {
             when (it) {
                 is LogInResult.LogInSuccess -> {
-                    finish()
+                    //todo - close fragment or activity
                 }
                 is LogInResult.LogInError -> {
                     //todo - close fragment or activity

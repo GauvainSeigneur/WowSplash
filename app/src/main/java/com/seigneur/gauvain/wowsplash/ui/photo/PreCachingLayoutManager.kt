@@ -8,9 +8,9 @@ class PreCachingLayoutManager
 @JvmOverloads
 constructor(
     context: Context,
-    orientation: Int?,
-    reverseLayout: Boolean?
-) : LinearLayoutManager(context) {
+    orientation: Int,
+    reverseLayout: Boolean
+) : LinearLayoutManager(context, orientation, reverseLayout) {
     private val defaultExtraLayoutSpace = 600
     private var extraLayoutSpace = -1
 

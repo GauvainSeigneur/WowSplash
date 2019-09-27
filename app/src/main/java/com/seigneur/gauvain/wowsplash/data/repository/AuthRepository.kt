@@ -3,27 +3,17 @@ package com.seigneur.gauvain.wowsplash.data.repository
 import com.seigneur.gauvain.wowsplash.data.local.WowSplashDataBase
 import com.seigneur.gauvain.wowsplash.data.api.*
 import com.seigneur.gauvain.wowsplash.data.model.token.AccessToken
-import io.reactivex.Maybe
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class AuthRepository(private val service: UnSplashService, private val database: WowSplashDataBase)  {
-
-    /**
-     * get access token from DB
-     */
-    fun getAccessTokenFromDB():Maybe<AccessToken> {
-        return database.mAccessTokenDao().accessToken
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
+class AuthRepository(private val service: UnSplashService, private val database: WowSplashDataBase) {
 
     /**
      * Store Task in database
      */
-    fun storeAccessToken (accessToken: AccessToken): Single<Long> {
+    fun storeAccessToken(accessToken: AccessToken): Single<Long> {
         Timber.d("storeAccessToken called $accessToken")
         return Single.fromCallable {
             database.mAccessTokenDao().insertAccessToken(accessToken)
@@ -35,7 +25,7 @@ class AuthRepository(private val service: UnSplashService, private val database:
     /**
      * fetch access token from db
      */
-    fun getAccessTokenFromAPi(code:String): Single<AccessToken> {
+    fun getAccessTokenFromAPi(code: String): Single<AccessToken> {
         return service.getAccessToken(
             TOKEN_URL_REQUEST,
             CLIENT_ID_VALUE,
@@ -46,11 +36,6 @@ class AuthRepository(private val service: UnSplashService, private val database:
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-    }
-
-    companion object {
-        //Access Token for API request
-        var accessToken: String?=null
     }
 
 

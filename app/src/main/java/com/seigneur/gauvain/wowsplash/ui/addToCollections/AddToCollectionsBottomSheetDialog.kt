@@ -122,7 +122,7 @@ class AddToCollectionsBottomSheetDialog : BottomSheetDialogFragment(), KoinCompo
             listViewModel.initList(it)
             listenListLiveData()
         })
-        listenListLiveData()
+        listenListLiveData() //call it again in case the LiveData is already created
     }
 
     private fun listenListLiveData(){
@@ -130,5 +130,13 @@ class AddToCollectionsBottomSheetDialog : BottomSheetDialogFragment(), KoinCompo
             viewLifecycleOwner, Observer<PagedList<PhotoCollection>> {
                 userCollectionAdapter.submitList(it)
             })
+
+        listViewModel.initialNetworkState?.observe(viewLifecycleOwner, Observer {
+
+        })
+
+        listViewModel.networkState?.observe(viewLifecycleOwner, Observer {
+
+        })
     }
 }

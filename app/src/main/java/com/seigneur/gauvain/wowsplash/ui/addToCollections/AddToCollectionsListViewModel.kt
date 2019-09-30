@@ -1,42 +1,34 @@
 package com.seigneur.gauvain.wowsplash.ui.addToCollections
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.seigneur.gauvain.wowsplash.business.interactor.photoList.PhotoListInteractor
+import com.seigneur.gauvain.wowsplash.business.interactor.addToCollections.AddToCollectionsInteractor
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDataSourceFactory
-import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotoDataSourceFactory
-import com.seigneur.gauvain.wowsplash.business.paginationInteractor.photo.PhotosDataSource
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.userCollections.UserCollectionsDataSource
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.userCollections.UserCollectionsDataSourceFactory
-import com.seigneur.gauvain.wowsplash.data.model.photo.Photo
 import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
-import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
-import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
-import com.seigneur.gauvain.wowsplash.data.repository.TempDataRepository
-import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
-import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
-import com.seigneur.gauvain.wowsplash.utils.event.Event
-import io.reactivex.rxkotlin.subscribeBy
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
-import org.koin.core.scope.Scope
 
 class AddToCollectionsListViewModel(
     private val collectionsRepository: CollectionsRepository
-) : BasePagingListViewModel<UserCollectionsDataSource, Long, PhotoCollection>() {
+) : BasePagingListViewModel<UserCollectionsDataSource, Long, PhotoCollection>(),
+    AddToCollectionsPresenter,
+    KoinComponent {
 
     companion object {
-        private val pageSize = 50
+        private const val pageSize = 50
     }
 
+    private val interactor by inject<AddToCollectionsInteractor> { parametersOf(this) }
+
     /**************************************************************************
-    * Paged List
-    **************************************************************************/
+     * Paged List
+     **************************************************************************/
     var list: LiveData<PagedList<PhotoCollection>>? = null
 
     private var userName = ""
@@ -56,7 +48,7 @@ class AddToCollectionsListViewModel(
      * Start request data list
      */
     fun init() {
-        userName ="gauvains"
+        userName = "gauvains"
         initList()
     }
 

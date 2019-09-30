@@ -2,6 +2,7 @@ package com.seigneur.gauvain.wowsplash
 
 import android.app.Application
 import com.seigneur.gauvain.wowsplash.di.*
+import com.seigneur.gauvain.wowsplash.di.addToCollections.addToCollectionsModule
 import com.seigneur.gauvain.wowsplash.di.logIn.logInModule
 import com.seigneur.gauvain.wowsplash.di.photo.photoModule
 import com.seigneur.gauvain.wowsplash.di.photoDetails.photoDetailsModule
@@ -30,7 +31,8 @@ class WowSplashApp : Application(), KoinComponent {
                 photoListModule,
                 userModule,
                 logInModule,
-                photoDetailsModule
+                photoDetailsModule,
+                addToCollectionsModule
             ))
         }
         Timber.plant(Timber.DebugTree())

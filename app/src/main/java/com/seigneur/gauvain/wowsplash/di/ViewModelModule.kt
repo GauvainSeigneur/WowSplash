@@ -30,10 +30,6 @@ val viewModelModule = module {
     }
 
     viewModel {
-        AddToCollectionsListViewModel(get())
-    }
-
-    viewModel {
         SplashViewModel(get())
     }
 

@@ -21,7 +21,6 @@ abstract class BasePagingListViewModel<DataSource, key, Value> : BaseViewModel()
 
     val refreshState: LiveData<NetworkState>
         get() = Transformations.switchMap(dataSourceFactory.dataSourceLiveData) {
-            Timber.d("refresh called ")
             it.initialLoad
         }
 

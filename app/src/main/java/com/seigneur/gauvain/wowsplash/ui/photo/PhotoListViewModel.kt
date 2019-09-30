@@ -14,11 +14,9 @@ import com.seigneur.gauvain.wowsplash.data.repository.PhotoRepository
 import com.seigneur.gauvain.wowsplash.data.repository.TempDataRepository
 import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BasePagingListViewModel
 import com.seigneur.gauvain.wowsplash.utils.PHOTO_LIST_HOME
-import com.seigneur.gauvain.wowsplash.utils.event.Event
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
-import org.koin.core.scope.Scope
 
 class PhotoListViewModel(
     private val photoRepository: PhotoRepository
@@ -28,7 +26,6 @@ class PhotoListViewModel(
         private val pageSize = 15
     }
 
-    private val interactor by inject<PhotoListInteractor> { parametersOf(this) }
     private val tempDataRepository by inject<TempDataRepository>()
 
     var itemModifiedFromDetails = tempDataRepository.photoItemModifiedFromDetails

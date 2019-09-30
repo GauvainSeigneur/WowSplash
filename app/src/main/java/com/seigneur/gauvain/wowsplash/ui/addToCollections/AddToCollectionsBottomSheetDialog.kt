@@ -16,11 +16,14 @@ import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.ui.addToCollections.list.AddUserCollectionsItemCallback
 import com.seigneur.gauvain.wowsplash.ui.addToCollections.list.AddUserCollectionsListAdapter
+import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 import kotlinx.android.synthetic.main.bottom_sheet_dialog_add_to_collections.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
+import timber.log.Timber
 
-class AddToCollectionsBottomSheetDialog:BottomSheetDialogFragment(), KoinComponent, NetworkItemCallback,
+class AddToCollectionsBottomSheetDialog : BottomSheetDialogFragment(), KoinComponent,
+    NetworkItemCallback,
     AddUserCollectionsItemCallback {
 
     companion object {
@@ -43,7 +46,8 @@ class AddToCollectionsBottomSheetDialog:BottomSheetDialogFragment(), KoinCompone
         }
     }
 
-    private val userCollectionListViewModel by viewModel<AddToCollectionsListViewModel>()
+    private val listViewModel by viewModel<AddToCollectionsListViewModel>()
+    private val viewModel by viewModel<AddToCollectionsViewModel>()
 
     private val userCollectionAdapter: AddUserCollectionsListAdapter by lazy {
         AddUserCollectionsListAdapter(this, this)
@@ -54,7 +58,7 @@ class AddToCollectionsBottomSheetDialog:BottomSheetDialogFragment(), KoinCompone
         arguments?.let {
             val photoItem = it.getParcelable(PHOTO_ITEM_KEY) as? PhotoItem
         }
-        userCollectionListViewModel.init()
+        viewModel.fetchUserName()
     }
 
     override fun onCreateView(
@@ -87,7 +91,7 @@ class AddToCollectionsBottomSheetDialog:BottomSheetDialogFragment(), KoinCompone
     private fun setInitialLoadingState(networkState: NetworkState) {
     }
 
-    private fun initAdapter(){
+    private fun initAdapter() {
         context?.let {
             val layoutManager =
                 LinearLayoutManager(it)
@@ -98,8 +102,9 @@ class AddToCollectionsBottomSheetDialog:BottomSheetDialogFragment(), KoinCompone
         }
     }
 
-    private fun  listenScrollEvent(){
-        nestedScrollView.setOnScrollChangeListener(object:NestedScrollView.OnScrollChangeListener {
+    private fun listenScrollEvent() {
+        nestedScrollView.setOnScrollChangeListener(object :
+            NestedScrollView.OnScrollChangeListener {
             override fun onScrollChange(
                 v: NestedScrollView,
                 scrollX: Int,
@@ -112,9 +117,16 @@ class AddToCollectionsBottomSheetDialog:BottomSheetDialogFragment(), KoinCompone
         })
     }
 
-    private fun listenLiveData(){
+    private fun listenLiveData() {
+        viewModel.userName.observe(viewLifecycleOwner, EventObserver {
+            listViewModel.initList(it)
+            listenListLiveData()
+        })
+        listenListLiveData()
+    }
 
-        userCollectionListViewModel.list?.observe(
+    private fun listenListLiveData(){
+        listViewModel.list?.observe(
             viewLifecycleOwner, Observer<PagedList<PhotoCollection>> {
                 userCollectionAdapter.submitList(it)
             })

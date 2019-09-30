@@ -12,7 +12,6 @@ import com.seigneur.gauvain.wowsplash.ui.base.paging.viewModel.BaseSearchResultV
 import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsItemCallback
 import com.seigneur.gauvain.wowsplash.ui.list.collection.CollectionsListAdapter
 import com.seigneur.gauvain.wowsplash.ui.search.SearchViewModel
-import com.seigneur.gauvain.wowsplash.utils.event.Event
 import com.seigneur.gauvain.wowsplash.utils.event.EventObserver
 import kotlinx.android.synthetic.main.fragment_search_result.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -36,7 +35,6 @@ class SearchCollectionFragment : BaseSearchPagingFragment<SearchCollectionDataSo
         get() = mSearchCollectionViewModel
 
     override fun submitList(list: PagedList<PhotoCollection>) {
-        Timber.d("submit list called ")
         mCollectionsListAdapter.submitList(list)
     }
 

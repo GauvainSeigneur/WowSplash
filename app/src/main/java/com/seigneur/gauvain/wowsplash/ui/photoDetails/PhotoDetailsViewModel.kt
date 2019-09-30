@@ -12,7 +12,6 @@ import org.koin.core.parameter.parametersOf
 class PhotoDetailsViewModel : BaseViewModel(), PhotoDetailsPresenter, KoinComponent {
 
     private val interactor by inject<PhotoDetailsInteractor> { parametersOf(this) }
-    private val tempDataRepository by inject<TempDataRepository>()
 
     var photoItem = MutableLiveData<PhotoItem>()
 

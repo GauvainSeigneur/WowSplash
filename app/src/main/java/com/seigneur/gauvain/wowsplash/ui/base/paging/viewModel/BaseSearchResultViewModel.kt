@@ -7,6 +7,7 @@ import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDat
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
 
+//todo - use this class to refactor the BasePagingViewModel: this one is safer
 abstract class BaseSearchResultViewModel<DataSource, Key, Value> : BaseViewModel() {
 
     var searchResultList: LiveData<PagedList<Value>>? = null

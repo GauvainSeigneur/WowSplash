@@ -104,6 +104,7 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         })
 
         photoListViewModel.itemModifiedFromDetails.observe(viewLifecycleOwner, EventObserver {
+            Timber.d("itemModifiedFromDetails change $it")
             photoListAdapter.currentList?.let { list ->
                 if (list.size >= it.position) {
                     if (it.photo.id == photoListAdapter.getPhotoFromPos(it.position)?.id) {

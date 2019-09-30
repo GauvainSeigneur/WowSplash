@@ -11,7 +11,7 @@ import org.koin.dsl.module
 val logInModule = module {
 
     viewModel {
-        LogInViewModel(get())
+        LogInViewModel()
     } bind LogInPresenter::class
 
     factory<LogInInteractor> { (logInPresenter: LogInViewModel) ->

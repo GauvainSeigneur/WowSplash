@@ -10,7 +10,7 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-class LogInViewModel(private val mAuthRepository: AuthRepository) : BaseViewModel(), LogInPresenter, KoinComponent {
+class LogInViewModel : BaseViewModel(), LogInPresenter, KoinComponent {
 
     var mLoginResult = MutableLiveData<LogInResult>()
     var mWebProgressValue = MutableLiveData<Int>()
@@ -23,12 +23,10 @@ class LogInViewModel(private val mAuthRepository: AuthRepository) : BaseViewMode
     }
 
     override fun onAuthFailed(throwable: Throwable) {
-        Timber.d("auth onAuthFailed")
         mLoginResult.value = LogInResult.LogInError(throwable)
     }
 
     override fun onAuthSuccess() {
-        Timber.d("auth onAuthSuccess")
         mLoginResult.value = LogInResult.LogInSuccess("fuck yeah")
     }
 

@@ -30,7 +30,7 @@ val viewModelModule = module {
     }
 
     viewModel {
-        AddToCollectionsListViewModel(get(), get())
+        AddToCollectionsListViewModel(get())
     }
 
     viewModel {

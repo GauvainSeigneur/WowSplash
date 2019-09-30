@@ -14,7 +14,7 @@ data class User(
     val first_name: String,
     val last_name: String,
     val portfolio_url: String?,
-    val bio: String,
+    val bio: String?,
     val profile_image: ProfileImage,
     val total_likes: Int,
     val total_photos: Int,

@@ -11,7 +11,7 @@ import android.webkit.WebViewClient
 import androidx.lifecycle.Observer
 import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.data.api.AUTH_INITIAL_URI
-import kotlinx.android.synthetic.main.fragment_log_in.*
+import kotlinx.android.synthetic.main.activity_log_in.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LogInActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class LogInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_log_in)
+        setContentView(R.layout.activity_log_in)
         progressBar.max = 100
         webView.loadUrl(AUTH_INITIAL_URI)
         webView.webViewClient = object : WebViewClient() {

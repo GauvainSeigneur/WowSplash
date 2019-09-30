@@ -4,6 +4,7 @@ import android.net.Uri
 import com.seigneur.gauvain.wowsplash.data.api.AUTH_REDIRECT_URI
 import com.seigneur.gauvain.wowsplash.data.repository.AuthRepository
 import com.seigneur.gauvain.wowsplash.data.repository.TokenRepository
+import com.seigneur.gauvain.wowsplash.data.repository.UserRepository
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInPresenter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -14,6 +15,7 @@ import timber.log.Timber
  */
 class LogInInteractorImpl(
     private val authRepository: AuthRepository,
+    private val userRepository: UserRepository,
     private val presenter: LogInPresenter
 ) : LogInInteractor {
 
@@ -29,15 +31,9 @@ class LogInInteractorImpl(
                     TokenRepository.accessToken = accessTokenValue
                     return@flatMap authRepository.storeAccessToken(it)
                 }
-                .map {
-                    TokenRepository.accessToken = accessTokenValue
-                }
                 .subscribeBy(
                     onSuccess = {
-                        accessTokenValue?.let {
-                            TokenRepository.accessToken = it
-                            presenter.onAuthSuccess()
-                        }
+                        getAndStoreMe()
                     },
                     onError = {
                         presenter.onAuthFailed(it)
@@ -45,6 +41,22 @@ class LogInInteractorImpl(
                 )
             )
         }
+    }
+
+    private fun getAndStoreMe() {
+        compositeDisposable.add(
+            userRepository.getMe()
+                .flatMap {
+                    return@flatMap userRepository.insertUserInDataBase(it)
+                }
+                .subscribeBy(
+                    onSuccess = {
+                        presenter.onAuthSuccess()
+                    },
+                    onError = {
+                        presenter.onAuthSuccess()
+                    })
+        )
     }
 
     override fun close() {

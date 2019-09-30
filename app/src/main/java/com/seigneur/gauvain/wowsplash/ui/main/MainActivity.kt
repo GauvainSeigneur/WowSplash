@@ -1,6 +1,5 @@
 package com.seigneur.gauvain.wowsplash.ui.main
 
-import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,20 +9,14 @@ import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.seigneur.gauvain.wowsplash.R
-import com.seigneur.gauvain.wowsplash.data.repository.AuthRepository
-import com.seigneur.gauvain.wowsplash.ui.base.BaseFragment
 import com.seigneur.gauvain.wowsplash.ui.collections.CollectionFragment
 import com.seigneur.gauvain.wowsplash.ui.logIn.LogInActivity
-import com.seigneur.gauvain.wowsplash.ui.logIn.LogInFragment
 import com.seigneur.gauvain.wowsplash.ui.photo.PhotoListFragment
-import com.seigneur.gauvain.wowsplash.ui.photoDetails.PhotoDetailsActivity
 import com.seigneur.gauvain.wowsplash.ui.postPhoto.PostPhotoFragment
 import com.seigneur.gauvain.wowsplash.ui.search.SearchFragment
-import com.seigneur.gauvain.wowsplash.ui.search.photo.SearchPhotoFragment
 import com.seigneur.gauvain.wowsplash.ui.user.UserFragment
 import com.seigneur.gauvain.wowsplash.utils.FragmentStateManager
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.core.Koin
 
 class MainActivity : AppCompatActivity() {
 
@@ -106,12 +99,4 @@ class MainActivity : AppCompatActivity() {
         mFragmentStateManager?.changeFragment(pos)
     }
 
-    private fun getPostFragment(): BaseFragment {
-        /*val accessToken:String?=AuthRepository.accessToken //data to be observed
-        accessToken?.let {
-            return SearchPhotoFragment()
-        }*/
-        return LogInFragment()
-
-    }
 }

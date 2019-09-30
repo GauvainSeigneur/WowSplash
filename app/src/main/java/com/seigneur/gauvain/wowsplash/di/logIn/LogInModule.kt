@@ -15,7 +15,7 @@ val logInModule = module {
     } bind LogInPresenter::class
 
     factory<LogInInteractor> { (logInPresenter: LogInViewModel) ->
-        LogInInteractorImpl(get(), logInPresenter)
+        LogInInteractorImpl(get(), get(), logInPresenter)
     }
 
 }

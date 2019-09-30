@@ -27,8 +27,7 @@ import org.koin.core.parameter.parametersOf
 import org.koin.core.scope.Scope
 
 class AddToCollectionsListViewModel(
-    private val collectionsRepository: CollectionsRepository,
-    private val userRepository: UserRepository
+    private val collectionsRepository: CollectionsRepository
 ) : BasePagingListViewModel<UserCollectionsDataSource, Long, PhotoCollection>() {
 
     companion object {
@@ -36,8 +35,8 @@ class AddToCollectionsListViewModel(
     }
 
     /**************************************************************************
-     * Paged List
-     *************************************************************************/
+    * Paged List
+    **************************************************************************/
     var list: LiveData<PagedList<PhotoCollection>>? = null
 
     private var userName = ""
@@ -57,21 +56,8 @@ class AddToCollectionsListViewModel(
      * Start request data list
      */
     fun init() {
-        mDisposables.add(
-            userRepository.getMeFromDataBase()
-                .subscribeBy(
-                    onSuccess = {
-                        userName = it.username
-                        initList()
-                    },
-                    onError = {
-                        //todo presenter thing
-                    },
-                    onComplete = {
-                        //todo presenter thing
-                    })
-        )
-
+        userName ="gauvains"
+        initList()
     }
 
     private fun initList() {

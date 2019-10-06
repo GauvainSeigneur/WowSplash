@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <FrameLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -31,7 +31,14 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"/>
 
-        </LinearLayout>
+            <include
+                android:id="@+id/globalNetworkState"
+                layout="@layout/list_item_network_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+        </FrameLayout>
 
     </androidx.core.widget.NestedScrollView>
 

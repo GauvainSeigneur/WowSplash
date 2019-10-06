@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.seigneur.gauvain.wowsplash.R
 import com.bumptech.glide.request.RequestOptions
-import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.photo.CollectionItem
 
 class AddUserCollectionsViewHolder
 private constructor(
@@ -23,14 +25,15 @@ private constructor(
 
     val collectionCover = itemView.findViewById(R.id.collectionCover) as ImageView
     val collectionTitle = itemView.findViewById(R.id.collectionTitle) as TextView
+    val collectionItemLayout = itemView.findViewById(R.id.collectionItemLayout) as LinearLayout
 
     init {
         collectionCover.setOnClickListener(this)
     }
 
-    fun bindTo(collection: PhotoCollection) {
-        collectionTitle.text = collection.title
-        val photoCover =  collection.cover_photo
+    fun bindTo(collection: CollectionItem) {
+        collectionTitle.text = collection.photoCollection.title
+        val photoCover = collection.photoCollection.cover_photo
 
         photoCover?.let {
             val photoColor = Color.parseColor(it.color)
@@ -45,17 +48,28 @@ private constructor(
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(collectionCover)
         }
+        selectItem(collection)
+    }
 
+    private fun selectItem(collection: CollectionItem) {
+        if (collection.selected) {
+            collectionItemLayout.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorError))
+        } else {
+            collectionItemLayout.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorBackground))
+        }
     }
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.photoImage -> itemCallback.onAddClicked(adapterPosition)
+            R.id.collectionCover -> itemCallback.onAddClicked(adapterPosition)
         }
     }
 
     companion object {
-        fun create(parent: ViewGroup, itemCallback: AddUserCollectionsItemCallback): AddUserCollectionsViewHolder {
+        fun create(
+            parent: ViewGroup,
+            itemCallback: AddUserCollectionsItemCallback
+        ): AddUserCollectionsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater.inflate(R.layout.list_item_add_to_collection, parent, false)
             return AddUserCollectionsViewHolder(

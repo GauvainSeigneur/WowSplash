@@ -15,7 +15,6 @@ class PhotoActionsViewModel : BaseViewModel(), KoinComponent,
     PhotoActionsPresenter {
 
     private val interactor by inject<PhotoActionsInteractor> { parametersOf(this) }
-    private val tempDataRepository by inject<TempDataRepository>()
 
     //LiveData to be listen
     var onDisplayLoginRequestedMessage = MutableLiveData<Event<Int>>()

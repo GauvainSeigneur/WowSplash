@@ -7,13 +7,14 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Photo(
     val id: String,
-    val width : Int,
+    val width: Int,
     val height: Int,
     val color: String? = "#3cb46e",
     var user: User,
     var urls: PhotoUrl,
     var exif: Exif? = Exif(),
     var links: Links,
-    var description: String?="No description provided",
-    var liked_by_user:Boolean
-):Parcelable
+    var description: String? = "No description provided",
+    var liked_by_user: Boolean,
+    var current_user_collections: List<PhotoCollection>? = emptyList()
+) : Parcelable

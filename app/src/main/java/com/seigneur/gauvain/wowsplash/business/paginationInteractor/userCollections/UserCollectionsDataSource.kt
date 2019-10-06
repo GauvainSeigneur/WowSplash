@@ -1,10 +1,8 @@
 package com.seigneur.gauvain.wowsplash.business.paginationInteractor.userCollections
 
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseListDataSource
-import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.photo.CollectionItem
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
-import com.seigneur.gauvain.wowsplash.utils.COLLECTION_LIST_ALL
-import com.seigneur.gauvain.wowsplash.utils.COLLECTION_LIST_FEATURED
 
 import io.reactivex.Flowable
 
@@ -15,9 +13,9 @@ internal constructor(
     private val userName:String,
     private val compositeDisposable: CompositeDisposable,
     private val mCollectionsRepository: CollectionsRepository
-) : BaseListDataSource<List<PhotoCollection>, Long, PhotoCollection>(compositeDisposable) {
+) : BaseListDataSource<List<CollectionItem>, Long, CollectionItem>(compositeDisposable) {
 
-    override fun handleCallback(expectedResponse: List<PhotoCollection>): List<PhotoCollection> {
+    override fun handleCallback(expectedResponse: List<CollectionItem>): List<CollectionItem> {
         return expectedResponse
     }
 
@@ -31,14 +29,25 @@ internal constructor(
         return currentKey+1L
     }
 
-    override fun loadInitialRequest(page: Long, size:Int): Flowable<List<PhotoCollection>> {
+    override fun loadInitialRequest(page: Long, size:Int): Flowable<List<CollectionItem>> {
         var requestFlowable = mCollectionsRepository.getUserCollections(userName, page, size)
-        return requestFlowable
+            .flatMapIterable {it }
+            .map { item -> CollectionItem(item, false) }
+            .toList()
+
+        val newItemFlowable = requestFlowable.toFlowable()
+
+        return newItemFlowable
     }
 
-    override fun loadAfterRequest(page:Long,size:Int): Flowable<List<PhotoCollection>> {
+    override fun loadAfterRequest(page:Long,size:Int): Flowable<List<CollectionItem>> {
         var requestFlowable = mCollectionsRepository.getUserCollections(userName, page, size)
-        return requestFlowable
+            .flatMapIterable {it }
+            .map { item -> CollectionItem(item, false) }
+            .toList()
+
+        val newItemFlowable = requestFlowable.toFlowable()
+        return newItemFlowable
     }
 
 }

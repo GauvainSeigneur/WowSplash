@@ -31,8 +31,8 @@ class PhotoListViewModel(
     var itemModifiedFromDetails = tempDataRepository.photoItemModifiedFromDetails
 
     /**************************************************************************
-     * Paged List
-     *************************************************************************/
+    * Paged List
+    *************************************************************************/
     var list: LiveData<PagedList<Photo>>? = null
     private var orderBy: String? = null
     private var config: PagedList.Config? = null

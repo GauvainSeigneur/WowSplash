@@ -70,6 +70,7 @@ class PhotoActionsInteractorImpl(
             photoRepository.likePhoto(id)
                 .subscribeBy(
                     onSuccess = {
+                        //everything is fine, so we do nothing
                     },
                     onError = {
                         actionPresenter.presentGlobalError()

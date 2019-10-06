@@ -8,6 +8,7 @@ import com.seigneur.gauvain.wowsplash.business.paginationInteractor.base.BaseDat
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.userCollections.UserCollectionsDataSource
 import com.seigneur.gauvain.wowsplash.business.paginationInteractor.userCollections.UserCollectionsDataSourceFactory
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
+import com.seigneur.gauvain.wowsplash.data.model.photo.CollectionItem
 import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.repository.CollectionsRepository
 import com.seigneur.gauvain.wowsplash.ui.base.BaseViewModel
@@ -20,7 +21,7 @@ class AddToCollectionsListViewModel(
         private const val pageSize = 50
     }
 
-    var list: LiveData<PagedList<PhotoCollection>>? = null
+    var list: LiveData<PagedList<CollectionItem>>? = null
     var networkState: LiveData<NetworkState>? = null
     var initialNetworkState: LiveData<NetworkState>? = null
 
@@ -58,7 +59,7 @@ class AddToCollectionsListViewModel(
             .setEnablePlaceholders(false)
             .build()
         list = LivePagedListBuilder(
-            factory as BaseDataSourceFactory<UserCollectionsDataSource, Long, PhotoCollection>,
+            factory as BaseDataSourceFactory<UserCollectionsDataSource, Long, CollectionItem>,
             conf
         ).build()
     }

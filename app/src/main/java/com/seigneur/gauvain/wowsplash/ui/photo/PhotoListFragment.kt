@@ -96,7 +96,7 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         })
 
         photoViewModel.photoItemViewModel.observe(this, Observer {
-            manageLikeEvent(it)
+            manageLikeEvent(it, true)
         })
 
         photoViewModel.onDisplayLoginRequestedMessage.observe(viewLifecycleOwner, EventObserver {
@@ -104,28 +104,12 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         })
 
         photoListViewModel.itemModifiedFromDetails.observe(viewLifecycleOwner, EventObserver {
-            Timber.d("itemModifiedFromDetails change $it")
-            photoListAdapter.currentList?.let { list ->
-                if (list.size >= it.position) {
-                    if (it.photo.id == photoListAdapter.getPhotoFromPos(it.position)?.id) {
-                        photoListAdapter.notifyItemChanged(it.position, it.photo)
-                    } else {
-                        //if the the item is not found, the modification could be made from another screen.
-                        //we must check if the item is present in the list. If it does we must update it too
-                        list.forEachIndexed { index, photo ->
-                            if (photo.id == it.photo.id) {
-                                photoListAdapter.notifyItemChanged(index, it.photo)
-                            }
-                        }
-                    }
-
-                }
-            }
-
+            manageModificationsFromDetails(it)
         })
 
-        photoViewModel.displayAddToCollectionsView.observe(viewLifecycleOwner, EventObserver{
-            AddToCollectionsBottomSheetDialog.newInstance(it).show(childFragmentManager, AddToCollectionsBottomSheetDialog.TAG)
+        photoViewModel.displayAddToCollectionsView.observe(viewLifecycleOwner, EventObserver {
+            AddToCollectionsBottomSheetDialog.newInstance(it)
+                .show(childFragmentManager, AddToCollectionsBottomSheetDialog.TAG)
         })
     }
 
@@ -142,7 +126,11 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
 
         context?.let {
             val layoutManager =
-                PreCachingLayoutManager(it, LinearLayoutManager.VERTICAL, false)//GridLayoutManager(context, 1)
+                PreCachingLayoutManager(
+                    it,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )//GridLayoutManager(context, 1)
             layoutManager.setExtraLayoutSpace(screenHeight)
             photoList.layoutManager = layoutManager
         }
@@ -183,12 +171,14 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
         photoListViewModel.retry()
     }
 
-    private fun manageLikeEvent(photoItem: PhotoItem) {
+    private fun manageLikeEvent(photoItem: PhotoItem, withAnimation: Boolean) {
         val list = photoListAdapter.currentList
         list?.let {
             if (list.size >= photoItem.position) {
-                val holder = photoList.findViewHolderForLayoutPosition(photoItem.position) as? PhotoViewHolder
-                holder?.likeThePhoto(photoItem.photo.liked_by_user)
+                val holder =
+                    photoList.findViewHolderForLayoutPosition(photoItem.position) as? PhotoViewHolder
+                if (withAnimation)
+                    holder?.likeThePhoto(photoItem.photo.liked_by_user)
                 val item = photoListAdapter.getPhotoFromPos(photoItem.position)
                 item?.liked_by_user = photoItem.photo.liked_by_user
                 //Give the time to the animation before update the RecyclerView
@@ -198,7 +188,29 @@ class PhotoListFragment : BasePagingFragment<PhotosDataSource, Long, Photo>(),
             }
 
         }
+    }
 
+    private fun manageModificationsFromDetails(photoItem: PhotoItem) {
+        photoListAdapter.currentList?.let { list ->
+            if (photoItem.photo.id == photoListAdapter.getPhotoFromPos(photoItem.position)?.id) {
+                var item = photoListAdapter.getPhotoFromPos(photoItem.position)
+                updateItemData(item, photoItem, photoItem.position)
+            } else {
+                //if the the item is not found, the modification could be made from another screen.
+                //we must check if the item is present in the list. If it does we must update it too
+                list.forEachIndexed { index, photo ->
+                    if (photo.id == photoItem.photo.id) {
+                        var item = photoListAdapter.getPhotoFromPos(index)
+                        updateItemData(item, photoItem, index)
+                    }
+                }
+            }
+        }
+    }
 
+    private fun updateItemData(item: Photo?, photoItem: PhotoItem, position: Int) {
+        item?.liked_by_user = photoItem.photo.liked_by_user
+        item?.current_user_collections = photoItem.photo.current_user_collections
+        photoListAdapter.notifyItemChanged(position, photoItem.photo)
     }
 }

@@ -1,5 +1,9 @@
 package com.seigneur.gauvain.wowsplash.data.model.photo
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class PhotoCollection(
     val id: String,
     var username: String? = "Unknown",
@@ -7,7 +11,4 @@ data class PhotoCollection(
     val title: String? = "No title provided",
     val description: String? = "No description provided",
     val curated: Boolean? = false
-) {
-    companion object {
-    }
-}
+) :Parcelable

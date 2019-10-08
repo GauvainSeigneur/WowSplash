@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/un_bookmarked"
+        android:drawable="@drawable/vd_bookmark_inactive"
+        app:state_bookmarked="false"/>
+    <item
+        android:id="@+id/bookmarked"
+        android:drawable="@drawable/vd_bookmark_active" />
+    <transition
+        android:drawable="@drawable/avd_bookmark_inactive_active"
+        android:fromId="@id/un_bookmarked"
+        android:toId="@id/bookmarked" />
+    <transition
+        android:drawable="@drawable/avd_bookmark_active_inactive"
+        android:fromId="@+id/bookmarked"
+        android:toId="@+id/un_bookmarked" />
+</animated-selector>

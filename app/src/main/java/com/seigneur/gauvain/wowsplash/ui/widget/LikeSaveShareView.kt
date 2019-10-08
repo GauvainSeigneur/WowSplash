@@ -21,18 +21,41 @@ class LikeSaveShareView @JvmOverloads constructor(
         -R.attr.state_like
     )
 
+    private val STATE_BOOKMARKED = intArrayOf(
+        R.attr.state_bookmarked
+    )
+    private val STATE_UNBOOKMARKED = intArrayOf(
+        -R.attr.state_bookmarked
+    )
+
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.view_like_share_save, this)
     }
 
-    fun animHeartSateChange(isLiked:Boolean, jump: Boolean){
+    fun animHeartSateChange(isLiked: Boolean, jump: Boolean) {
         if (isLiked) {
             likePhotoButton.setImageState(STATE_LIKED, true)
-            if(jump) likePhotoButton.jumpDrawablesToCurrentState()
+            if (jump) likePhotoButton.jumpDrawablesToCurrentState()
         } else {
             likePhotoButton.setImageState(STATE_UNLIKED, true)
-            if(jump)likePhotoButton.jumpDrawablesToCurrentState()
+            if (jump) likePhotoButton.jumpDrawablesToCurrentState()
+        }
+    }
+
+    fun animBookmarkChange(isBookmarked: Boolean, jump: Boolean? = false) {
+        if (isBookmarked) {
+            savePhotoButton.setImageState(STATE_BOOKMARKED, true)
+            jump.let {
+                if (it == true)
+                    savePhotoButton.jumpDrawablesToCurrentState()
+            }
+        } else {
+            likePhotoButton.setImageState(STATE_UNBOOKMARKED, true)
+            jump.let {
+                if (it == true)
+                    savePhotoButton.jumpDrawablesToCurrentState()
+            }
         }
     }
 

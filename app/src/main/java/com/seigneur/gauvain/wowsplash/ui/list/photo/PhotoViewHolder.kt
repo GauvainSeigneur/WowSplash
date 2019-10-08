@@ -48,6 +48,8 @@ class PhotoViewHolder private constructor(
     var isLiked = false
         private set
 
+    private var isBookmarked=false
+
     init {
         wm.defaultDisplay.getMetrics(displayMetrics)
         screenWidth = displayMetrics.widthPixels
@@ -80,8 +82,9 @@ class PhotoViewHolder private constructor(
         Timber.d("lol it is a list $photo")
         resize(photo)
         loadImage(photo)
-        photo.user?.let { bindUserInfo(it) }
+        bindUserInfo(photo.user)
         setUpInitialLikeState(photo)
+        setUpInitialBookmarkState(photo)
     }
 
     fun likeThePhoto(like: Boolean) {
@@ -92,7 +95,11 @@ class PhotoViewHolder private constructor(
     private fun setUpInitialLikeState(photo: Photo) {
         isLiked = photo.liked_by_user
         likeSaveShareView.animHeartSateChange(isLiked, true)
+    }
 
+    private fun setUpInitialBookmarkState(photo: Photo) {
+        isBookmarked = !photo.current_user_collections.isNullOrEmpty()
+        likeSaveShareView.animBookmarkChange(isBookmarked, true)
     }
 
     private fun loadImage(photo: Photo) {

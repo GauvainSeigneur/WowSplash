@@ -15,6 +15,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.seigneur.gauvain.wowsplash.R
 import com.bumptech.glide.request.RequestOptions
 import com.seigneur.gauvain.wowsplash.data.model.photo.CollectionItem
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
+import timber.log.Timber
 
 class AddUserCollectionsViewHolder
 private constructor(
@@ -31,7 +33,8 @@ private constructor(
         collectionCover.setOnClickListener(this)
     }
 
-    fun bindTo(collection: CollectionItem) {
+    fun bindTo(collection: CollectionItem, photoItem: PhotoItem?) {
+
         collectionTitle.text = collection.photoCollection.title
         val photoCover = collection.photoCollection.cover_photo
 
@@ -48,14 +51,36 @@ private constructor(
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(collectionCover)
         }
-        selectItem(collection)
+        selectInitalState(photoItem, collection)
+        accordStateToSelected(collection)
     }
 
-    private fun selectItem(collection: CollectionItem) {
+    private fun selectInitalState(photoItem: PhotoItem?, collection: CollectionItem) {
+        photoItem?.let {
+            it.photo.current_user_collections?.forEach { photoCollection ->
+                if (photoCollection.id == collection.photoCollection.id) {
+                    collection.selected = true
+                    Timber.d("lol is selected ${photoCollection.id}")
+                }
+            }
+        }
+    }
+
+    private fun accordStateToSelected(collection: CollectionItem) {
         if (collection.selected) {
-            collectionItemLayout.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorError))
+            collectionItemLayout.setBackgroundColor(
+                ContextCompat.getColor(
+                    itemView.context,
+                    R.color.colorError
+                )
+            )
         } else {
-            collectionItemLayout.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorBackground))
+            collectionItemLayout.setBackgroundColor(
+                ContextCompat.getColor(
+                    itemView.context,
+                    R.color.colorBackground
+                )
+            )
         }
     }
 

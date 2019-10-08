@@ -8,6 +8,7 @@ import com.seigneur.gauvain.wowsplash.di.photo.photoModule
 import com.seigneur.gauvain.wowsplash.di.photoDetails.photoDetailsModule
 import com.seigneur.gauvain.wowsplash.di.photoList.photoListModule
 import com.seigneur.gauvain.wowsplash.di.user.userModule
+import com.seigneur.gauvain.wowsplash.di.userCollectionsListViewModel.userCollectionsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
@@ -32,7 +33,8 @@ class WowSplashApp : Application(), KoinComponent {
                 userModule,
                 logInModule,
                 photoDetailsModule,
-                addToCollectionsModule
+                addToCollectionsModule,
+                userCollectionsModule
             ))
         }
         Timber.plant(Timber.DebugTree())

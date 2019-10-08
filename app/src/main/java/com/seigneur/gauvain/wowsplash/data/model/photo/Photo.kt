@@ -16,5 +16,5 @@ data class Photo(
     var links: Links,
     var description: String? = "No description provided",
     var liked_by_user: Boolean,
-    var current_user_collections: List<PhotoCollection>? = emptyList()
+    var current_user_collections: List<PhotoCollection>? = null
 ) : Parcelable

@@ -1,17 +1,15 @@
 package com.seigneur.gauvain.wowsplash.ui.addToCollections.list
 
-import android.R
-import android.graphics.drawable.ColorDrawable
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.seigneur.gauvain.wowsplash.data.model.photo.CollectionItem
-import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
+import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
 import com.seigneur.gauvain.wowsplash.ui.base.paging.adapter.BasePagedListAdapter
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 
 class AddUserCollectionsListAdapter(private val itemCallback: AddUserCollectionsItemCallback,
-                                    networkItemCallback: NetworkItemCallback) :
+                                    networkItemCallback: NetworkItemCallback,
+                                    private val photoItem: PhotoItem?=null) :
     BasePagedListAdapter<CollectionItem, RecyclerView.ViewHolder>(collectionDiffCallback,networkItemCallback) {
 
     override val viewHolder: RecyclerView.ViewHolder
@@ -22,7 +20,7 @@ class AddUserCollectionsListAdapter(private val itemCallback: AddUserCollections
 
     override fun bindItemData(holder: RecyclerView.ViewHolder, position: Int) {
         super.bindItemData(holder, position)
-        (holder as AddUserCollectionsViewHolder).bindTo(getItem(position)!!)
+        (holder as AddUserCollectionsViewHolder).bindTo(getItem(position)!!, photoItem)
     }
 
     fun getCollectionItem(pos: Int): CollectionItem? {

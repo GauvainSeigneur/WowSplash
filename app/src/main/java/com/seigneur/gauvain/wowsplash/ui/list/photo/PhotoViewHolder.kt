@@ -77,6 +77,7 @@ class PhotoViewHolder private constructor(
     }
 
     fun bindTo(photo: Photo) {
+        Timber.d("lol it is a list $photo")
         resize(photo)
         loadImage(photo)
         photo.user?.let { bindUserInfo(it) }

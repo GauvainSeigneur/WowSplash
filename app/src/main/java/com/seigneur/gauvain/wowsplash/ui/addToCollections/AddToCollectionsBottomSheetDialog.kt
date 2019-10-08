@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
@@ -14,7 +13,6 @@ import com.seigneur.gauvain.wowsplash.R
 import com.seigneur.gauvain.wowsplash.data.model.network.NetworkState
 import com.seigneur.gauvain.wowsplash.data.model.network.Status
 import com.seigneur.gauvain.wowsplash.data.model.photo.CollectionItem
-import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoCollection
 import com.seigneur.gauvain.wowsplash.data.model.photo.PhotoItem
 import com.seigneur.gauvain.wowsplash.ui.base.paging.NetworkItemCallback
 import com.seigneur.gauvain.wowsplash.ui.addToCollections.list.AddUserCollectionsItemCallback
@@ -50,19 +48,23 @@ class AddToCollectionsBottomSheetDialog : BottomSheetDialogFragment(), KoinCompo
         }
     }
 
-    private val listViewModel by viewModel<AddToCollectionsListViewModel>()
+    private var photoItem :PhotoItem? =null
+    private val listViewModel by viewModel<UserCollectionsListViewModel>()
     private val viewModel by viewModel<AddToCollectionsViewModel>()
 
     private val userCollectionAdapter: AddUserCollectionsListAdapter by lazy {
-        AddUserCollectionsListAdapter(this, this)
+        AddUserCollectionsListAdapter(this, this, photoItem)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val photoItem = it.getParcelable(PHOTO_ITEM_KEY) as? PhotoItem
+            photoItem = it.getParcelable(PHOTO_ITEM_KEY) as? PhotoItem
+            viewModel.photoId = photoItem?.photo?.id
+
+            Timber.d("lol it is a ${photoItem?.photo}")
         }
-        viewModel.fetchUserName()
+        listViewModel.fetchUserName()
     }
 
     override fun onCreateView(
@@ -135,12 +137,11 @@ class AddToCollectionsBottomSheetDialog : BottomSheetDialogFragment(), KoinCompo
 
 
     private fun listenLiveData() {
-        viewModel.userName.observe(viewLifecycleOwner, EventObserver {
-            listViewModel.initList(it)
+        listenListLiveData() //listen first if not null
+        listViewModel.listInitializedEvent.observe(viewLifecycleOwner, EventObserver {
+            //listen it again when we have fetched the username
             listenListLiveData()
         })
-
-        listenListLiveData() //call it again in case the LiveData is already created
 
     }
 
@@ -148,8 +149,6 @@ class AddToCollectionsBottomSheetDialog : BottomSheetDialogFragment(), KoinCompo
         listViewModel.list?.observe(
             viewLifecycleOwner, Observer<PagedList<CollectionItem>> {
                 userCollectionAdapter.submitList(it)
-                //listen it only when list is not empty or null!
-                listenListModifications()
             })
 
         listViewModel.initialNetworkState?.observe(viewLifecycleOwner, Observer {
@@ -160,17 +159,13 @@ class AddToCollectionsBottomSheetDialog : BottomSheetDialogFragment(), KoinCompo
             userCollectionAdapter.setNetworkState(it)
         })
 
-
-    }
-
-    private fun listenListModifications(){
-        viewModel.selectedCollections.observe(viewLifecycleOwner, Observer {
-            for(item in it){
-                var listItem = userCollectionAdapter.getCollectionItem(item.position)
-                listItem?.selected = item.collectionItem.selected
-                userCollectionAdapter.notifyItemChanged(item.position)
-                Toast.makeText(context, "lol ${userCollectionAdapter.getCollectionItem(item.position)?.selected}", Toast.LENGTH_SHORT).show()
-            }
+        viewModel.selectedCollectionEvent.observe(viewLifecycleOwner, EventObserver {
+            val listItem = userCollectionAdapter.getCollectionItem(it.position)
+            listItem?.selected = it.selected
+            userCollectionAdapter.notifyItemChanged(it.position)
         })
+
+
     }
+
 }

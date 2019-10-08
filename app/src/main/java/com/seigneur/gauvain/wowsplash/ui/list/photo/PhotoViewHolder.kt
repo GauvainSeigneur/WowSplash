@@ -92,6 +92,11 @@ class PhotoViewHolder private constructor(
         likeSaveShareView.animHeartSateChange(isLiked, false)
     }
 
+    fun bookmarkThePhoto(bookmarked:Boolean){
+        isBookmarked = bookmarked
+        likeSaveShareView.animBookmarkChange(isBookmarked)
+    }
+
     private fun setUpInitialLikeState(photo: Photo) {
         isLiked = photo.liked_by_user
         likeSaveShareView.animHeartSateChange(isLiked, true)

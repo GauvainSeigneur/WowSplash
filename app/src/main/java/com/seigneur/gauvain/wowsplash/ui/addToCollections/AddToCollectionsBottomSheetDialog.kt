@@ -1,5 +1,6 @@
 package com.seigneur.gauvain.wowsplash.ui.addToCollections
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,7 @@ class AddToCollectionsBottomSheetDialog : BottomSheetDialogFragment(), KoinCompo
         }
     }
 
-    private var photoItem :PhotoItem? =null
+    private var photoItem: PhotoItem? = null
     private val listViewModel by viewModel<UserCollectionsListViewModel>()
     private val viewModel by viewModel<AddToCollectionsViewModel>()
 
@@ -60,9 +61,10 @@ class AddToCollectionsBottomSheetDialog : BottomSheetDialogFragment(), KoinCompo
         super.onCreate(savedInstanceState)
         arguments?.let {
             photoItem = it.getParcelable(PHOTO_ITEM_KEY) as? PhotoItem
-            viewModel.photoId = photoItem?.photo?.id
-
-            Timber.d("lol it is a ${photoItem?.photo}")
+            viewModel.photoItem = photoItem
+            photoItem?.photo?.current_user_collections?.forEach { collectionItem ->
+                viewModel.currentUserCollection.add(collectionItem)
+            }
         }
         listViewModel.fetchUserName()
     }
